@@ -74,33 +74,11 @@
     }
     .design-btn:hover { background: #fff; }
 
-    /* Stats Bar */
-    .stats-bar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      text-align: center;
-      padding: 40px 60px;
-      background: #0b0b0b;
-      border-bottom: 1px solid var(--border-color);
-    }
-    .stat-item h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 32px;
-      color: var(--gold);
-      margin-bottom: 5px;
-    }
-    .stat-item p {
-      font-size: 11px;
-      color: #888;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-
-    /* Hero Banner */
+    /* Hero Banner (Sabse upar) */
     .hero-section {
       position: relative;
-      padding: 130px 60px;
-      background: linear-gradient(rgba(7,7,7,0.8), rgba(7,7,7,0.95)), url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1600') center/cover;
+      padding: 150px 60px;
+      background: linear-gradient(rgba(7,7,7,0.75), rgba(7,7,7,0.92)), url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1600') center/cover;
       text-align: center;
       border-bottom: 1px solid var(--border-color);
     }
@@ -143,6 +121,28 @@
       transition: var(--transition-smooth);
     }
     .btn-outline:hover { background: var(--gold); color: #000; }
+
+    /* Stats Bar (Ab ye Hero Section ke theek niche hai) */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      text-align: center;
+      padding: 40px 60px;
+      background: #0b0b0b;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .stat-item h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 32px;
+      color: var(--gold);
+      margin-bottom: 5px;
+    }
+    .stat-item p {
+      font-size: 11px;
+      color: #888;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
 
     /* Section Container */
     .section-container {
@@ -291,7 +291,18 @@
     <a href="#customize" class="design-btn">Design Your Piece</a>
   </nav>
 
-  <!-- Stats Bar -->
+  <!-- Hero Banner (Crafted for You) -->
+  <section class="hero-section" id="home">
+    <div class="atelier-tag">Bespoke Jewellery Atelier</div>
+    <h1>Crafted for You. <span>Worn Forever.</span></h1>
+    <p>Bespoke jewellery designed around your story — every ring, every necklace, every piece made uniquely yours.</p>
+    <div class="hero-actions">
+      <a href="#customize" class="design-btn">Design Your Piece</a>
+      <a href="#collections" class="btn-outline">Explore Collections</a>
+    </div>
+  </section>
+
+  <!-- Stats Bar (Ab ye Hero Section ke theek niche hai) -->
   <div class="stats-bar">
     <div class="stat-item">
       <h3>500+</h3>
@@ -310,17 +321,6 @@
       <p>Client Satisfaction</p>
     </div>
   </div>
-
-  <!-- Hero Banner -->
-  <section class="hero-section" id="home">
-    <div class="atelier-tag">Bespoke Jewellery Atelier</div>
-    <h1>Crafted for You. <span>Worn Forever.</span></h1>
-    <p>Bespoke jewellery designed around your story — every ring, every necklace, every piece made uniquely yours.</p>
-    <div class="hero-actions">
-      <a href="#customize" class="design-btn">Design Your Piece</a>
-      <a href="#collections" class="btn-outline">Explore Collections</a>
-    </div>
-  </section>
 
   <!-- Design Your Dream Piece (4 Steps) -->
   <section class="section-container" id="customize">
