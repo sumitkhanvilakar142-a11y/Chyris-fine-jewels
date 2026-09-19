@@ -1,572 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHYRIS FINE JEWELLERY - Customize Your Ring</title>
-    <style>
-        :root {
-            --bg-color: #0c0c0c;
-            --panel-bg: #141414;
-            --card-bg: #1a1a1a;
-            --gold-accent: #d4af37;
-            --gold-gradient: linear-gradient(135deg, #dfbc44 0%, #b89728 100%);
-            --text-main: #ffffff;
-            --text-muted: #999999;
-            --border-color: #2a2a2a;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            overflow-x: hidden;
-        }
-
-        /* Top Luxury Navbar */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 50px;
-            border-bottom: 1px solid var(--border-color);
-            background: var(--bg-color);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-family: 'Cinzel', serif;
-            font-size: 20px;
-            letter-spacing: 5px;
-            font-weight: 700;
-            color: var(--text-main);
-            text-decoration: none;
-        }
-        .logo span { color: var(--gold-accent); }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .nav-links a.active {
-            color: var(--gold-accent);
-            border-bottom: 1px solid var(--gold-accent);
-            padding-bottom: 2px;
-        }
-
-        .header-icons {
-            display: flex;
-            gap: 20px;
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        /* Main Workspace Layout */
-        .workspace {
-            display: grid;
-            grid-template-columns: 360px 1fr;
-            height: calc(100vh - 65px);
-        }
-
-        /* Left Accordion Sidebar */
-        .sidebar {
-            background: var(--panel-bg);
-            border-right: 1px solid var(--border-color);
-            overflow-y: auto;
-            padding: 15px 20px;
-        }
-
-        .sidebar::-webkit-scrollbar {
-            width: 4px;
-        }
-        .sidebar::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-        }
-
-        .section-box {
-            border-bottom: 1px solid var(--border-color);
-            padding: 14px 0;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 11px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            cursor: pointer;
-            margin-bottom: 10px;
-        }
-
-        .section-header span {
-            font-size: 10px;
-        }
-
-        .grid-options {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 6px;
-        }
-
-        .option-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 10px 2px;
-            text-align: center;
-            cursor: pointer;
-            font-size: 9px;
-            color: var(--text-muted);
-            transition: all 0.2s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .option-card.active, .option-card:hover {
-            border-color: var(--gold-accent);
-            color: var(--gold-accent);
-            background: rgba(212, 175, 55, 0.04);
-        }
-
-        /* Right Stage Area */
-        .stage-area {
-            display: flex;
-            flex-direction: column;
-            padding: 20px 35px;
-            overflow-y: auto;
-        }
-
-        .page-title {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .page-title h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 22px;
-            letter-spacing: 3px;
-            font-weight: 300;
-            text-transform: uppercase;
-        }
-
-        .page-title p {
-            font-size: 10px;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            margin-top: 4px;
-        }
-
-        /* Steps Bar */
-        .steps-tracker {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 12px 30px;
-            margin-bottom: 15px;
-        }
-
-        .step-node {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            font-size: 9px;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        .step-node .circle {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            border: 1px solid var(--border-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 10px;
-            background: var(--bg-color);
-        }
-
-        .step-node.active .circle {
-            border-color: var(--gold-accent);
-            color: var(--gold-accent);
-            background: rgba(212, 175, 55, 0.1);
-        }
-
-        .step-node.active {
-            color: var(--gold-accent);
-        }
-
-        /* 3D Viewer Box */
-        .viewport-box {
-            background: radial-gradient(circle, #181818 0%, #0a0a0a 100%);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            height: 380px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #ringCanvas {
-            width: 100%;
-            height: 100%;
-            outline: none;
-        }
-
-        .view-360-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            border: 1px solid var(--border-color);
-            background: rgba(15, 15, 15, 0.85);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 9px;
-            letter-spacing: 1.5px;
-            color: var(--gold-accent);
-        }
-
-        .right-float-tools {
-            position: absolute;
-            right: 15px;
-            top: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .tool-btn {
-            background: rgba(20, 20, 20, 0.9);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            font-size: 11px;
-            transition: 0.2s;
-        }
-
-        .tool-btn:hover {
-            border-color: var(--gold-accent);
-            color: var(--gold-accent);
-        }
-
-        /* Thumbnails row */
-        .thumbnails-container {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-            justify-content: center;
-        }
-
-        .thumb-item {
-            background: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            width: 80px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 9px;
-            letter-spacing: 0.5px;
-            color: var(--text-muted);
-            cursor: pointer;
-        }
-
-        .thumb-item.active, .thumb-item:hover {
-            border-color: var(--gold-accent);
-            color: var(--gold-accent);
-        }
-
-        /* Summary Panel at Bottom */
-        .summary-footer {
-            background: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            margin-top: 15px;
-            padding: 18px 25px;
-            display: grid;
-            grid-template-columns: 1fr 1fr 220px;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            font-size: 11px;
-        }
-
-        .specs-grid div span {
-            color: var(--text-muted);
-            display: block;
-            font-size: 9px;
-            margin-bottom: 2px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .checkout-box {
-            border-left: 1px solid var(--border-color);
-            padding-left: 20px;
-            text-align: right;
-        }
-
-        .price-display {
-            font-size: 18px;
-            color: var(--gold-accent);
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .submit-btn {
-            background: var(--gold-gradient);
-            color: #000;
-            border: none;
-            padding: 10px 15px;
-            font-weight: bold;
-            font-size: 10px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            border-radius: 3px;
-            cursor: pointer;
-            width: 100%;
-            text-decoration: none;
-            display: block;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <a href="index.html" class="logo">CHYRIS <span>FINE JEWELLERY</span></a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="gallery.html">Collections</a>
-            <a href="customizer.html" class="active">Custom Jewellery</a>
-            <a href="calculator.html">Price Calculator</a>
-        </div>
-        <div class="header-icons">
-            <span>🔍</span>
-            <span>❤️</span>
-            <a href="cart.html" style="color:inherit; text-decoration:none;">🛒 <span id="cartCount">0</span></a>
-        </div>
-    </header>
-
-    <div class="workspace">
-        
-        <!-- Left Options Sidebar -->
-        <div class="sidebar">
-            <div class="section-box">
-                <div class="section-header">1. Choose Ring Design <span>▲</span></div>
+<div class="section-box">
+                <div class="section-header">3. Gemstone & Engraving <span>▲</span></div>
                 <div class="grid-options" style="grid-template-columns: repeat(2, 1fr);">
-                    <div class="option-card active" onclick="selectOption(this, 'design', 'Classic Plain Band')">Classic</div>
-                    <div class="option-card" onclick="selectOption(this, 'design', 'Pavé Setting Band')">Pavé</div>
-                    <div class="option-card" onclick="selectOption(this, 'design', 'Grooved Band')">Grooved</div>
-                    <div class="option-card" onclick="selectOption(this, 'design', 'Beveled Band')">Beveled</div>
-                </div>
-            </div>
-
-            <div class="section-box">
-                <div class="section-header">2. Choose Metal <span>▲</span></div>
-                <div class="grid-options" style="grid-template-columns: repeat(2, 1fr);">
-                    <div class="option-card active" onclick="selectOption(this, 'metal', '18K Yellow Gold')">18K Yellow</div>
-                    <div class="option-card" onclick="selectOption(this, 'metal', '18K White Gold')">18K White</div>
-                    <div class="option-card" onclick="selectOption(this, 'metal', '18K Rose Gold')">18K Rose</div>
-                    <div class="option-card" onclick="selectOption(this, 'metal', '950 Platinum')">Platinum</div>
-                </div>
-            </div>
-
-            <div class="section-box">
-                <div class="section-header">3. Stone Quality & Shape <span>▲</span></div>
-                <div class="grid-options" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 6px;">
-                    <div class="option-card active" onclick="selectOption(this, 'quality', 'Lab-Grown Diamond')">Lab-Grown</div>
-                    <div class="option-card" onclick="selectOption(this, 'quality', 'Natural Diamond')">Natural</div>
-                </div>
-                <div class="grid-options">
-                    <div class="option-card active" onclick="selectOption(this, 'stone', 'Round')">Round</div>
-                    <div class="option-card" onclick="selectOption(this, 'stone', 'Oval')">Oval</div>
-                    <div class="option-card" onclick="selectOption(this, 'stone', 'Princess')">Princess</div>
-                    <div class="option-card" onclick="selectOption(this, 'stone', 'Emerald')">Emerald</div>
-                </div>
-            </div>
-
-            <div class="section-box">
-                <div class="section-header">4. Setting Style <span>▲</span></div>
-                <div class="grid-options" style="grid-template-columns: repeat(2, 1fr);">
-                    <div class="option-card active" onclick="selectOption(this, 'setting', 'Prong Setting')">Prong</div>
-                    <div class="option-card" onclick="selectOption(this, 'setting', 'Bezel Setting')">Bezel</div>
-                    <div class="option-card" onclick="selectOption(this, 'setting', 'Halo Setting')">Halo</div>
-                    <div class="option-card" onclick="selectOption(this, 'setting', 'Cathedral Setting')">Cathedral</div>
-                </div>
-            </div>
-
-            <div class="section-box">
-                <div class="section-header">5. Ring Size <span>▲</span></div>
-                <div class="grid-options" style="grid-template-columns: repeat(2, 1fr);">
-                    <div class="option-card active" onclick="selectOption(this, 'size', 'US 6')">US 6</div>
-                    <div class="option-card" onclick="selectOption(this, 'size', 'US 7')">US 7</div>
-                    <div class="option-card" onclick="selectOption(this, 'size', 'US 8')">US 8</div>
-                    <div class="option-card" onclick="selectOption(this, 'size', 'US 9')">US 9</div>
+                    <div class="option-card active" onclick="selectOption(this, 'gemstone', 'Diamond')">Diamond</div>
+                    <div class="option-card" onclick="selectOption(this, 'gemstone', 'Ruby')">Ruby</div>
+                    <div class="option-card" onclick="selectOption(this, 'gemstone', 'Sapphire')">Sapphire</div>
+                    <div class="option-card" onclick="selectOption(this, 'gemstone', 'Emerald')">Emerald</div>
                 </div>
             </div>
         </div>
 
-        <!-- Right Stage Viewer & Summary -->
+        <!-- Right Stage Area / 3D Viewer -->
         <div class="stage-area">
             <div class="page-title">
-                <h1>Customize Your CHYRIS Ring</h1>
-                <p>Design your perfect ring in 5 simple steps</p>
-            </div>
-
-            <div class="steps-tracker">
-                <div class="step-node active">
-                    <div class="circle">1</div>
-                    <span>Design</span>
-                </div>
-                <div class="step-node">
-                    <div class="circle">2</div>
-                    <span>Metal</span>
-                </div>
-                <div class="step-node">
-                    <div class="circle">3</div>
-                    <span>Stone</span>
-                </div>
-                <div class="step-node">
-                    <div class="circle">4</div>
-                    <span>Setting</span>
-                </div>
-                <div class="step-node">
-                    <div class="circle">5</div>
-                    <span>Size & Preview</span>
-                </div>
+                <h1>Bespoke Ring Studio</h1>
+                <p>Design your custom luxury piece in real-time</p>
             </div>
 
             <div class="viewport-box">
-                <div class="view-360-badge">360° VIEW</div>
-                <div class="right-float-tools">
-                    <div class="tool-btn" title="Rotate">🔄</div>
-                    <div class="tool-btn" title="Zoom">🔍</div>
-                    <div class="tool-btn" title="Top View">📌</div>
-                </div>
+                <div class="view-360-badge">Interactive 360° View</div>
                 <canvas id="ringCanvas"></canvas>
-            </div>
-
-            <div class="thumbnails-container">
-                <div class="thumb-item active">Front View</div>
-                <div class="thumb-item">Side View</div>
-                <div class="thumb-item">Top View</div>
-                <div class="thumb-item">On Hand</div>
             </div>
 
             <div class="summary-footer">
                 <div class="specs-grid">
-                    <div><span>Design</span> <strong id="sumDesign">Classic Plain Band</strong></div>
-                    <div><span>Metal</span> <strong id="sumMetal">18K Yellow Gold</strong></div>
-                    <div><span>Stone</span> <strong id="sumStone">Round (Lab-Grown)</strong></div>
-                    <div><span>Size</span> <strong id="sumSize">US 6</strong></div>
-                </div>
-                <div class="specs-grid">
-                    <div><span>Setting</span> <strong id="sumSetting">Prong Setting</strong></div>
-                    <div><span>Est. Weight</span> <strong>3.6 GM</strong></div>
+                    <div><span>Design</span><strong id="summaryDesign">Classic Plain Band</strong></div>
+                    <div><span>Metal</span><strong id="summaryMetal">18K Yellow Gold</strong></div>
+                    <div><span>Gemstone</span><strong id="summaryGem">Diamond</strong></div>
                 </div>
                 <div class="checkout-box">
-                    <div class="price-display" id="sumPrice">₹ 46,800</div>
-                    <button class="submit-btn" onclick="requestCustomDesignWhatsApp()">Request This Design</button>
+                    <div class="price-display" id="totalPrice">₹48,000</div>
+                    <a href="cart.html" class="submit-btn" onclick="addToCart()">Add to Bag</a>
                 </div>
             </div>
-
         </div>
-
     </div>
 
     <script>
-        let customDesignState = {
-            design: "Classic Plain Band",
-            metal: "18K Yellow Gold",
-            quality: "Lab-Grown Diamond",
-            stone: "Round",
-            setting: "Prong Setting",
-            size: "US 6",
-            price: 46800
-        };
-
         function selectOption(element, category, value) {
-            // Remove active class from sibling option-cards
+            // Remove active class from siblings
             const parent = element.parentElement;
             parent.querySelectorAll('.option-card').forEach(card => card.classList.remove('active'));
             element.classList.add('active');
 
-            // Update state
-            customDesignState[category] = value;
-
-            // Recalculate price mock dynamically
-            let basePrice = 42000;
-            if (customDesignState.metal.includes('White')) basePrice += 3000;
-            if (customDesignState.metal.includes('Platinum')) basePrice += 12000;
-            if (customDesignState.quality.includes('Natural')) basePrice += 15000;
-            if (customDesignState.setting.includes('Halo')) basePrice += 5000;
-            
-            customDesignState.price = basePrice;
-
-            // Update DOM summary
-            document.getElementById('sumDesign').innerText = customDesignState.design;
-            document.getElementById('sumMetal').innerText = customDesignState.metal;
-            document.getElementById('sumStone').innerText = `${customDesignState.stone} (${customDesignState.quality.split(' ')[0]})`;
-            document.getElementById('sumSize').innerText = customDesignState.size;
-            document.getElementById('sumSetting').innerText = customDesignState.setting;
-            document.getElementById('sumPrice').innerText = '₹ ' + customDesignState.price.toLocaleString('en-IN');
+            // Update summary text dynamically
+            if (category === 'design') {
+                document.getElementById('summaryDesign').innerText = value;
+            } else if (category === 'metal') {
+                document.getElementById('summaryMetal').innerText = value;
+            } else if (category === 'gemstone') {
+                document.getElementById('summaryGem').innerText = value;
+            }
         }
 
-        function requestCustomDesignWhatsApp() {
-            const phoneNumber = "918401715116";
-            const message = `Hello CHYRIS Fine Jewellery, I have finalized a custom ring design:\n\n- Design: ${customDesignState.design}\n- Metal: ${customDesignState.metal}\n- Stone: ${customDesignState.stone} (${customDesignState.quality})\n- Setting: ${customDesignState.setting}\n- Ring Size: ${customDesignState.size}\n- Estimated Price: ₹${customDesignState.price.toLocaleString('en-IN')}\n\nPlease guide me with the next steps for placing this custom order.`;
-            
-            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-            window.open(url, "_blank", "noopener");
+        function addToCart() {
+            alert('Customized jewellery added to your shopping bag!');
         }
-
-        // Initialize cart count on load
-        window.addEventListener('DOMContentLoaded', () => {
-            let cart = JSON.parse(localStorage.getItem('chyris_cart')) || JSON.parse(localStorage.getItem('orven_cart')) || [];
-            const cartCountEl = document.getElementById('cartCount');
-            if (cartCountEl) cartCountEl.innerText = cart.length;
-        });
     </script>
 </body>
 </html>
