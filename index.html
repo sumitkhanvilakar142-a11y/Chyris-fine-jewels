@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ORVÉN JEWELS — Ultra Luxury Fine Jewellery & Bespoke Custom Studio</title>
+  <title>CHYRIS — Ultra Luxury Fine Jewellery & Bespoke Custom Studio</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Firebase CDN -->
@@ -234,7 +234,7 @@
   </div>
 
   <nav class="navbar">
-    <a href="#home" class="brand-logo">ORVÉN<span>.</span></a>
+    <a href="#home" class="brand-logo">CHYRIS<span>.</span></a>
     <div class="nav-links">
       <a href="#home" class="active">Home</a>
       <a href="#collections">Collections</a>
@@ -656,31 +656,29 @@
     function addStudioDesignToCart() {
       const priceTxt = document.getElementById('studioPriceTotal').innerText;
       const priceNum = parseInt(priceTxt.replace(/[^\d]/g, ''));
-      vaultBag.push({ name: `${activeCategory} (${customState.metal}, ${customState.caratTxt})`, price: priceNum });
-      
-      document.getElementById('cartBadgeCount').innerText = vaultBag.length;
-      renderCartDrawer();
+      vaultBag.push({ name: `${activeCategory} (${customState.shape}, ${customState.caratTxt})`, price: priceNum });
+      updateCartUI();
       closeStudio();
-      alert("Bespoke design added to your vault bag!");
+      openCartDrawer();
+    }
+
+    function updateCartUI() {
+      const listEl = document.getElementById('cartItemsList');
+      listEl.innerHTML = '';
+      let total = 0;
+      vaultBag.forEach((item, index) => {
+        total += item.price;
+        listEl.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:12px; border-bottom:1px solid #222; padding-bottom:8px;">
+          <div>${item.name}</div>
+          <div style="color:var(--gold);">₹${item.price.toLocaleString('en-IN')}</div>
+        </div>`;
+      });
+      document.getElementById('cartBadgeCount').innerText = vaultBag.length;
+      document.getElementById('cartTotalPrice').innerText = '₹' + total.toLocaleString('en-IN');
     }
 
     function openCartDrawer() {
       document.getElementById('cartModalOverlay').style.display = 'flex';
-      renderCartDrawer();
-    }
-
-    function renderCartDrawer() {
-      let list = document.getElementById('cartItemsList');
-      let html = '', total = 0;
-      vaultBag.forEach((item, idx) => {
-        total += item.price;
-        html += `<div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border-color); font-size:12px;">
-          <div><b>${item.name}</b></div>
-          <div style="color:var(--gold); font-weight:600;">₹${item.price.toLocaleString('en-IN')}</div>
-        </div>`;
-      });
-      list.innerHTML = html || '<p style="color:#777; text-align:center; padding:30px;">Your bag is empty.</p>';
-      document.getElementById('cartTotalPrice').innerText = '₹' + total.toLocaleString('en-IN');
     }
   </script>
 </body>
