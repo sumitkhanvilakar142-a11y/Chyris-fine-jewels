@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CHYRIS — Ultra Luxury Fine Jewellery & Bespoke Vault</title>
+  <title>CHYRIS — Ultra Luxury Fine Jewellery & Bespoke Studio</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Firebase App, Auth & Firestore CDN Scripts (Compat) -->
@@ -119,7 +119,7 @@
     }
 
     /* ==========================================================
-        2. SECTION CONTAINERS & HERO STYLING (FIXED CENTERED ALIGNMENT)
+        2. SECTION CONTAINERS & HERO STYLING (CENTER ALIGNED)
         ========================================================== */
     .section-container {
       padding: 120px 60px;
@@ -176,11 +176,133 @@
       margin-right: auto;
       font-weight: 300;
       letter-spacing: 0.5px;
-      text-align: center !important; /* Forces perfect centering */
+      text-align: center !important;
     }
 
     /* ==========================================================
-        3. COLLECTIONS & PRODUCT CARDS
+        3. TANISHQ & ORRA STYLE 6-STEP CUSTOMIZER STUDIO
+        ========================================================== */
+    .studio-grid-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 50px;
+      background: rgba(17, 17, 17, 0.85);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 40px;
+      backdrop-filter: blur(10px);
+    }
+    @media (max-width: 992px) {
+      .studio-grid-layout { grid-template-columns: 1fr; }
+    }
+    .studio-preview-box {
+      background: #0d0d0d;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+    .main-ring-preview {
+      width: 100%;
+      height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+    }
+    .main-ring-preview img {
+      max-height: 340px;
+      max-width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 20px rgba(212, 175, 55, 0.15));
+    }
+    .studio-thumbnails {
+      display: flex;
+      gap: 15px;
+    }
+    .thumb-btn {
+      width: 70px;
+      height: 70px;
+      background: #141414;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 5px;
+      transition: var(--transition-smooth);
+    }
+    .thumb-btn.active, .thumb-btn:hover { border-color: var(--gold); }
+    .thumb-btn img { width: 100%; height: 100%; object-fit: contain; }
+
+    .customizer-control-panel h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 26px;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .customizer-control-panel p.sub {
+      color: #999;
+      font-size: 13px;
+      margin-bottom: 30px;
+    }
+    .custom-step-group { margin-bottom: 25px; }
+    .custom-step-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #aaa;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .custom-step-label span { color: var(--gold); }
+    .options-grid-modern {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 10px;
+    }
+    .option-card {
+      background: var(--dark-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 12px 10px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #ccc;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .option-card:hover, .option-card.selected {
+      border-color: var(--gold);
+      background: rgba(212, 175, 55, 0.08);
+      color: var(--gold);
+    }
+
+    /* Live Pricing Footer Box */
+    .studio-footer-calc {
+      margin-top: 35px;
+      padding-top: 25px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .calc-price-wrap h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 28px;
+      color: var(--gold);
+    }
+    .calc-price-wrap span { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #888; }
+
+    /* ==========================================================
+        4. COLLECTIONS & PRODUCT CARDS
         ========================================================== */
     .product-grid {
       display: grid;
@@ -239,36 +361,8 @@
     .add-to-cart-btn:hover { background: var(--gold); color: #000; }
 
     /* ==========================================================
-        4. CUSTOM DESIGN STUDIO & LIVE RATES
+        5. LIVE BULLION RATES SECTION
         ========================================================== */
-    .custom-studio-box {
-      background: linear-gradient(135deg, #111, #1a1506);
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      padding: 50px;
-      border-radius: 14px;
-      margin-top: 35px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      align-items: center;
-    }
-    .custom-studio-box input, .custom-studio-box select, .custom-studio-box textarea {
-      width: 100%;
-      padding: 14px 18px;
-      margin-top: 8px;
-      margin-bottom: 20px;
-      background: var(--dark-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 13px;
-    }
-    .custom-studio-box input:focus, .custom-studio-box select:focus {
-      border-color: var(--gold);
-      outline: none;
-    }
-
     .rates-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -290,7 +384,7 @@
     .rate-status { font-size: 10px; color: #4caf50; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 10px; font-weight: 600; }
 
     /* ==========================================================
-        5. BLINKIT STYLE FLOATING BAR & SLIDE-UP DRAWER
+        6. BLINKIT STYLE FLOATING BAR & SLIDE DRAWER
         ========================================================== */
     .cart-float-bar {
       position: fixed;
@@ -367,7 +461,7 @@
     .cart-item-row span { color: var(--gold); font-weight: 600; font-size: 14px; }
 
     /* ==========================================================
-        6. SECURE CHECKOUT & AUTH MODALS
+        7. SECURE CHECKOUT & AUTH MODALS
         ========================================================== */
     .checkout-modal-overlay {
       display: none;
@@ -463,13 +557,13 @@
     <a href="#home" class="brand-logo">CHYRIS<span>.</span></a>
     <div class="nav-links">
       <a href="#collections">Collections</a>
-      <a href="#custom">Custom Design</a>
+      <a href="#custom">Custom Studio</a>
       <a href="#rates">Live Rates</a>
       <button class="header-auth-btn" id="navAuthBtn" onclick="openLoginModal()">Sign In</button>
     </div>
   </nav>
 
-  <!-- 1. HERO HOME SECTION (CENTER ALIGNED) -->
+  <!-- 1. HERO HOME SECTION -->
   <section class="section-container hero-section" id="home">
     <div class="hero-content">
       <span class="hero-tag">Exquisite Craftsmanship &bull; Ultra Luxury</span>
@@ -482,55 +576,117 @@
     </div>
   </section>
 
-  <!-- 2. COLLECTIONS SECTION (FIRESTORE DYNAMIC GRID) -->
+  <!-- 2. INTERACTIVE 6-STEP CUSTOMIZER STUDIO (TANISHQ & ORRA STYLE) -->
+  <section class="section-container" id="custom" style="min-height: auto; padding-top: 40px; padding-bottom: 40px;">
+    <div style="text-align: center; margin-bottom: 40px;">
+      <h2 style="font-family: 'Cinzel', serif; font-size: 38px; color: var(--gold); margin-bottom: 10px;">Bespoke Ring Customizer Studio</h2>
+      <p style="color: #aaa; font-size: 14px; letter-spacing: 1px;">Design your dream piece in 6 simple steps with live dynamic price calculation.</p>
+    </div>
+
+    <div class="studio-grid-layout">
+      <!-- Left: Tanishq Style Multi-Angle Preview -->
+      <div class="studio-preview-box">
+        <div class="main-ring-preview">
+          <img id="studioActiveImg" src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=600" alt="Bespoke Ring Preview">
+        </div>
+        <div class="studio-thumbnails">
+          <button class="thumb-btn active" onclick="switchStudioView('https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=600', this)"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=200" alt="Front"></button>
+          <button class="thumb-btn" onclick="switchStudioView('https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=600', this)"><img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=200" alt="Side"></button>
+          <button class="thumb-btn" onclick="switchStudioView('https://images.unsplash.com/photo-1603561596112-0a131b750441?q=80&w=600', this)"><img src="https://images.unsplash.com/photo-1603561596112-0a131b750441?q=80&w=200" alt="Top"></button>
+        </div>
+      </div>
+
+      <!-- Right: 6-Step Customization Panel -->
+      <div class="customizer-control-panel">
+        <h2>Interactive Design Studio</h2>
+        <p class="sub">Tailor every specification to your exact preference.</p>
+
+        <!-- Step 1 -->
+        <div class="custom-step-group">
+          <div class="custom-step-label">1. Choose Diamond Shape <span id="s1-val">Round</span></div>
+          <div class="options-grid-modern">
+            <div class="option-card selected" onclick="updateStudioStep(1, 'Round', this)">Round</div>
+            <div class="option-card" onclick="updateStudioStep(1, 'Princess', this)">Princess</div>
+            <div class="option-card" onclick="updateStudioStep(1, 'Oval', this)">Oval</div>
+            <div class="option-card" onclick="updateStudioStep(1, 'Pear', this)">Pear</div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="custom-step-group">
+          <div class="custom-step-label">2. Choose Diamond Type <span id="s2-val">Lab-Grown</span></div>
+          <div class="options-grid-modern">
+            <div class="option-card" onclick="updateStudioStep(2, 'Natural', this)">Natural</div>
+            <div class="option-card selected" onclick="updateStudioStep(2, 'Lab-Grown', this)">Lab-Grown</div>
+            <div class="option-card" onclick="updateStudioStep(2, 'Moissanite', this)">Moissanite</div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="custom-step-group">
+          <div class="custom-step-label">3. Choose Carat Size <span id="s3-val">1.00 CT</span></div>
+          <div class="options-grid-modern">
+            <div class="option-card" onclick="updateStudioStep(3, '0.25 CT', this, 0.25)">0.25 CT</div>
+            <div class="option-card" onclick="updateStudioStep(3, '0.50 CT', this, 0.50)">0.50 CT</div>
+            <div class="option-card selected" onclick="updateStudioStep(3, '1.00 CT', this, 1.00)">1.00 CT</div>
+            <div class="option-card" onclick="updateStudioStep(3, '2.00 CT', this, 2.00)">2.00 CT</div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="custom-step-group">
+          <div class="custom-step-label">4. Choose Ring Style <span id="s4-val">Classic 4-Prong</span></div>
+          <div class="options-grid-modern">
+            <div class="option-card selected" onclick="updateStudioStep(4, 'Classic 4-Prong', this)">4-Prong</div>
+            <div class="option-card" onclick="updateStudioStep(4, 'Bezel Set', this)">Bezel Set</div>
+            <div class="option-card" onclick="updateStudioStep(4, 'Petal Floral', this)">Petal Floral</div>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="custom-step-group">
+          <div class="custom-step-label">5. Choose Metal Purity <span id="s5-val">18K Yellow Gold</span></div>
+          <div class="options-grid-modern">
+            <div class="option-card selected" onclick="updateStudioStep(5, '18K Yellow Gold', this, 11690)">18K Yellow</div>
+            <div class="option-card" onclick="updateStudioStep(5, '18K White Gold', this, 11950)">18K White</div>
+            <div class="option-card" onclick="updateStudioStep(5, '925 Silver', this, 964)">925 Silver</div>
+            <div class="option-card" onclick="updateStudioStep(5, 'Platinum', this, 15500)">Platinum</div>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="custom-step-group">
+          <div class="custom-step-label">6. Band Width & Ring Size <span id="s6-val">US 7 (2.0mm)</span></div>
+          <div class="options-grid-modern">
+            <div class="option-card" onclick="updateStudioStep(6, 'US 5', this)">US 5</div>
+            <div class="option-card selected" onclick="updateStudioStep(6, 'US 7', this)">US 7</div>
+            <div class="option-card" onclick="updateStudioStep(6, 'US 9', this)">US 9</div>
+          </div>
+        </div>
+
+        <!-- Footer Calculation & Action -->
+        <div class="studio-footer-calc">
+          <div class="calc-price-wrap">
+            <span id="studioCalcDetails">18K Yellow + 1.00CT Lab-Grown</span>
+            <h3 id="studioTotalPrice">₹78,950</h3>
+          </div>
+          <button class="action-btn" style="margin-top:0; width:auto; padding: 14px 28px;" onclick="addCustomRingToBag()">Add Custom Ring</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. COLLECTIONS SECTION (FIRESTORE DYNAMIC GRID) -->
   <section class="section-container" id="collections">
     <h2 style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 36px; margin-bottom: 12px;">Bespoke Collections</h2>
     <p style="color: #aaa; font-size: 15px; margin-bottom: 25px;">Hand-selected masterworks forged in 18K yellow & white gold with certified conflict-free diamonds.</p>
     
-    <!-- Dynamic Product Grid Container loaded from Firestore -->
     <div class="product-grid" id="product-grid">
       <p style="color: #aaa;">Loading vault masterworks from database...</p>
     </div>
   </section>
 
-  <!-- 3. CUSTOM DESIGN STUDIO SECTION (WITH ALL KARATS & SILVER) -->
-  <section class="section-container" id="custom">
-    <h2 style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 36px; margin-bottom: 12px;">Bespoke Custom Design Studio</h2>
-    <div class="custom-studio-box">
-      <div>
-        <h3 style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 24px; margin-bottom: 15px;">Commission a Masterpiece</h3>
-        <p style="color: #bbb; font-size: 14px; margin-bottom: 20px; line-height: 1.8;">Collaborate with our master artisans to design custom heirloom jewellery tailored precisely to your personal specifications, metal purity, and choice of rare gemstones.</p>
-        <span style="color: var(--gold); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600;">&bull; Private Consultation Included</span>
-      </div>
-      <div>
-        <label>Jewellery Type</label>
-        <select>
-          <option>Engagement Ring</option>
-          <option>Bridal Necklace Set</option>
-          <option>Heritage Bracelet</option>
-          <option>Classic Wedding Band</option>
-        </select>
-        
-        <label>Precious Metal Purity</label>
-        <select>
-          <option>925 Sterling Silver</option>
-          <option>916 Gold (22KT Traditional)</option>
-          <option>24KT Pure Gold</option>
-          <option>18KT Gold</option>
-          <option>14KT Gold</option>
-          <option>10KT Gold</option>
-          <option>9KT Gold</option>
-          <option>950 Platinum</option>
-        </select>
-
-        <label>Special Instructions / Vision</label>
-        <textarea rows="2" placeholder="Describe your custom design requirements..."></textarea>
-        <button class="action-btn" onclick="alert('Commission request submitted successfully!')">Submit Custom Request</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. LIVE RATES SECTION (UPDATED REAL-TIME PRICING) -->
+  <!-- 4. LIVE RATES SECTION -->
   <section class="section-container" id="rates">
     <h2 style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 36px; margin-bottom: 12px;">Live Bullion Market Rates</h2>
     <p style="color: #aaa; font-size: 15px; margin-bottom: 25px;">Real-time international precious metal market pricing feeds updated dynamically.</p>
@@ -631,7 +787,6 @@
         <button class="action-btn" onclick="verifyOtpCode()">Verify & Proceed</button>
       </div>
 
-      <!-- Toggle Option for Sign Up / Sign In -->
       <div style="text-align: center; margin-top: 20px;">
         <span id="authToggleText" style="font-size: 12px; color: #aaa;">New Patron? </span>
         <a href="javascript:void(0);" id="authToggleLink" onclick="toggleAuthMode()" style="font-size: 12px; color: var(--gold); text-decoration: none; font-weight: 600; margin-left: 5px;">Create Account (Sign Up)</a>
@@ -698,7 +853,57 @@
 
     window.addEventListener('DOMContentLoaded', loadProductsFromFirestore);
 
+    // Interactive 6-Step Customizer Logic
+    let studioConfig = {
+      shape: 'Round',
+      type: 'Lab-Grown',
+      carat: 1.00,
+      style: 'Classic 4-Prong',
+      metalName: '18K Yellow Gold',
+      metalRate: 11690,
+      size: 'US 7'
+    };
+
+    function switchStudioView(imgSrc, btn) {
+      document.getElementById('studioActiveImg').src = imgSrc;
+      document.querySelectorAll('.studio-thumbnails .thumb-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function updateStudioStep(stepNum, val, cardElement, extraVal) {
+      const parent = cardElement.parentElement;
+      parent.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+      cardElement.classList.add('selected');
+
+      if(stepNum === 1) { studioConfig.shape = val; document.getElementById('s1-val').innerText = val; }
+      if(stepNum === 2) { studioConfig.type = val; document.getElementById('s2-val').innerText = val; }
+      if(stepNum === 3) { studioConfig.carat = extraVal; document.getElementById('s3-val').innerText = val; }
+      if(stepNum === 4) { studioConfig.style = val; document.getElementById('s4-val').innerText = val; }
+      if(stepNum === 5) { studioConfig.metalName = val; studioConfig.metalRate = extraVal; document.getElementById('s5-val').innerText = val; }
+      if(stepNum === 6) { studioConfig.size = val; document.getElementById('s6-val').innerText = val; }
+
+      recalculateStudioPrice();
+    }
+
+    function recalculateStudioPrice() {
+      let baseFee = 15000;
+      let typeMultiplier = studioConfig.type === 'Natural' ? 52000 : (studioConfig.type === 'Lab-Grown' ? 19500 : 4500);
+      let diamondCost = studioConfig.carat * typeMultiplier;
+      let metalCost = 3.5 * studioConfig.metalRate;
+      let finalPrice = Math.round(baseFee + diamondCost + metalCost);
+
+      document.getElementById('studioTotalPrice').innerText = '₹' + finalPrice.toLocaleString('en-IN');
+      document.getElementById('studioCalcDetails').innerText = `${studioConfig.metalName} + ${studioConfig.carat}CT ${studioConfig.type}`;
+    }
+
     let vaultBag = [];
+
+    function addCustomRingToBag() {
+      const priceText = document.getElementById('studioTotalPrice').innerText;
+      const numericPrice = parseInt(priceText.replace(/[^\d]/g, ''));
+      const itemName = `Bespoke ${studioConfig.shape} Ring (${studioConfig.carat}CT, ${studioConfig.metalName})`;
+      addToVaultBag(itemName, numericPrice);
+    }
 
     function addToVaultBag(name, price) {
       vaultBag.push({ name, price });
@@ -765,7 +970,6 @@
     function openLoginModal() { document.getElementById('loginModal').style.display = 'flex'; }
     function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; }
 
-    // Toggle between Sign In and Sign Up modes in Modal
     let isSignUpMode = false;
     function toggleAuthMode() {
       isSignUpMode = !isSignUpMode;
@@ -790,7 +994,6 @@
       }
     }
 
-    // Firebase Phone OTP Authentication Logic Setup
     function setupRecaptcha() {
       window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
         'size': 'invisible'
@@ -825,7 +1028,7 @@
       });
     }
 
-    // LIVE BULLION RATES FLUCTUATION SIMULATOR (Based on current ₹1,55,890 market baseline)
+    // LIVE BULLION RATES FLUCTUATION SIMULATOR (Based on ₹1,55,890 market baseline)
     let baseGold24 = 155890;
     let baseGold18 = 116900;
     let baseSilver = 96400;
