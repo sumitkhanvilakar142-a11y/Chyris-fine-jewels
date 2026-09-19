@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORVÉN JEWELS - Customize Your Ring</title>
+    <title>CHYRIS FINE JEWELLERY - Customize Your Ring</title>
     <style>
         :root {
             --bg-color: #0c0c0c;
@@ -43,11 +43,14 @@
         }
 
         .logo {
+            font-family: 'Cinzel', serif;
             font-size: 20px;
             letter-spacing: 5px;
-            font-weight: 300;
+            font-weight: 700;
             color: var(--text-main);
+            text-decoration: none;
         }
+        .logo span { color: var(--gold-accent); }
 
         .nav-links {
             display: flex;
@@ -161,6 +164,7 @@
         }
 
         .page-title h1 {
+            font-family: 'Cinzel', serif;
             font-size: 22px;
             letter-spacing: 3px;
             font-weight: 300;
@@ -370,17 +374,17 @@
 <body>
 
     <header>
-        <div class="logo">ORVÉN</div>
+        <a href="index.html" class="logo">CHYRIS <span>FINE JEWELLERY</span></a>
         <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Collections</a>
-            <a href="#" class="active">Custom Jewellery</a>
-            <a href="#">About Us</a>
+            <a href="index.html">Home</a>
+            <a href="gallery.html">Collections</a>
+            <a href="customizer.html" class="active">Custom Jewellery</a>
+            <a href="calculator.html">Price Calculator</a>
         </div>
         <div class="header-icons">
             <span>🔍</span>
             <span>❤️</span>
-            <span>🛒 0</span>
+            <a href="cart.html" style="color:inherit; text-decoration:none;">🛒 <span id="cartCount">0</span></a>
         </div>
     </header>
 
@@ -391,52 +395,54 @@
             <div class="section-box">
                 <div class="section-header">1. Choose Ring Design <span>▲</span></div>
                 <div class="grid-options" style="grid-template-columns: repeat(2, 1fr);">
-                    <div class="option-card active">Classic</div>
-                    <div class="option-card">Pavé</div>
-                    <div class="option-card">Grooved</div>
-                    <div class="option-card">Beveled</div>
+                    <div class="option-card active" onclick="selectOption(this, 'design', 'Classic Plain Band')">Classic</div>
+                    <div class="option-card" onclick="selectOption(this, 'design', 'Pavé Setting Band')">Pavé</div>
+                    <div class="option-card" onclick="selectOption(this, 'design', 'Grooved Band')">Grooved</div>
+                    <div class="option-card" onclick="selectOption(this, 'design', 'Beveled Band')">Beveled</div>
                 </div>
             </div>
 
             <div class="section-box">
                 <div class="section-header">2. Choose Metal <span>▲</span></div>
                 <div class="grid-options" style="grid-template-columns: repeat(2, 1fr);">
-                    <div class="option-card active">18K Yellow</div>
-                    <div class="option-card">18K White</div>
-                    <div class="option-card">18K Rose</div>
-                    <div class="option-card">Platinum</div>
+                    <div class="option-card active" onclick="selectOption(this, 'metal', '18K Yellow Gold')">18K Yellow</div>
+                    <div class="option-card" onclick="selectOption(this, 'metal', '18K White Gold')">18K White</div>
+                    <div class="option-card" onclick="selectOption(this, 'metal', '18K Rose Gold')">18K Rose</div>
+                    <div class="option-card" onclick="selectOption(this, 'metal', '950 Platinum')">Platinum</div>
                 </div>
             </div>
 
             <div class="section-box">
                 <div class="section-header">3. Stone Quality & Shape <span>▲</span></div>
                 <div class="grid-options" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 6px;">
-                    <div class="option-card active">Lab-Grown</div>
-                    <div class="option-card">Natural</div>
+                    <div class="option-card active" onclick="selectOption(this, 'quality', 'Lab-Grown Diamond')">Lab-Grown</div>
+                    <div class="option-card" onclick="selectOption(this, 'quality', 'Natural Diamond')">Natural</div>
                 </div>
                 <div class="grid-options">
-                    <div class="option-card active">Round</div>
-                    <div class="option-card">Oval</div>
-                    <div class="option-card">Princess</div>
-                    <div class="option-card">Emerald</div>
+                    <div class="option-card active" onclick="selectOption(this, 'stone', 'Round')">Round</div>
+                    <div class="option-card" onclick="selectOption(this, 'stone', 'Oval')">Oval</div>
+                    <div class="option-card" onclick="selectOption(this, 'stone', 'Princess')">Princess</div>
+                    <div class="option-card" onclick="selectOption(this, 'stone', 'Emerald')">Emerald</div>
                 </div>
             </div>
 
             <div class="section-box">
                 <div class="section-header">4. Setting Style <span>▲</span></div>
                 <div class="grid-options" style="grid-template-columns: repeat(2, 1fr);">
-                    <div class="option-card active">Prong</div>
-                    <div class="option-card">Bezel</div>
-                    <div class="option-card">Halo</div>
-                    <div class="option-card">Cathedral</div>
+                    <div class="option-card active" onclick="selectOption(this, 'setting', 'Prong Setting')">Prong</div>
+                    <div class="option-card" onclick="selectOption(this, 'setting', 'Bezel Setting')">Bezel</div>
+                    <div class="option-card" onclick="selectOption(this, 'setting', 'Halo Setting')">Halo</div>
+                    <div class="option-card" onclick="selectOption(this, 'setting', 'Cathedral Setting')">Cathedral</div>
                 </div>
             </div>
 
             <div class="section-box">
                 <div class="section-header">5. Ring Size <span>▲</span></div>
-                <div style="display: flex; gap: 6px;">
-                    <div class="option-card active" style="flex:1;">US Size</div>
-                    <div class="option-card" style="flex:1;">Indian Size</div>
+                <div class="grid-options" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="option-card active" onclick="selectOption(this, 'size', 'US 6')">US 6</div>
+                    <div class="option-card" onclick="selectOption(this, 'size', 'US 7')">US 7</div>
+                    <div class="option-card" onclick="selectOption(this, 'size', 'US 8')">US 8</div>
+                    <div class="option-card" onclick="selectOption(this, 'size', 'US 9')">US 9</div>
                 </div>
             </div>
         </div>
@@ -444,7 +450,7 @@
         <!-- Right Stage Viewer & Summary -->
         <div class="stage-area">
             <div class="page-title">
-                <h1>Customize Your Men's Ring</h1>
+                <h1>Customize Your CHYRIS Ring</h1>
                 <p>Design your perfect ring in 5 simple steps</p>
             </div>
 
@@ -490,18 +496,18 @@
 
             <div class="summary-footer">
                 <div class="specs-grid">
-                    <div><span>Design</span> <strong>Classic Plain Band</strong></div>
-                    <div><span>Metal</span> <strong>18K Yellow Gold</strong></div>
-                    <div><span>Stone</span> <strong>Round (Lab-Grown)</strong></div>
-                    <div><span>Size</span> <strong>US 6</strong></div>
+                    <div><span>Design</span> <strong id="sumDesign">Classic Plain Band</strong></div>
+                    <div><span>Metal</span> <strong id="sumMetal">18K Yellow Gold</strong></div>
+                    <div><span>Stone</span> <strong id="sumStone">Round (Lab-Grown)</strong></div>
+                    <div><span>Size</span> <strong id="sumSize">US 6</strong></div>
                 </div>
                 <div class="specs-grid">
-                    <div><span>Setting</span> <strong>Prong Setting</strong></div>
+                    <div><span>Setting</span> <strong id="sumSetting">Prong Setting</strong></div>
                     <div><span>Est. Weight</span> <strong>3.6 GM</strong></div>
                 </div>
                 <div class="checkout-box">
-                    <div class="price-display">₹ 46,800</div>
-                    <a href="#" class="submit-btn">Request This Design</a>
+                    <div class="price-display" id="sumPrice">₹ 46,800</div>
+                    <button class="submit-btn" onclick="requestCustomDesignWhatsApp()">Request This Design</button>
                 </div>
             </div>
 
@@ -509,5 +515,58 @@
 
     </div>
 
+    <script>
+        let customDesignState = {
+            design: "Classic Plain Band",
+            metal: "18K Yellow Gold",
+            quality: "Lab-Grown Diamond",
+            stone: "Round",
+            setting: "Prong Setting",
+            size: "US 6",
+            price: 46800
+        };
+
+        function selectOption(element, category, value) {
+            // Remove active class from sibling option-cards
+            const parent = element.parentElement;
+            parent.querySelectorAll('.option-card').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+
+            // Update state
+            customDesignState[category] = value;
+
+            // Recalculate price mock dynamically
+            let basePrice = 42000;
+            if (customDesignState.metal.includes('White')) basePrice += 3000;
+            if (customDesignState.metal.includes('Platinum')) basePrice += 12000;
+            if (customDesignState.quality.includes('Natural')) basePrice += 15000;
+            if (customDesignState.setting.includes('Halo')) basePrice += 5000;
+            
+            customDesignState.price = basePrice;
+
+            // Update DOM summary
+            document.getElementById('sumDesign').innerText = customDesignState.design;
+            document.getElementById('sumMetal').innerText = customDesignState.metal;
+            document.getElementById('sumStone').innerText = `${customDesignState.stone} (${customDesignState.quality.split(' ')[0]})`;
+            document.getElementById('sumSize').innerText = customDesignState.size;
+            document.getElementById('sumSetting').innerText = customDesignState.setting;
+            document.getElementById('sumPrice').innerText = '₹ ' + customDesignState.price.toLocaleString('en-IN');
+        }
+
+        function requestCustomDesignWhatsApp() {
+            const phoneNumber = "918401715116";
+            const message = `Hello CHYRIS Fine Jewellery, I have finalized a custom ring design:\n\n- Design: ${customDesignState.design}\n- Metal: ${customDesignState.metal}\n- Stone: ${customDesignState.stone} (${customDesignState.quality})\n- Setting: ${customDesignState.setting}\n- Ring Size: ${customDesignState.size}\n- Estimated Price: ₹${customDesignState.price.toLocaleString('en-IN')}\n\nPlease guide me with the next steps for placing this custom order.`;
+            
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, "_blank", "noopener");
+        }
+
+        // Initialize cart count on load
+        window.addEventListener('DOMContentLoaded', () => {
+            let cart = JSON.parse(localStorage.getItem('chyris_cart')) || JSON.parse(localStorage.getItem('orven_cart')) || [];
+            const cartCountEl = document.getElementById('cartCount');
+            if (cartCountEl) cartCountEl.innerText = cart.length;
+        });
+    </script>
 </body>
 </html>
