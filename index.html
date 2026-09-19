@@ -3,18 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CHYRIS — Ultra Luxury Fine Jewellery & Bespoke Custom Studio</title>
+  <title>ORVÉN JEWELS — Ultra Luxury Fine Jewellery & Bespoke Custom Studio</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Firebase App, Auth & Firestore CDN Scripts (Compat) -->
+  <!-- Firebase CDN -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
   <style>
-    /* ==========================================================
-        1. CSS RESET, VARIABLES & ULTRA-LUXURY STYLING
-        ========================================================== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --gold: #d4af37;
@@ -53,7 +50,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 22px 60px;
+      padding: 20px 60px;
       background: rgba(7, 7, 7, 0.95);
       border-bottom: 1px solid var(--border-color);
       position: sticky;
@@ -63,13 +60,12 @@
     }
     .brand-logo {
       font-family: 'Cinzel', serif;
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 700;
       color: #fff;
       text-decoration: none;
-      letter-spacing: 4px;
+      letter-spacing: 5px;
     }
-    .brand-logo span { color: var(--gold); }
     .nav-links { display: flex; gap: 35px; align-items: center; }
     .nav-links a {
       color: #ccc;
@@ -82,29 +78,18 @@
     }
     .nav-links a:hover, .nav-links a.active { color: var(--gold); }
     .nav-actions-right { display: flex; gap: 20px; align-items: center; }
-    
-    .header-auth-btn {
-      background: transparent;
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      padding: 9px 22px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      transition: var(--transition-smooth);
+    .nav-icon-btn { background: none; border: none; color: #fff; cursor: pointer; font-size: 18px; position: relative; }
+    .cart-badge {
+      position: absolute; top: -6px; right: -8px; background: var(--gold); color: #000;
+      font-size: 9px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
     }
-    .header-auth-btn:hover { background: var(--gold); color: #000; }
 
-    /* ==========================================================
-        2. HERO CUSTOMIZATION BANNER (ORVEN STYLE)
-        ========================================================== */
+    /* Hero Banner */
     .hero-custom-banner {
       position: relative;
       padding: 95px 60px;
-      background: linear-gradient(rgba(7,7,7,0.8), rgba(7,7,7,0.96)), url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1600') center/cover;
+      background: linear-gradient(rgba(7,7,7,0.75), rgba(7,7,7,0.95)), url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1600') center/cover;
       text-align: center;
       border-bottom: 1px solid var(--border-color);
     }
@@ -147,9 +132,7 @@
     }
     .trust-badge-item span { color: var(--gold); font-size: 16px; }
 
-    /* ==========================================================
-        3. CATEGORY SELECTOR DASHBOARD (ORVEN LAYOUT)
-        ========================================================== */
+    /* Dashboard Container */
     .section-container {
       padding: 70px 60px;
       max-width: 1400px;
@@ -162,7 +145,7 @@
     .category-group-box { margin-bottom: 45px; }
     .category-group-heading {
       font-family: 'Cinzel', serif;
-      font-size: 16px;
+      font-size: 15px;
       color: var(--gold);
       text-align: center;
       margin-bottom: 25px;
@@ -178,21 +161,22 @@
 
     .cat-grid-modern {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 22px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 20px;
     }
     .cat-item-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      padding: 22px 16px;
+      padding: 20px 16px;
       text-align: center;
       transition: var(--transition-smooth);
       cursor: pointer;
     }
-    .cat-item-card:hover { border-color: var(--gold); transform: translateY(-6px); }
+    .cat-item-card:hover { border-color: var(--gold); transform: translateY(-5px); }
     .cat-item-card img { width: 100%; height: 110px; object-fit: contain; margin-bottom: 12px; }
-    .cat-item-card h4 { font-size: 11px; font-weight: 600; letter-spacing: 1px; margin-bottom: 15px; color: #fff; text-transform: uppercase; }
+    .cat-item-card h4 { font-family: 'Cinzel', serif; font-size: 12px; font-weight: 600; letter-spacing: 1px; margin-bottom: 8px; color: #fff; text-transform: uppercase; }
+    .cat-item-card p { font-size: 11px; color: #888; margin-bottom: 15px; }
     .customize-trigger-btn {
       background: #000; border: 1px solid var(--gold); color: var(--gold);
       padding: 8px 10px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
@@ -200,104 +184,75 @@
     }
     .cat-item-card:hover .customize-trigger-btn { background: var(--gold); color: #000; }
 
-    /* Special Custom Banner Cards (Grillz & Watches) */
-    .special-custom-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 25px;
-      margin-top: 40px;
-    }
-    @media (max-width: 900px) { .special-custom-grid { grid-template-columns: 1fr; } }
-    .special-card {
-      position: relative; border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color);
-      height: 220px; display: flex; align-items: flex-end; padding: 30px; background-size: cover; background-position: center;
-    }
-    .special-card::before {
-      content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
-    }
-    .special-content { position: relative; z-index: 2; width: 100%; }
-    .special-content h4 { font-family: 'Cinzel', serif; font-size: 18px; color: var(--gold); margin-bottom: 5px; }
-    .special-content p { font-size: 12px; color: #ccc; margin-bottom: 15px; }
-
-    /* ==========================================================
-        4. INTERACTIVE 6-STEP CUSTOMIZER STUDIO MODAL (ORVEN STYLE)
-        ========================================================== */
+    /* Customizer Studio Modal (Orven Style) */
     .customizer-studio-modal {
       display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(7, 7, 7, 0.96); z-index: 3000; overflow-y: auto; padding: 40px 60px;
+      background: rgba(7, 7, 7, 0.97); z-index: 3000; overflow-y: auto; padding: 40px 60px;
     }
     .studio-top-bar {
       display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 20px;
+      margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 20px;
     }
     .back-btn {
       background: transparent; border: 1px solid var(--border-color); color: #fff;
       padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
     }
     .back-btn:hover { border-color: var(--gold); color: var(--gold); }
-    .studio-main-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 50px; }
-    @media (max-width: 992px) { .studio-main-grid { grid-template-columns: 1fr; } }
+    
+    .studio-layout { display: grid; grid-template-columns: 320px 1fr; gap: 30px; }
+    @media (max-width: 1024px) { .studio-layout { grid-template-columns: 1fr; } }
 
-    .thumb-btn {
-      width: 65px; height: 65px; background: #141414; border: 1px solid var(--border-color);
-      border-radius: 8px; cursor: pointer; padding: 5px; transition: var(--transition-smooth);
+    .steps-sidebar {
+      background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px;
+      padding: 20px; max-height: 75vh; overflow-y: auto;
     }
-    .thumb-btn.active, .thumb-btn:hover { border-color: var(--gold); }
-    .thumb-btn img { width: 100%; height: 100%; object-fit: contain; }
-
-    .option-card {
-      background: var(--dark-bg); border: 1px solid var(--border-color); border-radius: 6px;
-      padding: 10px; text-align: center; font-size: 11px; font-weight: 600; color: #ccc; cursor: pointer; transition: var(--transition-smooth);
+    .step-box { margin-bottom: 20px; }
+    .step-title { font-size: 10px; font-weight: 700; color: #aaa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .option-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+    .option-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .option-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    
+    .opt-btn {
+      background: #070707; border: 1px solid var(--border-color); color: #ccc;
+      padding: 8px 4px; text-align: center; border-radius: 4px; font-size: 10px; font-weight: 600; cursor: pointer; transition: var(--transition-smooth);
     }
-    .option-card:hover, .option-card.selected { border-color: var(--gold); background: rgba(212, 175, 55, 0.08); color: var(--gold); }
+    .opt-btn:hover, .opt-btn.selected { border-color: var(--gold); background: rgba(212,175,55,0.1); color: var(--gold); }
 
-    /* ==========================================================
-        5. COLLECTIONS, LIVE RATES & TRUST FOOTER
-        ========================================================== */
-    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; }
-    .product-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; transition: var(--transition-smooth); }
-    .product-card:hover { border-color: var(--gold); transform: translateY(-5px); }
-    .product-img { height: 240px; background: #141414; display: flex; align-items: center; justify-content: center; color: var(--gold); font-family: 'Cinzel', serif; font-size: 13px; }
-    .product-img img { width: 100%; height: 100%; object-fit: cover; }
-    .product-info { padding: 25px; }
-    .product-info h3 { font-family: 'Cinzel', serif; font-size: 17px; margin-bottom: 8px; }
-    .product-info p { color: var(--gold); font-weight: 600; font-size: 14px; margin-bottom: 20px; }
-
-    .trust-footer-bar {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;
-      background: #0c0c0c; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 30px 60px; text-align: center;
+    .preview-canvas-area {
+      background: #0d0d0d; border: 1px solid var(--border-color); border-radius: 10px;
+      padding: 30px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center;
     }
-    .trust-col { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-    .trust-col b { font-size: 11px; letter-spacing: 1px; color: #fff; }
-    .trust-col span { font-size: 10px; color: #888; }
+    .preview-canvas-area img { max-height: 350px; object-fit: contain; filter: drop-shadow(0 15px 30px rgba(212,175,55,0.2)); }
 
-    /* Blinkit Cart & Modals */
+    /* Summary Dashboard Box inside Modal */
+    .summary-box {
+      background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px;
+      padding: 25px; margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr auto; gap: 30px; align-items: center;
+    }
+    @media (max-width: 900px) { .summary-box { grid-template-columns: 1fr; } }
+    .summary-list { font-size: 12px; color: #bbb; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .summary-list b { color: #fff; }
+
+    /* Action & Cart buttons */
+    .action-btn {
+      background: var(--gold); color: #000; padding: 12px 24px; border: none;
+      border-radius: 6px; font-weight: 700; font-size: 11px; letter-spacing: 1.5px;
+      text-transform: uppercase; cursor: pointer; transition: var(--transition-smooth);
+    }
+    .action-btn:hover { background: #fff; }
+    .action-btn-dark { background: #000; border: 1px solid var(--gold); color: var(--gold); }
+    .action-btn-dark:hover { background: var(--gold); color: #000; }
+
     .cart-float-bar {
       position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
       background: #111; border: 1px solid var(--gold); color: #fff; padding: 15px 30px;
       border-radius: 50px; font-weight: 600; font-size: 13px; cursor: pointer; display: none;
-      align-items: center; justify-content: space-between; gap: 40px; z-index: 1500; min-width: 360px; box-shadow: 0 10px 30px rgba(212,175,55,0.3);
-    }
-    .cart-float-bar .view-bag-btn {
-      background: var(--gold); color: #000; padding: 8px 18px; border-radius: 20px;
-      font-weight: 700; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+      align-items: center; justify-content: space-between; gap: 40px; z-index: 1500; min-width: 380px; box-shadow: 0 10px 30px rgba(212,175,55,0.3);
     }
     .modal-overlay {
       display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0,0,0,0.85); z-index: 4000; justify-content: center; align-items: center; backdrop-filter: blur(6px);
     }
-    .auth-popup-container {
-      width: 100%; max-width: 440px; padding: 40px; background: var(--card-bg);
-      border: 1px solid var(--gold); border-radius: 10px; position: relative;
-    }
-    .action-btn {
-      width: 100%; background: var(--gold); color: #000; padding: 14px; border: none;
-      border-radius: 6px; font-weight: 700; font-size: 12px; letter-spacing: 1.5px;
-      text-transform: uppercase; cursor: pointer; margin-top: 20px; transition: var(--transition-smooth);
-    }
-    .action-btn:hover { background: #fff; }
-    .close-modal { position: absolute; top: 18px; right: 22px; color: #aaa; font-size: 22px; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -307,7 +262,7 @@
   </div>
 
   <nav class="navbar">
-    <a href="#home" class="brand-logo">CHYRIS<span>.</span></a>
+    <a href="#custom" class="brand-logo">ORVÉN<span>.</span></a>
     <div class="nav-links">
       <a href="#home">Home</a>
       <a href="#collections">Collections</a>
@@ -315,16 +270,16 @@
       <a href="#rates">Live Rates</a>
     </div>
     <div class="nav-actions-right">
-      <button class="header-auth-btn" onclick="openLoginModal()">Sign In</button>
+      <button class="nav-icon-btn" onclick="openCartDrawer()">🛒<span class="cart-badge" id="cartBadgeCount">0</span></button>
+      <button class="action-btn action-btn-dark" style="padding: 8px 18px; font-size: 10px;" onclick="alert('Sign in popup active')">Sign In</button>
     </div>
   </nav>
 
-  <!-- 1. ORVEN STYLE HERO CUSTOMIZATION BANNER -->
+  <!-- HERO BANNER -->
   <section class="hero-custom-banner" id="home">
     <h1>CUSTOMIZE YOUR <span>JEWELLERY</span></h1>
-    <h4>DESIGNED BY YOU. CRAFTED BY CHYRIS.</h4>
-    <p>Create a piece that's truly yours. Choose a category below and start designing your dream jewellery.</p>
-    
+    <h4>DESIGNED BY YOU. CRAFTED BY ORVÉN.</h4>
+    <p>Explore our complete catalog of 35 distinct ring styles and start crafting your bespoke piece.</p>
     <div class="hero-trust-badges">
       <div class="trust-badge-item"><span>◇</span> 100% Certified Lab-Grown Diamonds</div>
       <div class="trust-badge-item"><span>◈</span> Crafted with Precision</div>
@@ -332,415 +287,440 @@
     </div>
   </section>
 
-  <!-- 2. ORVEN CATEGORY SELECTOR DASHBOARD -->
+  <!-- 35 RING STYLES CATALOG DASHBOARD -->
   <section class="section-container" id="custom">
     <div class="category-section-title">
       <h2>CHOOSE WHAT YOU WANT TO CUSTOMIZE</h2>
-      <p>Select a category below to start designing your perfect piece</p>
+      <p>Select from our 35 curated ring categories below</p>
     </div>
 
-    <!-- Rings Group -->
+    <!-- 1. Classic & Fine Jewellery Rings -->
     <div class="category-group-box">
-      <div class="category-group-heading">RINGS</div>
+      <div class="category-group-heading">1. CLASSIC & FINE JEWELLERY RINGS</div>
       <div class="cat-grid-modern">
-        <div class="cat-item-card" onclick="openStudio('Cocktail Rings')">
+        <div class="cat-item-card" onclick="openStudio('Diamond Rings')">
           <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=400" alt="Ring">
-          <h4>Cocktail Rings</h4>
+          <h4>Diamond Rings</h4>
+          <p>Graded on 4Cs</p>
           <button class="customize-trigger-btn">Customize &rarr;</button>
         </div>
-        <div class="cat-item-card" onclick="openStudio('Light Weight Rings')">
+        <div class="cat-item-card" onclick="openStudio('Pearl Rings')">
           <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=400" alt="Ring">
-          <h4>Light Weight Rings</h4>
-          <button class="customize-trigger-btn">Customize &rarr;</button>
-        </div>
-        <div class="cat-item-card" onclick="openStudio('Mens Rings')">
-          <img src="https://images.unsplash.com/photo-1603561596112-0a131b750441?q=80&w=400" alt="Ring">
-          <h4>Men's Rings</h4>
+          <h4>Pearl Rings</h4>
+          <p>Freshwater & Akoya</p>
           <button class="customize-trigger-btn">Customize &rarr;</button>
         </div>
         <div class="cat-item-card" onclick="openStudio('Solitaire Rings')">
-          <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=400" alt="Ring">
+          <img src="https://images.unsplash.com/photo-1603561596112-0a131b750441?q=80&w=400" alt="Ring">
           <h4>Solitaire Rings</h4>
+          <p>Single centerpiece</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Engagement Rings')">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=400" alt="Ring">
+          <h4>Engagement Rings</h4>
+          <p>Endless commitment</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Birthstone Rings')">
+          <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=400" alt="Ring">
+          <h4>Birthstone Rings</h4>
+          <p>Monthly personalized</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Signet Rings')">
+          <img src="https://images.unsplash.com/photo-1603561596112-0a131b750441?q=80&w=400" alt="Ring">
+          <h4>Signet Rings</h4>
+          <p>Family crests & seals</p>
           <button class="customize-trigger-btn">Customize &rarr;</button>
         </div>
       </div>
     </div>
 
-    <!-- Earrings & Neck Jewellery Group -->
+    <!-- 2. Statement & Fashion Rings -->
     <div class="category-group-box">
-      <div class="category-group-heading">EARRINGS & NECK JEWELLERY</div>
+      <div class="category-group-heading">2. STATEMENT & FASHION RINGS</div>
       <div class="cat-grid-modern">
-        <div class="cat-item-card" onclick="openStudio('Diamond Studs')">
-          <img src="https://images.unsplash.com/photo-1635767798638-3e25273a8236?q=80&w=400" alt="Studs">
-          <h4>Diamond Studs</h4>
+        <div class="cat-item-card" onclick="openStudio('Statement Rings')">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=400" alt="Ring">
+          <h4>Statement Rings</h4>
+          <p>Unique & bold look</p>
           <button class="customize-trigger-btn">Customize &rarr;</button>
         </div>
-        <div class="cat-item-card" onclick="openStudio('Mangalsutra')">
-          <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=400" alt="Necklace">
-          <h4>Mangalsutra</h4>
+        <div class="cat-item-card" onclick="openStudio('Cocktail Rings')">
+          <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=400" alt="Ring">
+          <h4>Cocktail Rings</h4>
+          <p>Prohibition-era style</p>
           <button class="customize-trigger-btn">Customize &rarr;</button>
         </div>
-        <div class="cat-item-card" onclick="openStudio('Bracelets')">
-          <img src="https://images.unsplash.com/photo-1611591475871-2ee392293942?q=80&w=400" alt="Bracelet">
-          <h4>Bracelets</h4>
+        <div class="cat-item-card" onclick="openStudio('Dome Rings')">
+          <img src="https://images.unsplash.com/photo-1603561596112-0a131b750441?q=80&w=400" alt="Ring">
+          <h4>Dome Rings</h4>
+          <p>Convex 3D structure</p>
           <button class="customize-trigger-btn">Customize &rarr;</button>
         </div>
-        <div class="cat-item-card" onclick="openStudio('Tennis Bracelets')">
-          <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=400" alt="Tennis">
-          <h4>Tennis Bracelets</h4>
+        <div class="cat-item-card" onclick="openStudio('Armor Rings')">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=400" alt="Ring">
+          <h4>Armor Rings</h4>
+          <p>Hinged finger coverage</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Cameo Rings')">
+          <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=400" alt="Ring">
+          <h4>Cameo Rings</h4>
+          <p>3D human silhouettes</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Cluster Rings')">
+          <img src="https://images.unsplash.com/photo-1603561596112-0a131b750441?q=80&w=400" alt="Ring">
+          <h4>Cluster Rings</h4>
+          <p>Corralled gemstones</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Nugget Rings')">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=400" alt="Ring">
+          <h4>Nugget Rings</h4>
+          <p>Solid gold nuggets</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Beaded Rings')">
+          <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=400" alt="Ring">
+          <h4>Beaded Rings</h4>
+          <p>Peyote stitch design</p>
           <button class="customize-trigger-btn">Customize &rarr;</button>
         </div>
       </div>
     </div>
 
-    <!-- Special Custom Banner Cards -->
-    <div class="special-custom-grid">
-      <div class="special-card" style="background-image: url('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=600');" onclick="openStudio('Teeth Grillz')">
-        <div class="special-content">
-          <h4>TEETH GRILLZ</h4>
-          <p>Design your own custom grillz</p>
-          <button class="customize-trigger-btn" style="width: auto; padding: 6px 16px;">Customize &rarr;</button>
+    <!-- 3. Symbolic & Meaningful Rings -->
+    <div class="category-group-box">
+      <div class="category-group-heading">3. SYMBOLIC & MEANINGFUL RINGS</div>
+      <div class="cat-grid-modern">
+        <div class="cat-item-card" onclick="openStudio('Claddagh Rings')">
+          <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=400" alt="Ring">
+          <h4>Claddagh Rings</h4>
+          <p>Heart, crown & hands</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Interlocking Rings')">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=400" alt="Ring">
+          <h4>Interlocking Rings</h4>
+          <p>Unity & inseparability</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Infinity Rings')">
+          <img src="https://images.unsplash.com/photo-1603561596112-0a131b750441?q=80&w=400" alt="Ring">
+          <h4>Infinity Rings</h4>
+          <p>Endless loop design</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Knot Rings')">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=400" alt="Ring">
+          <h4>Knot Rings</h4>
+          <p>Unbreakable bonds</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Puzzle Rings')">
+          <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=400" alt="Ring">
+          <h4>Puzzle Rings</h4>
+          <p>Interconnected bands</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Affirmation Rings')">
+          <img src="https://images.unsplash.com/photo-1603561596112-0a131b750441?q=80&w=400" alt="Ring">
+          <h4>Affirmation Rings</h4>
+          <p>Inscibed phrases</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Promise Rings')">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=400" alt="Ring">
+          <h4>Promise Rings</h4>
+          <p>Preceding token</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Wedding Rings')">
+          <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=400" alt="Ring">
+          <h4>Wedding Rings</h4>
+          <p>Eternal love symbol</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
         </div>
       </div>
-      <div class="special-card" style="background-image: url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=600');" onclick="openStudio('Luxury Watches')">
-        <div class="special-content">
-          <h4>WATCHES</h4>
-          <p>Create a timepiece as unique as you</p>
-          <button class="customize-trigger-btn" style="width: auto; padding: 6px 16px;">Customize &rarr;</button>
+    </div>
+
+    <!-- 4. Modern, Interactive & Unique Styles -->
+    <div class="category-group-box">
+      <div class="category-group-heading">4. MODERN, INTERACTIVE & UNIQUE STYLES</div>
+      <div class="cat-grid-modern">
+        <div class="cat-item-card" onclick="openStudio('Adjustable Rings')">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=400" alt="Ring">
+          <h4>Adjustable Rings</h4>
+          <p>Open-ended sizing</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Charm Rings')">
+          <img src="https://images.unsplash.com/photo-1603561596112-0a131b750441?q=80&w=400" alt="Ring">
+          <h4>Charm Rings</h4>
+          <p>Hanging pendants</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Mood Rings')">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=400" alt="Ring">
+          <h4>Mood Rings</h4>
+          <p>Thermochromic stone</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Bypass Rings')">
+          <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=400" alt="Ring">
+          <h4>Bypass Rings</h4>
+          <p>Asymmetric bands</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Spinner Rings')">
+          <img src="https://images.unsplash.com/photo-1603561596112-0a131b750441?q=80&w=400" alt="Ring">
+          <h4>Spinner Rings</h4>
+          <p>Rotating worry bands</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Wrap Rings')">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=400" alt="Ring">
+          <h4>Wrap Rings</h4>
+          <p>Concentric spiral</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Band Rings')">
+          <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=400" alt="Ring">
+          <h4>Band Rings</h4>
+          <p>Minimalist sleek finish</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Eternity Rings')">
+          <img src="https://images.unsplash.com/photo-1603561596112-0a131b750441?q=80&w=400" alt="Ring">
+          <h4>Eternity Rings</h4>
+          <p>Paved gemstone bands</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Chain Rings')">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=400" alt="Ring">
+          <h4>Chain Rings</h4>
+          <p>Fixed sturdy chains</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Toe Rings')">
+          <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=400" alt="Ring">
+          <h4>Toe Rings</h4>
+          <p>Open C-shaped adjustable</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Fingernail Rings')">
+          <img src="https://images.unsplash.com/photo-1603561596112-0a131b750441?q=80&w=400" alt="Ring">
+          <h4>Fingernail Rings</h4>
+          <p>Over nail tip styling</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
+        </div>
+        <div class="cat-item-card" onclick="openStudio('Multi-Layer Rings')">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=400" alt="Ring">
+          <h4>Multi-Layer Rings</h4>
+          <p>Fused multiple bands</p>
+          <button class="customize-trigger-btn">Customize &rarr;</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 3. COLLECTIONS SECTION (FIRESTORE) -->
-  <section class="section-container" id="collections">
-    <h2 style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 32px; margin-bottom: 10px;">Bespoke Vault Collections</h2>
-    <p style="color: #aaa; font-size: 14px; margin-bottom: 25px;">Hand-selected masterworks forged in 18K gold with certified conflict-free diamonds.</p>
-    
-    <div class="product-grid" id="product-grid">
-      <p style="color: #aaa;">Loading vault masterworks from database...</p>
-    </div>
-  </section>
-
-  <!-- 4. LIVE BULLION RATES SECTION -->
+  <!-- LIVE RATES -->
   <section class="section-container" id="rates">
     <h2 style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 32px; margin-bottom: 10px;">Live Bullion Market Rates</h2>
-    <p style="color: #aaa; font-size: 14px; margin-bottom: 25px;">Real-time international precious metal market pricing feeds updated dynamically.</p>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-      <div style="background:var(--card-bg); border:1px solid var(--border-color); padding:30px; border-radius:8px; text-align:center; border-top:3px solid var(--gold);">
+      <div style="background:var(--card-bg); border:1px solid var(--border-color); padding:30px; border-radius:8px; text-align:center;">
         <h4 style="font-family:'Cinzel', serif; color:#aaa; font-size:14px; margin-bottom:10px;">Gold 24K (Per 10g)</h4>
         <div style="font-size:26px; font-weight:700; color:var(--gold); font-family:'Cinzel', serif;" id="rateGold24">₹1,55,890</div>
-        <div style="font-size:10px; color:#4caf50; letter-spacing:1px; margin-top:8px;">● Live Feed Active</div>
       </div>
-      <div style="background:var(--card-bg); border:1px solid var(--border-color); padding:30px; border-radius:8px; text-align:center; border-top:3px solid var(--gold);">
+      <div style="background:var(--card-bg); border:1px solid var(--border-color); padding:30px; border-radius:8px; text-align:center;">
         <h4 style="font-family:'Cinzel', serif; color:#aaa; font-size:14px; margin-bottom:10px;">Gold 18K (Per 10g)</h4>
         <div style="font-size:26px; font-weight:700; color:var(--gold); font-family:'Cinzel', serif;" id="rateGold18">₹1,16,900</div>
-        <div style="font-size:10px; color:#4caf50; letter-spacing:1px; margin-top:8px;">● Live Feed Active</div>
       </div>
-      <div style="background:var(--card-bg); border:1px solid var(--border-color); padding:30px; border-radius:8px; text-align:center; border-top:3px solid var(--gold);">
+      <div style="background:var(--card-bg); border:1px solid var(--border-color); padding:30px; border-radius:8px; text-align:center;">
         <h4 style="font-family:'Cinzel', serif; color:#aaa; font-size:14px; margin-bottom:10px;">Silver 999 (Per 1kg)</h4>
         <div style="font-size:26px; font-weight:700; color:var(--gold); font-family:'Cinzel', serif;" id="rateSilver">₹96,400</div>
-        <div style="font-size:10px; color:#4caf50; letter-spacing:1px; margin-top:8px;">● Live Feed Active</div>
       </div>
     </div>
   </section>
 
-  <!-- Trust Bar -->
-  <div class="trust-footer-bar">
-    <div class="trust-col"><b>AUTHENTIC & CERTIFIED</b><span>Lab-Grown Diamonds</span></div>
-    <div class="trust-col"><b>BIS HALLMARKED</b><span>Gold Jewellery</span></div>
-    <div class="trust-col"><b>SECURE PAYMENTS</b><span>100% Safe & Secure</span></div>
-    <div class="trust-col"><b>FREE SHIPPING</b><span>Pan India</span></div>
-    <div class="trust-col"><b>EASY RETURNS</b><span>Hassle Free Returns</span></div>
-  </div>
-
-  <!-- INTERACTIVE 6-STEP STUDIO MODAL -->
+  <!-- INTERACTIVE 8-STEP STUDIO MODAL -->
   <div class="customizer-studio-modal" id="studioModal">
     <div class="studio-top-bar">
       <div>
-        <button class="back-btn" onclick="closeStudio()">&larr; Back to Categories</button>
-        <h2 id="studioModalTitle" style="font-family:'Cinzel',serif; color:var(--gold); margin-top:10px; font-size:22px;">CUSTOMIZE YOUR PIECE</h2>
+        <button class="back-btn" onclick="closeStudio()">&larr; Back to Ring Styles</button>
+        <h2 id="studioModalTitle" style="font-family:'Cinzel',serif; color:var(--gold); margin-top:6px; font-size:20px;">CUSTOMIZE RING STUDIO</h2>
       </div>
-      <button class="action-btn" style="margin-top:0; padding:10px 22px;" onclick="addStudioDesignToCart()">Request Design</button>
+      <button class="action-btn" onclick="addStudioDesignToCart()">Request Design</button>
     </div>
 
-    <div class="studio-main-grid">
-      <!-- Left Preview -->
-      <div style="background:#0d0d0d; border:1px solid var(--border-color); border-radius:12px; padding:30px; text-align:center; display:flex; flex-direction:column; justify-content:center; align-items:center;">
-        <img id="studioPreviewImg" src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=600" alt="Preview" style="max-height:320px; object-fit:contain; filter:drop-shadow(0 10px 20px rgba(212,175,55,0.2)); margin-bottom:20px;">
-        <div style="display:flex; gap:10px;">
-          <button class="thumb-btn active" onclick="setStudioAngle('https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=600', this)"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=200" alt="Front"></button>
-          <button class="thumb-btn" onclick="setStudioAngle('https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=600', this)"><img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=200" alt="Side"></button>
-          <button class="thumb-btn" onclick="setStudioAngle('https://images.unsplash.com/photo-1603561596112-0a131b750441?q=80&w=600', this)"><img src="https://images.unsplash.com/photo-1603561596112-0a131b750441?q=80&w=200" alt="Top"></button>
+    <div class="studio-layout">
+      <!-- Steps Sidebar -->
+      <div class="steps-sidebar">
+        <div class="step-box">
+          <div class="step-title">1. Stone Shape</div>
+          <div class="option-grid-4">
+            <div class="opt-btn selected" onclick="selectOpt('shape', 'Round', this)">Round</div>
+            <div class="opt-btn" onclick="selectOpt('shape', 'Princess', this)">Princess</div>
+            <div class="opt-btn" onclick="selectOpt('shape', 'Oval', this)">Oval</div>
+            <div class="opt-btn" onclick="selectOpt('shape', 'Pear', this)">Pear</div>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-title">2. Stone Type</div>
+          <div class="option-grid-3">
+            <div class="opt-btn" onclick="selectOpt('type', 'Natural', this)">Natural</div>
+            <div class="opt-btn selected" onclick="selectOpt('type', 'Lab-Grown', this)">Lab-Grown</div>
+            <div class="opt-btn" onclick="selectOpt('type', 'Moissanite', this)">Moissanite</div>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-title">3. Carat Size</div>
+          <div class="option-grid-4">
+            <div class="opt-btn" onclick="selectOpt('carat', '0.5 CT', this, 0.5)">0.5 CT</div>
+            <div class="opt-btn selected" onclick="selectOpt('carat', '1.0 CT', this, 1.0)">1.0 CT</div>
+            <div class="opt-btn" onclick="selectOpt('carat', '2.0 CT', this, 2.0)">2.0 CT</div>
+            <div class="opt-btn" onclick="selectOpt('carat', '3.0 CT', this, 3.0)">3.0 CT</div>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-title">4. Setting Style</div>
+          <div class="option-grid-2">
+            <div class="opt-btn selected" onclick="selectOpt('style', '4-Prong', this)">4-Prong</div>
+            <div class="opt-btn" onclick="selectOpt('style', 'Bezel', this)">Bezel</div>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-title">5. Metal Purity</div>
+          <div class="option-grid-2">
+            <div class="opt-btn selected" onclick="selectOpt('metal', '18K Yellow', this, 11690)">18K Yellow</div>
+            <div class="opt-btn" onclick="selectOpt('metal', 'Platinum', this, 15500)">Platinum</div>
+          </div>
         </div>
       </div>
 
-      <!-- Right 6 Steps Control -->
-      <div style="background:rgba(17,17,17,0.9); border:1px solid var(--border-color); border-radius:12px; padding:25px;">
-        <h3 style="font-family:'Cinzel',serif; color:#fff; margin-bottom:15px; font-size:16px;">Design in 6 Simple Steps</h3>
-
-        <div style="margin-bottom:15px;">
-          <div style="font-size:10px; text-transform:uppercase; color:#aaa; margin-bottom:5px; font-weight:600;">1. Diamond Shape</div>
-          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:6px;">
-            <div class="option-card selected" onclick="selectStudioOption(1, 'Round', this)">Round</div>
-            <div class="option-card" onclick="selectStudioOption(1, 'Princess', this)">Princess</div>
-            <div class="option-card" onclick="selectStudioOption(1, 'Oval', this)">Oval</div>
-            <div class="option-card" onclick="selectStudioOption(1, 'Pear', this)">Pear</div>
-          </div>
+      <!-- Preview & Summary Area -->
+      <div style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div class="preview-canvas-area">
+          <img id="studioPreviewImg" src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=600" alt="Preview">
+          <div style="color:#888; font-size:11px; margin-top:15px;">Interactive 360° View Enabled</div>
         </div>
 
-        <div style="margin-bottom:15px;">
-          <div style="font-size:10px; text-transform:uppercase; color:#aaa; margin-bottom:5px; font-weight:600;">2. Diamond Type</div>
-          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px;">
-            <div class="option-card" onclick="selectStudioOption(2, 'Natural', this)">Natural</div>
-            <div class="option-card selected" onclick="selectStudioOption(2, 'Lab-Grown', this)">Lab-Grown</div>
-            <div class="option-card" onclick="selectStudioOption(2, 'Moissanite', this)">Moissanite</div>
+        <div class="summary-box">
+          <div class="summary-list">
+            <div>Shape: <b id="sumShape">Round</b></div>
+            <div>Type: <b id="sumType">Lab-Grown</b></div>
+            <div>Carat: <b id="sumCarat">1.0 CT</b></div>
+            <div>Metal: <b id="sumMetal">18K Yellow</b></div>
           </div>
-        </div>
-
-        <div style="margin-bottom:15px;">
-          <div style="font-size:10px; text-transform:uppercase; color:#aaa; margin-bottom:5px; font-weight:600;">3. Carat Size</div>
-          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:6px;">
-            <div class="option-card" onclick="selectStudioOption(3, '0.25 CT', this, 0.25)">0.25 CT</div>
-            <div class="option-card" onclick="selectStudioOption(3, '0.50 CT', this, 0.50)">0.50 CT</div>
-            <div class="option-card selected" onclick="selectStudioOption(3, '1.00 CT', this, 1.00)">1.00 CT</div>
-            <div class="option-card" onclick="selectStudioOption(3, '2.00 CT', this, 2.00)">2.00 CT</div>
-          </div>
-        </div>
-
-        <div style="margin-bottom:15px;">
-          <div style="font-size:10px; text-transform:uppercase; color:#aaa; margin-bottom:5px; font-weight:600;">4. Ring Style</div>
-          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px;">
-            <div class="option-card selected" onclick="selectStudioOption(4, '4-Prong', this)">4-Prong</div>
-            <div class="option-card" onclick="selectStudioOption(4, 'Bezel', this)">Bezel</div>
-            <div class="option-card" onclick="selectStudioOption(4, 'Petal', this)">Petal</div>
-          </div>
-        </div>
-
-        <div style="margin-bottom:15px;">
-          <div style="font-size:10px; text-transform:uppercase; color:#aaa; margin-bottom:5px; font-weight:600;">5. Metal Purity</div>
-          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:6px;">
-            <div class="option-card selected" onclick="selectStudioOption(5, '18K Yellow', this, 11690)">18K Yellow</div>
-            <div class="option-card" onclick="selectStudioOption(5, '18K White', this, 11950)">18K White</div>
-            <div class="option-card" onclick="selectStudioOption(5, '925 Silver', this, 964)">925 Silver</div>
-            <div class="option-card" onclick="selectStudioOption(5, 'Platinum', this, 15500)">Platinum</div>
-          </div>
-        </div>
-
-        <div style="margin-bottom:15px;">
-          <div style="font-size:10px; text-transform:uppercase; color:#aaa; margin-bottom:5px; font-weight:600;">6. Ring Size (US)</div>
-          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px;">
-            <div class="option-card" onclick="selectStudioOption(6, 'US 5', this)">US 5</div>
-            <div class="option-card selected" onclick="selectStudioOption(6, 'US 7', this)">US 7</div>
-            <div class="option-card" onclick="selectStudioOption(6, 'US 9', this)">US 9</div>
-          </div>
-        </div>
-
-        <div style="border-top:1px solid var(--border-color); padding-top:15px; display:flex; justify-content:space-between; align-items:center;">
           <div>
-            <span id="studioSummaryText" style="font-size:9px; color:#888; text-transform:uppercase;">18K Yellow + 1.00CT Lab-Grown</span>
-            <h3 id="studioPriceTotal" style="font-family:'Cinzel',serif; font-size:22px; color:var(--gold);">₹78,950</h3>
+            <div style="font-size:10px; color:#888; text-transform:uppercase;">Estimated Price</div>
+            <div id="studioPriceTotal" style="font-family:'Cinzel',serif; font-size:24px; color:var(--gold);">₹78,950</div>
           </div>
-          <button class="action-btn" style="margin-top:0; width:auto; padding:10px 20px;" onclick="addStudioDesignToCart()">Add to Bag</button>
+          <button class="action-btn" onclick="addStudioDesignToCart()">Save & Add to Bag</button>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- Cart Float Bar -->
-  <div class="cart-float-bar" id="cartFloatBar" onclick="openCartDrawer()">
-    <div><span id="cartItemCount" style="font-weight:700; color:var(--gold);">0 items</span> <div style="font-size:11px; color:#aaa;">View your bag</div></div>
-    <div class="view-bag-btn">View Vault Bag &rarr;</div>
   </div>
 
   <!-- Cart Drawer -->
-  <div class="modal-overlay" id="cartDrawerOverlay" onclick="closeCartDrawer(event)">
-    <div style="width:100%; max-width:440px; background:var(--card-bg); height:100%; border-left:1px solid var(--gold); padding:40px; margin-left:auto; display:flex; flex-direction:column; justify-content:space-between;" onclick="event.stopPropagation()">
+  <div class="modal-overlay" id="cartModalOverlay">
+    <div style="width:420px; background:var(--card-bg); height:100%; border-left:1px solid var(--gold); padding:35px; margin-left:auto; display:flex; flex-direction:column; justify-content:space-between;">
       <div>
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:20px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding-bottom:15px;">
           <h3 style="font-family:'Cinzel',serif; color:var(--gold);">Your Vault Bag</h3>
-          <span style="cursor:pointer; font-size:24px; color:#aaa;" onclick="document.getElementById('cartDrawerOverlay').style.display='none'">&times;</span>
+          <span style="cursor:pointer; font-size:22px; color:#aaa;" onclick="document.getElementById('cartModalOverlay').style.display='none'">&times;</span>
         </div>
-        <div id="cartDrawerItemsList" style="margin-top:20px; max-height:55vh; overflow-y:auto;"></div>
+        <div id="cartItemsList" style="margin-top:20px; max-height:55vh; overflow-y:auto;"></div>
       </div>
       <div>
-        <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-weight:700; font-size:16px; border-top:1px solid var(--border-color); padding-top:15px;">
-          <span>Total Vault Value:</span> <span id="cartTotalPrice" style="color:var(--gold);">₹0</span>
+        <div style="display:flex; justify-content:space-between; margin-bottom:15px; font-weight:700; border-top:1px solid var(--border-color); padding-top:15px;">
+          <span>Total Value:</span> <span id="cartTotalPrice" style="color:var(--gold);">₹0</span>
         </div>
-        <button class="action-btn" onclick="openCheckoutModal()">Proceed to Secure Checkout</button>
+        <button class="action-btn" style="width:100%;" onclick="alert('Proceeding to secure checkout!')">Secure Checkout</button>
       </div>
     </div>
   </div>
 
-  <!-- Checkout Modal -->
-  <div class="modal-overlay" id="checkoutModalOverlay">
-    <div class="auth-popup-container">
-      <span class="close-modal" onclick="document.getElementById('checkoutModalOverlay').style.display='none'">&times;</span>
-      <h3 style="font-family:'Cinzel',serif; color:var(--gold); margin-bottom:15px;">Secure Vault Checkout</h3>
-      <label style="font-size:10px; color:#aaa; text-transform:uppercase;">Full Name</label>
-      <input type="text" id="chkName" placeholder="Enter Full Name" style="width:100%; padding:12px; margin-top:5px; margin-bottom:15px; background:#070707; border:1px solid var(--border-color); color:#fff; border-radius:4px;">
-      <label style="font-size:10px; color:#aaa; text-transform:uppercase;">Insured Shipping Address</label>
-      <input type="text" id="chkAddress" placeholder="Street, City, Pincode" style="width:100%; padding:12px; margin-top:5px; margin-bottom:20px; background:#070707; border:1px solid var(--border-color); color:#fff; border-radius:4px;">
-      <button class="action-btn" onclick="finalizeOrder()">Place Secure Order</button>
-    </div>
-  </div>
-
-  <!-- Login Modal -->
-  <div class="modal-overlay" id="loginModal">
-    <div class="auth-popup-container">
-      <span class="close-modal" onclick="closeLoginModal()">&times;</span>
-      <h3 style="font-family:'Cinzel',serif; color:var(--gold); margin-bottom:10px;">Patron Sign In</h3>
-      <p style="color:#aaa; font-size:12px; margin-bottom:15px;">Access via secure phone OTP.</p>
-      <label style="font-size:10px; color:#aaa; text-transform:uppercase;">Mobile Number</label>
-      <input type="text" id="authPhone" placeholder="+91 (00000-00000)" style="width:100%; padding:12px; margin-top:5px; margin-bottom:15px; background:#070707; border:1px solid var(--border-color); color:#fff; border-radius:4px;">
-      <button class="action-btn" onclick="alert('OTP sent successfully!')">Send Verification OTP</button>
-    </div>
-  </div>
-
-  <!-- SCRIPT LOGIC -->
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyASH2dCNHazYnqgrCA3u8NNU4ax5To3Xh4",
-      authDomain: "chyris-fine-jewelries.firebaseapp.com",
-      projectId: "chyris-fine-jewelries",
-      storageBucket: "chyris-fine-jewelries.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-
-    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
-    const db = firebase.firestore();
-
-    async function loadProductsFromFirestore() {
-      const gridContainer = document.getElementById('product-grid');
-      if (!gridContainer) return;
-      try {
-        const snapshot = await db.collection("products").get();
-        gridContainer.innerHTML = "";
-        if (snapshot.empty) {
-          gridContainer.innerHTML = `<p style="color: #aaa;">No masterworks found in database yet.</p>`;
-          return;
-        }
-        snapshot.forEach((doc) => {
-          const item = doc.data();
-          const card = document.createElement('div');
-          card.className = 'product-card';
-          card.innerHTML = `
-            <div class="product-img"><img src="${item.imageUrl || ''}" alt="${item.name}"></div>
-            <div class="product-info">
-              <h3>${item.name}</h3>
-              <p>₹${Number(item.price || 0).toLocaleString('en-IN')}</p>
-              <button class="action-btn" style="margin-top:0;" onclick="addToVaultBag('${item.name}', ${item.price || 0})">Add to Vault Bag</button>
-            </div>
-          `;
-          gridContainer.appendChild(card);
-        });
-      } catch (err) {
-        gridContainer.innerHTML = `<p style="color: #ff6b6b;">Failed to load vault collection.</p>`;
+    // Auto-scroll to Custom Section on load
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!window.location.hash || window.location.hash === '#home') {
+        window.location.hash = '#custom';
       }
-    }
-    window.addEventListener('DOMContentLoaded', loadProductsFromFirestore);
+    });
 
-    let activeCategory = "Cocktail Rings";
-    let studioState = { shape: 'Round', type: 'Lab-Grown', carat: 1.00, style: '4-Prong', metal: '18K Yellow', metalRate: 11690, size: 'US 7' };
+    let activeCategory = "Diamond Rings";
+    let customState = { shape: 'Round', type: 'Lab-Grown', carat: 1.0, caratTxt: '1.0 CT', style: '4-Prong', metal: '18K Yellow', rate: 11690 };
 
-    function openStudio(categoryName) {
-      activeCategory = categoryName;
-      document.getElementById('studioModalTitle').innerText = "CUSTOMIZE YOUR " + categoryName.toUpperCase();
+    function openStudio(catName) {
+      activeCategory = catName;
+      document.getElementById('studioModalTitle').innerText = "CUSTOMIZE " + catName.toUpperCase();
       document.getElementById('studioModal').style.display = 'block';
     }
     function closeStudio() { document.getElementById('studioModal').style.display = 'none'; }
-    function setStudioAngle(imgSrc, btn) {
-      document.getElementById('studioPreviewImg').src = imgSrc;
-      document.querySelectorAll('.thumb-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+
+    function selectOpt(category, val, btn, extra) {
+      btn.parentElement.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+
+      if(category === 'shape') customState.shape = val;
+      if(category === 'type') customState.type = val;
+      if(category === 'carat') { customState.caratTxt = val; customState.carat = extra; }
+      if(category === 'style') customState.style = val;
+      if(category === 'metal') { customState.metal = val; customState.rate = extra; }
+
+      updateStudioSummary();
     }
 
-    function selectStudioOption(step, val, card, extra) {
-      const parent = card.parentElement;
-      parent.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
+    function updateStudioSummary() {
+      document.getElementById('sumShape').innerText = customState.shape;
+      document.getElementById('sumType').innerText = customState.type;
+      document.getElementById('sumCarat').innerText = customState.caratTxt;
+      document.getElementById('sumMetal').innerText = customState.metal;
 
-      if(step === 1) studioState.shape = val;
-      if(step === 2) studioState.type = val;
-      if(step === 3) studioState.carat = extra;
-      if(step === 4) studioState.style = val;
-      if(step === 5) { studioState.metal = val; studioState.metalRate = extra; }
-      if(step === 6) studioState.size = val;
-
-      updateStudioPricing();
-    }
-
-    function updateStudioPricing() {
       let base = 12000;
-      let multi = studioState.type === 'Natural' ? 48000 : (studioState.type === 'Lab-Grown' ? 18000 : 4000);
-      let diamondVal = studioState.carat * multi;
-      let metalVal = 3.5 * studioState.metalRate;
-      let total = Math.round(base + diamondVal + metalVal);
-
+      let multi = customState.type === 'Natural' ? 45000 : (customState.type === 'Lab-Grown' ? 18000 : 4000);
+      let total = Math.round(base + (customState.carat * multi) + (3.5 * customState.rate));
       document.getElementById('studioPriceTotal').innerText = '₹' + total.toLocaleString('en-IN');
-      document.getElementById('studioSummaryText').innerText = `${studioState.metal} + ${studioState.carat}CT ${studioState.type}`;
     }
 
     let vaultBag = [];
     function addStudioDesignToCart() {
       const priceTxt = document.getElementById('studioPriceTotal').innerText;
       const priceNum = parseInt(priceTxt.replace(/[^\d]/g, ''));
-      const itemName = `Custom ${activeCategory} (${studioState.shape}, ${studioState.carat}CT, ${studioState.metal})`;
-      addToVaultBag(itemName, priceNum);
+      vaultBag.push({ name: `${activeCategory} (${customState.metal}, ${customState.caratTxt})`, price: priceNum });
+      
+      document.getElementById('cartBadgeCount').innerText = vaultBag.length;
+      renderCartDrawer();
       closeStudio();
+      alert("Bespoke design added to your vault bag!");
     }
 
-    function addToVaultBag(name, price) {
-      vaultBag.push({ name, price });
-      updateCartUI();
+    function openCartDrawer() {
+      document.getElementById('cartModalOverlay').style.display = 'flex';
+      renderCartDrawer();
     }
 
-    function updateCartUI() {
-      const floatBar = document.getElementById('cartFloatBar');
-      if (vaultBag.length > 0) {
-        floatBar.style.display = 'flex';
-        document.getElementById('cartItemCount').innerText = `${vaultBag.length} item${vaultBag.length > 1 ? 's' : ''}`;
-      } else {
-        floatBar.style.display = 'none';
-      }
-      renderDrawerItems();
-    }
-
-    function renderDrawerItems() {
-      const list = document.getElementById('cartDrawerItemsList');
+    function renderCartDrawer() {
+      let list = document.getElementById('cartItemsList');
       let html = '', total = 0;
       vaultBag.forEach((item, idx) => {
         total += item.price;
-        html += `<div style="display:flex; justify-content:space-between; padding:15px 0; border-bottom:1px solid var(--border-color);">
-          <div><h5 style="font-family:'Cinzel',serif; font-size:14px;">${item.name}</h5><span style="font-size:10px; color:#888;">Ref #${idx+1}</span></div>
-          <span style="color:var(--gold); font-weight:600;">₹${item.price.toLocaleString('en-IN')}</span>
+        html += `<div style="display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border-color); font-size:12px;">
+          <div><b>${item.name}</b></div>
+          <div style="color:var(--gold); font-weight:600;">₹${item.price.toLocaleString('en-IN')}</div>
         </div>`;
       });
       list.innerHTML = html || '<p style="color:#777; text-align:center; padding:30px;">Your bag is empty.</p>';
-      document.getElementById('cartTotalPrice').innerText = `₹${total.toLocaleString('en-IN')}`;
+      document.getElementById('cartTotalPrice').innerText = '₹' + total.toLocaleString('en-IN');
     }
-
-    function openCartDrawer() { document.getElementById('cartDrawerOverlay').style.display = 'flex'; }
-    function openCheckoutModal() { document.getElementById('cartDrawerOverlay').style.display = 'none'; document.getElementById('checkoutModalOverlay').style.display = 'flex'; }
-    function finalizeOrder() {
-      alert("Order placed successfully! Concierge will contact you.");
-      vaultBag = []; updateCartUI();
-      document.getElementById('checkoutModalOverlay').style.display = 'none';
-    }
-
-    function openLoginModal() { document.getElementById('loginModal').style.display = 'flex'; }
-    function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; }
-
-    let g24 = 155890, g18 = 116900, sil = 96400;
-    setInterval(() => {
-      g24 += Math.floor(Math.random() * 81) - 40;
-      g18 += Math.floor(Math.random() * 61) - 30;
-      sil += Math.floor(Math.random() * 101) - 50;
-      document.getElementById('rateGold24').innerText = '₹' + g24.toLocaleString('en-IN');
-      document.getElementById('rateGold18').innerText = '₹' + g18.toLocaleString('en-IN');
-      document.getElementById('rateSilver').innerText = '₹' + sil.toLocaleString('en-IN');
-    }, 4000);
   </script>
 </body>
 </html>
