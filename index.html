@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ORVÉN JEWELS — Timeless Beauty & Fine Jewellery</title>
+  <title>CHYRIS — Timeless Beauty & Fine Jewellery</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     /* --- CSS RESET & VARIABLES --- */
@@ -257,7 +257,7 @@
 
   <!-- Navbar -->
   <header class="navbar">
-    <a href="index.html" class="brand-logo">ORVÉN <span>JEWELS</span></a>
+    <a href="index.html" class="brand-logo">CHYRIS <span>FINE JEWELLERY</span></a>
     <nav class="nav-links nav">
       <a href="gallery.html">Gallery</a>
       <a href="calculator.html">Price Calculator</a>
@@ -323,7 +323,7 @@
   </div>
 
   <footer>
-    <p>© 2026 ORVÉN JEWELS. All rights reserved. | Luxury E-Commerce Portal</p>
+    <p>© 2026 CHYRIS. All rights reserved. | Luxury E-Commerce Portal</p>
   </footer>
 
   <!-- Secure Login & Signup Modal -->
@@ -366,7 +366,7 @@
       <!-- Signup Form -->
       <div id="signupFormWrapper" style="display: none;">
         <div style="font-size:20px; color:#fff; font-weight:600; margin-bottom: 5px;">Create New Account</div>
-        <p style="margin-bottom: 20px; font-size: 13px; color: #aaa;">Register your details to join ORVÉN JEWELS.</p>
+        <p style="margin-bottom: 20px; font-size: 13px; color: #aaa;">Register your details to join CHYRIS.</p>
         
         <form onsubmit="handleCustomerSignup(event)">
           <div style="margin-bottom: 12px;">
@@ -429,7 +429,7 @@
             
             <div style="text-align:center; margin-bottom:20px;">
               <span style="background:rgba(212,175,55,0.15); border:1px solid #d4af37; color:#d4af37; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:600; letter-spacing:1px;">AI CONCIERGE</span>
-              <h3 style="font-family:'Cinzel', serif; font-size:22px; margin-top:10px; color:#fff;">ORVÉN Virtual Assistant</h3>
+              <h3 style="font-family:'Cinzel', serif; font-size:22px; margin-top:10px; color:#fff;">CHYRIS Virtual Assistant</h3>
               <p style="font-size:13px; color:#aaa; margin-top:5px;">Select an option below or share your custom design inquiry with our experts.</p>
             </div>
 
@@ -450,7 +450,7 @@
 
     function openWhatsApp(product = "") {
       if (product) {
-        const text = `Hello ORVÉN JEWELS, I'm interested in the ${product}. Please share pricing and availability details.`;
+        const text = `Hello CHYRIS, I'm interested in the ${product}. Please share pricing and availability details.`;
         triggerWhatsAppRedirect(text);
       } else {
         const modal = document.getElementById('orvenWaAssistantModal');
@@ -464,14 +464,14 @@
     }
 
     function sendWaPreset(topic) {
-      const text = `Hello ORVÉN JEWELS AI Assistant, I would like assistance regarding: ${topic}.`;
+      const text = `Hello CHYRIS AI Assistant, I would like assistance regarding: ${topic}.`;
       triggerWhatsAppRedirect(text);
     }
 
     function promptCustomDesign() {
       const customIdea = prompt("Describe your custom jewelry idea (e.g., 22k gold necklace with uncut diamonds, ring size 7, etc.):");
       if (customIdea) {
-        const text = `Hello ORVÉN JEWELS, I want a Custom Design created: "${customIdea}". Please guide me through the custom manufacturing process.`;
+        const text = `Hello CHYRIS, I want a Custom Design created: "${customIdea}". Please guide me through the custom manufacturing process.`;
         triggerWhatsAppRedirect(text);
       }
     }
@@ -482,7 +482,7 @@
         window.open(url, "_blank", "noopener");
         closeWaAssistant();
       } else {
-        alert("Please add ORVÉN's WhatsApp number first.");
+        alert("Please add CHYRIS's WhatsApp number first.");
       }
     }
 
