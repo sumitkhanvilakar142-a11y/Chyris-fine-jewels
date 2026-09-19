@@ -397,32 +397,12 @@
   </div>
 
   <script>
-    // --- WHATSAPP INTEGRATION ---
+    // --- SMART WHATSAPP AI ASSISTANT INTEGRATION ---
     const WHATSAPP_NUMBER = "918401715116";
 
-    function openWhatsApp(product = "") {
-      const text = product
-        ? `Hello ORVÉN JEWELS, I'm interested in the ${product}. Please share the details.`
-        : `Hello ORVÉN JEWELS, I'd like to explore your jewelry collection.`;
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-      if (!WHATSAPP_NUMBER.includes("X")) window.open(url, "_blank", "noopener");
-      else alert("Please add ORVÉN's WhatsApp number first.");
-    }
-
-    document.querySelectorAll("[data-product]").forEach(button => {
-      button.addEventListener("click", () => openWhatsApp(button.dataset.product));
-    });
-
-    // --- WHITELISTED & ADMIN USERS ---
-    const whitelistedUsers = [
-      { mobile: "+918401715116", pin: "1234", role: "admin", name: "Sumit (Owner)" },
-      { mobile: "+917085658953", pin: "1234", role: "admin", name: "Admin Two" },
-      { mobile: "+917405393841", pin: "1234", role: "admin", name: "Admin Three" },
-      { mobile: "+919999999999", pin: "5678", role: "admin", name: "Co-Admin" },
-      { mobile: "+918888888888", pin: "1111", role: "client", name: "VIP Member" }
-    ];
-
+    // Inject Assistant HTML Modal dynamically on load
     window.addEventListener("DOMContentLoaded", () => {
+      createWhatsAppAssistantWidget();
       checkActiveSession();
       loadGoogleLiveRates();
       updateCartCount();
@@ -438,6 +418,86 @@
         }, 10000);
       }
     });
+
+    function createWhatsAppAssistantWidget() {
+      if (document.getElementById('orvenWaAssistantModal')) return;
+
+      const assistantHtml = `
+        <div id="orvenWaAssistantModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; justify-content:center; align-items:center; backdrop-filter:blur(5px);">
+          <div style="background:#0f0f0f; border:1px solid #d4af37; border-radius:12px; width:100%; max-width:440px; padding:30px; position:relative; box-shadow:0 15px 35px rgba(0,0,0,0.9); font-family:'Montserrat', sans-serif; color:#fff;">
+            <button onclick="closeWaAssistant()" style="position:absolute; top:15px; right:20px; background:none; border:none; color:#aaa; font-size:22px; cursor:pointer;">&times;</button>
+            
+            <div style="text-align:center; margin-bottom:20px;">
+              <span style="background:rgba(212,175,55,0.15); border:1px solid #d4af37; color:#d4af37; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:600; letter-spacing:1px;">AI CONCIERGE</span>
+              <h3 style="font-family:'Cinzel', serif; font-size:22px; margin-top:10px; color:#fff;">ORVÉN Virtual Assistant</h3>
+              <p style="font-size:13px; color:#aaa; margin-top:5px;">Select an option below or share your custom design inquiry with our experts.</p>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <button onclick="sendWaPreset('Explore Gold & Diamond Collections')" style="background:#141414; border:1px solid #333; color:#ddd; padding:12px 15px; border-radius:6px; text-align:left; cursor:pointer; font-size:13px; transition:all 0.3s;" onmouseover="this.style.borderColor='#d4af37';this.style.color='#d4af37'" onmouseout="this.style.borderColor='#333';this.style.color='#ddd'">✨ Explore Gold & Diamond Collections</button>
+              
+              <button onclick="sendWaPreset('Live Gold & Silver Rate Inquiry')" style="background:#141414; border:1px solid #333; color:#ddd; padding:12px 15px; border-radius:6px; text-align:left; cursor:pointer; font-size:13px; transition:all 0.3s;" onmouseover="this.style.borderColor='#d4af37';this.style.color='#d4af37'" onmouseout="this.style.borderColor='#333';this.style.color='#ddd'">📈 Check Today's Live Bullion Rates</button>
+              
+              <button onclick="promptCustomDesign()" style="background:#141414; border:1px solid #333; color:#ddd; padding:12px 15px; border-radius:6px; text-align:left; cursor:pointer; font-size:13px; transition:all 0.3s;" onmouseover="this.style.borderColor='#d4af37';this.style.color='#d4af37'" onmouseout="this.style.borderColor='#333';this.style.color='#ddd'">🎨 Custom Jewelry Design & Customization</button>
+              
+              <button onclick="sendWaPreset('Connect with a Human Jewelry Expert')" style="background:rgba(212,175,55,0.1); border:1px solid #d4af37; color:#d4af37; padding:12px 15px; border-radius:6px; text-align:left; cursor:pointer; font-size:13px; font-weight:600;" onmouseover="this.style.background='rgba(212,175,55,0.2)'" onmouseout="this.style.background='rgba(212,175,55,0.1)'">💬 Talk Directly with Expert Support</button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', assistantHtml);
+    }
+
+    function openWhatsApp(product = "") {
+      if (product) {
+        const text = `Hello ORVÉN JEWELS, I'm interested in the ${product}. Please share pricing and availability details.`;
+        triggerWhatsAppRedirect(text);
+      } else {
+        const modal = document.getElementById('orvenWaAssistantModal');
+        if (modal) modal.style.display = 'flex';
+      }
+    }
+
+    function closeWaAssistant() {
+      const modal = document.getElementById('orvenWaAssistantModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function sendWaPreset(topic) {
+      const text = `Hello ORVÉN JEWELS AI Assistant, I would like assistance regarding: ${topic}.`;
+      triggerWhatsAppRedirect(text);
+    }
+
+    function promptCustomDesign() {
+      const customIdea = prompt("Describe your custom jewelry idea (e.g., 22k gold necklace with uncut diamonds, ring size 7, etc.):");
+      if (customIdea) {
+        const text = `Hello ORVÉN JEWELS, I want a Custom Design created: "${customIdea}". Please guide me through the custom manufacturing process.`;
+        triggerWhatsAppRedirect(text);
+      }
+    }
+
+    function triggerWhatsAppRedirect(text) {
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+      if (!WHATSAPP_NUMBER.includes("X")) {
+        window.open(url, "_blank", "noopener");
+        closeWaAssistant();
+      } else {
+        alert("Please add ORVÉN's WhatsApp number first.");
+      }
+    }
+
+    document.querySelectorAll("[data-product]").forEach(button => {
+      button.addEventListener("click", () => openWhatsApp(button.dataset.product));
+    });
+
+    // --- WHITELISTED & ADMIN USERS ---
+    const whitelistedUsers = [
+      { mobile: "+918401715116", pin: "1234", role: "admin", name: "Sumit (Owner)" },
+      { mobile: "+917085658953", pin: "1234", role: "admin", name: "Admin Two" },
+      { mobile: "+917405393841", pin: "1234", role: "admin", name: "Admin Three" },
+      { mobile: "+919999999999", pin: "5678", role: "admin", name: "Co-Admin" },
+      { mobile: "+918888888888", pin: "1111", role: "client", name: "VIP Member" }
+    ];
 
     // Tab Switching Between Login & Signup
     function switchTab(mode) {
