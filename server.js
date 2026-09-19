@@ -14,25 +14,26 @@ const uri = process.env.MONGO_URI || "mongodb+srv://myadmin:Sumit1996@cluster0.s
 const client = new MongoClient(uri);
 let db;
 
+// Pre-defined Owner / Admin Numbers (Aapke 3 owner numbers)
+const OWNER_NUMBERS = [
+  { mobile: "+918401715116", name: "Sumit (Owner)", role: "admin" },
+  { mobile: "+917085658953", name: "Owner Two", role: "admin" },
+  { mobile: "+917405393841", name: "Owner Three", role: "admin" }
+];
+
 async function connectDB() {
     try {
         await client.connect();
         db = client.db('orvenjewels');
         console.log("MongoDB Connected Successfully!");
         
-        const count = await db.collection('products').countDocuments();
-        if (count === 0) {
-            await db.collection('products').insertOne({
-                id: 249,
-                sku: "ORV 249",
-                category: "RINGS",
-                goldWeight: 4.5,
-                silverWeight: 0,
-                stoneSlots: [{ pieces: 60, cent: 1.7 }],
-                fancySlots: [{ type: "Gem Stone", pieces: 1, cent: 209 }],
-                image: "vault-ring.jpg",
-                lastUpdatedBy: "nayan (staff)"
-            });
+        // Ensure owner accounts exist in database
+        for (let owner of OWNER_NUMBERS) {
+            await db.collection('users').updateOne(
+                { mobile: owner.mobile },
+                { $set: { name: owner.name, role: owner.role, updatedAt: new Date() } },
+                { upsert: true }
+            );
         }
     } catch (err) {
         console.error("MongoDB connection error:", err);
@@ -40,162 +41,42 @@ async function connectDB() {
 }
 connectDB();
 
-app.get('/customize.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'customizer.html'));
+// API to check or register user on login/OTP verification
+app.post('/api/auth/verify-user', async (req, res) => {
+  try {
+    const { mobile, name } = req.body;
+    let user = await db.collection('users').findOne({ mobile: mobile });
+
+    if (!user) {
+      // New Client Registration automatically
+      const newClient = {
+        mobile: mobile,
+        name: name || "Valued Client",
+        role: "client",
+        createdAt: new Date()
+      };
+      await db.collection('users').insertOne(newClient);
+      user = newClient;
+    }
+
+    res.json({ status: 'success', user: { mobile: user.mobile, name: user.name, role: user.role } });
+  } catch (err) {
+    res.status(500).json({ status: 'error', message: err.message });
+  }
 });
 
-app.get('/api/admin/dashboard', async (req, res) => {
+// API for fetching active offers & luxury collection for Client Portal
+app.get('/api/client/portal-data', async (req, res) => {
   try {
     const products = await db.collection('products').find({}).toArray();
-    const categories = await db.collection('categories').find({}).toArray();
-    const diamondTypes = await db.collection('diamondTypes').find({}).toArray();
-    
-    res.json({
-      totalDesigns: products.length,
-      totalCategories: categories.length,
-      totalDiamondTypes: diamondTypes.length,
-      categories: categories,
-      diamondTypes: diamondTypes
-    });
+    const offers = [
+      { id: 1, title: "Complimentary Insured Shipping", desc: "Free worldwide delivery on orders above ₹1,00,000" },
+      { id: 2, title: "Festive Gold Vault Perk", desc: "Extra 0.5% weight waiver on custom diamond settings" }
+    ];
+    res.json({ success: true, products, offers });
   } catch (err) {
     res.status(500).json({ status: 'error', message: err.message });
   }
-});
-
-app.get('/api/products/:category', async (req, res) => {
-  try {
-    const cat = req.params.category.toUpperCase();
-    const filtered = await db.collection('products').find({ category: cat }).toArray();
-    res.json(filtered);
-  } catch (err) {
-    res.status(500).json({ status: 'error', message: err.message });
-  }
-});
-
-app.get('/api/products', async (req, res) => {
-  try {
-    const products = await db.collection('products').find({}).toArray();
-    res.json(products);
-  } catch (err) {
-    res.status(500).json({ status: 'error', message: err.message });
-  }
-});
-
-app.post('/api/products', async (req, res) => {
-  try {
-    const { sku, category, goldWeight, silverWeight, stoneSlots, fancySlots, image, updatedBy } = req.body;
-    
-    const productData = {
-      id: Date.now(),
-      sku,
-      category: category || "RINGS",
-      goldWeight: Number(goldWeight) || 0,
-      silverWeight: Number(silverWeight) || 0,
-      stoneSlots: stoneSlots || [],
-      fancySlots: fancySlots || [],
-      image: image || "vault-ring.jpg",
-      lastUpdatedBy: updatedBy || "nayan (staff)"
-    };
-
-    const existing = await db.collection('products').findOne({ sku: sku });
-    if (existing) {
-      await db.collection('products').updateOne({ sku: sku }, { $set: productData });
-    } else {
-      await db.collection('products').insertOne(productData);
-    }
-    
-    res.json({ status: 'success', product: productData });
-  } catch (err) {
-    res.status(500).json({ status: 'error', message: err.message });
-  }
-});
-
-app.delete('/api/product/:id', async (req, res) => {
-  try {
-    const id = Number(req.params.id);
-    await db.collection('products').deleteOne({ id: id });
-    res.json({ status: 'success', message: 'Product deleted' });
-  } catch (err) {
-    res.status(500).json({ status: 'error', message: err.message });
-  }
-});
-
-app.post('/api/custom-requests', async (req, res) => {
-  try {
-    const { metal, band, quality, stone, setting, sizeSystem, size, estimatedPrice } = req.body;
-    
-    const customOrder = {
-      id: Date.now(),
-      metal,
-      band,
-      quality,
-      stone,
-      setting,
-      sizeSystem,
-      size,
-      estimatedPrice,
-      createdAt: new Date()
-    };
-
-    await db.collection('customRequests').insertOne(customOrder);
-    res.json({ status: 'success', message: 'Custom design request saved successfully!', orderId: customOrder.id });
-  } catch (err) {
-    res.status(500).json({ status: 'error', message: err.message });
-  }
-});
-
-app.post('/api/signup', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    
-    const existingUser = await db.collection('users').findOne({ email: email });
-    if (existingUser) {
-      return res.status(400).json({ status: 'error', message: 'User already exists!' });
-    }
-
-    await db.collection('users').insertOne({ email, password, createdAt: new Date() });
-    res.json({ status: 'success', message: 'Signup successful!' });
-  } catch (err) {
-    res.status(500).json({ status: 'error', message: err.message });
-  }
-});
-
-app.post('/api/login', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await db.collection('users').findOne({ email: email, password: password });
-
-    if (user) {
-      res.json({ status: 'success', message: 'Login successful' });
-    } else {
-      res.status(401).json({ status: 'error', message: 'Invalid email or password' });
-    }
-  } catch (err) {
-    res.status(500).json({ status: 'error', message: err.message });
-  }
-});
-
-app.post('/api/admin-login', async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    const admin = await db.collection('admin').findOne({ username: username, password: password });
-
-    if (admin) {
-      res.json({ status: 'success', message: 'Admin login successful' });
-    } else {
-      res.status(401).json({ status: 'error', message: 'Invalid Admin Credentials' });
-    }
-  } catch (err) {
-    res.status(500).json({ status: 'error', message: err.message });
-  }
-});
-
-app.get('/api/live-rates', (req, res) => {
-  res.json({
-    success: true,
-    goldPricePerGram24K: 7200.00,
-    silverPricePerGramFine: 90.00
-  });
 });
 
 app.listen(PORT, () => {
