@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHYRIS — Client Orders & Custom Inquiries Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Firebase App & Firestore CDN Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --dark-bg: #090909;
+            --card-bg: #121212;
+            --border-color: #262626;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(12, 12, 12, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+        }
+
+        .admin-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+        .admin-logo span { color: var(--gold); }
+
+        .admin-container {
+            max-width: 1300px;
+            margin: 40px auto;
+            padding: 0 30px;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        .section-header-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .section-header-box h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            color: var(--text-main);
+            letter-spacing: 1px;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover { background: var(--gold); color: #000; }
+
+        .orders-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .order-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .order-item-row:last-child { border-bottom: none; }
+        .order-details h4 { font-family: 'Cinzel', serif; font-size: 16px; margin-bottom: 6px; color: var(--gold); }
+        .order-details p { color: var(--text-muted); font-size: 13px; line-height: 1.5; }
+        
+        .order-status-badge {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media(max-width: 768px) {
+            .admin-header { padding: 15px 20px; }
+            .admin-container { padding: 0 15px; }
+            .order-item-row { flex-direction: column; align-items: flex-start; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="admin-header">
+        <a href="admin.html" class="admin-logo">CHYRIS <span>ORDERS HUB</span></a>
+        <a href="admin.html" class="back-btn">&larr; Back to Command Center</a>
+    </header>
+
+    <div class="admin-container">
+        <div class="section-header-box">
+            <h1>Client Custom Inquiries & Orders</h1>
+        </div>
+
+        <div class="orders-card">
+            <h3 style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 20px; margin-bottom: 20px; letter-spacing: 1px;">Recent Commission Requests</h3>
+            <div id="ordersListContainer">
+                <p style="color: var(--text-muted); text-align: center; padding: 40px;">Loading customer inquiries...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyASH2dCNHazYnqgrCA3u8NNU4ax5To3Xh4",
+            authDomain: "chyris-fine-jewelries.firebaseapp.com",
+            projectId: "chyris-fine-jewelries",
+            storageBucket: "chyris-fine-jewelries.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        async function loadCustomerOrders() {
+            const container = document.getElementById('ordersListContainer');
+            try {
+                // Assuming 'custom_orders' or 'orders' collection
+                const snapshot = await db.collection("custom_orders").get();
+                container.innerHTML = "";
+
+                if (snapshot.empty) {
+                    container.innerHTML = `<p style="color: var(--text-muted); text-align: center; padding: 40px;">No custom design inquiries found yet.</p>`;
+                    return;
+                }
+
+                snapshot.forEach((doc) => {
+                    const order = doc.data();
+                    const row = document.createElement('div');
+                    row.className = 'order-item-row';
+                    row.innerHTML = `
+                        <div class="order-details">
+                            <h4>${order.clientName || 'Valued Patron'} &bull; <span style="font-size:13px; color:#fff;">${order.jewelleryType || 'Custom Piece'}</span></h4>
+                            <p><strong>Metal Purity:</strong> ${order.metalPurity || 'N/A'} | <strong>Contact:</strong> ${order.mobile || 'N/A'}</p>
+                            <p style="margin-top:4px;"><em>"${order.vision || 'No special instructions provided.'}"</em></p>
+                        </div>
+                        <div class="order-status-badge">${order.status || 'Pending Review'}</div>
+                    `;
+                    container.appendChild(row);
+                });
+            } catch (error) {
+                console.error("Error loading orders:", error);
+                container.innerHTML = `<p style="color: #f44336; text-align: center; padding: 40px;">Failed to load orders from database.</p>`;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', loadCustomerOrders);
+    </script>
+</body>
+</html>
