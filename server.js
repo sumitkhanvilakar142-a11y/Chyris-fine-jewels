@@ -10,11 +10,10 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(__dirname));
 
-const uri = process.env.MONGO_URI || "mongodb+srv://myadmin:Sumit1996@cluster0.swk1khb.mongodb.net/orvenjewels?appName=Cluster0";
+const uri = process.env.MONGO_URI || "mongodb+srv://myadmin:Sumit1996@cluster0.swk1khb.mongodb.net/chyrisjewels?appName=Cluster0";
 const client = new MongoClient(uri);
 let db;
 
-// Pre-defined Owner / Admin Numbers (Aapke 3 owner numbers)
 const OWNER_NUMBERS = [
   { mobile: "+918401715116", name: "Sumit (Owner)", role: "admin" },
   { mobile: "+917085658953", name: "Owner Two", role: "admin" },
@@ -24,10 +23,9 @@ const OWNER_NUMBERS = [
 async function connectDB() {
     try {
         await client.connect();
-        db = client.db('orvenjewels');
+        db = client.db('chyrisjewels');
         console.log("MongoDB Connected Successfully!");
         
-        // Ensure owner accounts exist in database
         for (let owner of OWNER_NUMBERS) {
             await db.collection('users').updateOne(
                 { mobile: owner.mobile },
@@ -41,14 +39,12 @@ async function connectDB() {
 }
 connectDB();
 
-// API to check or register user on login/OTP verification
 app.post('/api/auth/verify-user', async (req, res) => {
   try {
     const { mobile, name } = req.body;
     let user = await db.collection('users').findOne({ mobile: mobile });
 
     if (!user) {
-      // New Client Registration automatically
       const newClient = {
         mobile: mobile,
         name: name || "Valued Client",
@@ -65,7 +61,6 @@ app.post('/api/auth/verify-user', async (req, res) => {
   }
 });
 
-// API for fetching active offers & luxury collection for Client Portal
 app.get('/api/client/portal-data', async (req, res) => {
   try {
     const products = await db.collection('products').find({}).toArray();
