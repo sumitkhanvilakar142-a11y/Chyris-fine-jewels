@@ -282,7 +282,7 @@
       <p>Fine jewellery crafted in 925 Silver, Gold & Diamonds. Explore our curated vaults and exclusive catalogues.</p>
       <div class="hero-btns">
         <a href="#collections" class="btn-gold">EXPLORE PRODUCTS →</a>
-        <a href="customizer.html" class="btn-gold" style="background: transparent; border: 1px solid var(--gold); color: var(--gold);" data-product="Custom Ring">CUSTOMISE RING</a>
+        <a href="customizer.html" class="btn-gold" style="background: transparent; border: 1px solid var(--gold); color: var(--gold);">CUSTOMISE RING</a>
       </div>
     </div>
   </section>
@@ -304,26 +304,26 @@
   </div>
 
   <div class="category-pills">
-    <a href="Cocktail-Ring/index.html" class="pill" data-product="Cocktail Rings">Cocktail Rings</a>
-    <a href="Diamond-Studs-for-Girls/index.html" class="pill" data-product="Diamond Studs">Diamond Studs</a>
-    <a href="Light-Weight-Earrings/index.html" class="pill" data-product="Light Weight Earrings">Light Weight Earrings</a>
-    <a href="Light-Weight-Ring/index.html" class="pill" data-product="Light Weight Rings">Light Weight Rings</a>
-    <a href="Mens-Ring/index.html" class="pill" data-product="Men's Rings">Men's Rings</a>
-    <a href="Mens-diamonds-ring/index.html" class="pill" data-product="Men's Diamond Rings">Men's Diamond Rings</a>
-    <a href="Teeth-Grillz/index.html" class="pill" data-product="Teeth Grillz">Teeth Grillz</a>
-    <a href="bracelet/index.html" class="pill" data-product="Bracelets">Bracelets</a>
-    <a href="fancy-shape-band-ring/index.html" class="pill" data-product="Fancy Band Rings">Fancy Band Rings</a>
-    <a href="mangalsutra/index.html" class="pill" data-product="Mangalsutra">Mangalsutra</a>
-    <a href="necklaces/index.html" class="pill" data-product="Necklaces">Necklaces</a>
-    <a href="nosepin/index.html" class="pill" data-product="Nosepins">Nosepins</a>
-    <a href="rings/index.html" class="pill" data-product="Rings">Rings</a>
-    <a href="solitaire-diamond-ring/index.html" class="pill" data-product="Solitaire Diamond Rings">Solitaire Diamond Rings</a>
-    <a href="solitaire-rings/index.html" class="pill" data-product="Solitaire Rings">Solitaire Rings</a>
-    <a href="tennis-bracelet/index.html" class="pill" data-product="Tennis Bracelets">Tennis Bracelets</a>
+    <a href="Cocktail-Ring/index.html" class="pill">Cocktail Rings</a>
+    <a href="Diamond-Studs-for-Girls/index.html" class="pill">Diamond Studs</a>
+    <a href="Light-Weight-Earrings/index.html" class="pill">Light Weight Earrings</a>
+    <a href="Light-Weight-Ring/index.html" class="pill">Light Weight Rings</a>
+    <a href="Mens-Ring/index.html" class="pill">Men's Rings</a>
+    <a href="Mens-diamonds-ring/index.html" class="pill">Men's Diamond Rings</a>
+    <a href="Teeth-Grillz/index.html" class="pill">Teeth Grillz</a>
+    <a href="bracelet/index.html" class="pill">Bracelets</a>
+    <a href="fancy-shape-band-ring/index.html" class="pill">Fancy Band Rings</a>
+    <a href="mangalsutra/index.html" class="pill">Mangalsutra</a>
+    <a href="necklaces/index.html" class="pill">Necklaces</a>
+    <a href="nosepin/index.html" class="pill">Nosepins</a>
+    <a href="rings/index.html" class="pill">Rings</a>
+    <a href="solitaire-diamond-ring/index.html" class="pill">Solitaire Diamond Rings</a>
+    <a href="solitaire-rings/index.html" class="pill">Solitaire Rings</a>
+    <a href="tennis-bracelet/index.html" class="pill">Tennis Bracelets</a>
   </div>
 
   <footer>
-    <p>© 2026 CHYRIS. All rights reserved. | Luxury E-Commerce Portal</p>
+    <p>© 2026 CHYRIS FINE JEWELLERY. All rights reserved. | Luxury E-Commerce Portal</p>
   </footer>
 
   <!-- Secure Login & Signup Modal -->
@@ -400,7 +400,6 @@
     // --- SMART WHATSAPP AI ASSISTANT INTEGRATION ---
     const WHATSAPP_NUMBER = "918401715116";
 
-    // Inject Assistant HTML Modal dynamically on load
     window.addEventListener("DOMContentLoaded", () => {
       createWhatsAppAssistantWidget();
       checkActiveSession();
@@ -408,7 +407,7 @@
       updateCartCount();
 
       // --- AUTO POPUP AFTER 10 SECONDS ---
-      let activeUser = JSON.parse(localStorage.getItem('orven_active_user'));
+      let activeUser = JSON.parse(localStorage.getItem('chyris_active_user')) || JSON.parse(localStorage.getItem('orven_active_user'));
       if (!activeUser) {
         setTimeout(() => {
           const modal = document.getElementById('loginModal');
@@ -420,10 +419,10 @@
     });
 
     function createWhatsAppAssistantWidget() {
-      if (document.getElementById('orvenWaAssistantModal')) return;
+      if (document.getElementById('chyrisWaAssistantModal')) return;
 
       const assistantHtml = `
-        <div id="orvenWaAssistantModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; justify-content:center; align-items:center; backdrop-filter:blur(5px);">
+        <div id="chyrisWaAssistantModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; justify-content:center; align-items:center; backdrop-filter:blur(5px);">
           <div style="background:#0f0f0f; border:1px solid #d4af37; border-radius:12px; width:100%; max-width:440px; padding:30px; position:relative; box-shadow:0 15px 35px rgba(0,0,0,0.9); font-family:'Montserrat', sans-serif; color:#fff;">
             <button onclick="closeWaAssistant()" style="position:absolute; top:15px; right:20px; background:none; border:none; color:#aaa; font-size:22px; cursor:pointer;">&times;</button>
             
@@ -434,13 +433,10 @@
             </div>
 
             <div style="display:flex; flex-direction:column; gap:12px;">
-              <button onclick="sendWaPreset('Explore Gold & Diamond Collections')" style="background:#141414; border:1px solid #333; color:#ddd; padding:12px 15px; border-radius:6px; text-align:left; cursor:pointer; font-size:13px; transition:all 0.3s;" onmouseover="this.style.borderColor='#d4af37';this.style.color='#d4af37'" onmouseout="this.style.borderColor='#333';this.style.color='#ddd'">✨ Explore Gold & Diamond Collections</button>
-              
-              <button onclick="sendWaPreset('Live Gold & Silver Rate Inquiry')" style="background:#141414; border:1px solid #333; color:#ddd; padding:12px 15px; border-radius:6px; text-align:left; cursor:pointer; font-size:13px; transition:all 0.3s;" onmouseover="this.style.borderColor='#d4af37';this.style.color='#d4af37'" onmouseout="this.style.borderColor='#333';this.style.color='#ddd'">📈 Check Today's Live Bullion Rates</button>
-              
-              <button onclick="promptCustomDesign()" style="background:#141414; border:1px solid #333; color:#ddd; padding:12px 15px; border-radius:6px; text-align:left; cursor:pointer; font-size:13px; transition:all 0.3s;" onmouseover="this.style.borderColor='#d4af37';this.style.color='#d4af37'" onmouseout="this.style.borderColor='#333';this.style.color='#ddd'">🎨 Custom Jewelry Design & Customization</button>
-              
-              <button onclick="sendWaPreset('Connect with a Human Jewelry Expert')" style="background:rgba(212,175,55,0.1); border:1px solid #d4af37; color:#d4af37; padding:12px 15px; border-radius:6px; text-align:left; cursor:pointer; font-size:13px; font-weight:600;" onmouseover="this.style.background='rgba(212,175,55,0.2)'" onmouseout="this.style.background='rgba(212,175,55,0.1)'">💬 Talk Directly with Expert Support</button>
+              <button onclick="sendWaPreset('Explore Gold & Diamond Collections')" style="background:#141414; border:1px solid #333; color:#ddd; padding:12px 15px; border-radius:6px; text-align:left; cursor:pointer; font-size:13px;">✨ Explore Gold & Diamond Collections</button>
+              <button onclick="sendWaPreset('Live Gold & Silver Rate Inquiry')" style="background:#141414; border:1px solid #333; color:#ddd; padding:12px 15px; border-radius:6px; text-align:left; cursor:pointer; font-size:13px;">📈 Check Today's Live Bullion Rates</button>
+              <button onclick="promptCustomDesign()" style="background:#141414; border:1px solid #333; color:#ddd; padding:12px 15px; border-radius:6px; text-align:left; cursor:pointer; font-size:13px;">🎨 Custom Jewelry Design & Customization</button>
+              <button onclick="sendWaPreset('Connect with a Human Jewelry Expert')" style="background:rgba(212,175,55,0.1); border:1px solid #d4af37; color:#d4af37; padding:12px 15px; border-radius:6px; text-align:left; cursor:pointer; font-size:13px; font-weight:600;">💬 Talk Directly with Expert Support</button>
             </div>
           </div>
         </div>
@@ -448,18 +444,8 @@
       document.body.insertAdjacentHTML('beforeend', assistantHtml);
     }
 
-    function openWhatsApp(product = "") {
-      if (product) {
-        const text = `Hello CHYRIS, I'm interested in the ${product}. Please share pricing and availability details.`;
-        triggerWhatsAppRedirect(text);
-      } else {
-        const modal = document.getElementById('orvenWaAssistantModal');
-        if (modal) modal.style.display = 'flex';
-      }
-    }
-
     function closeWaAssistant() {
-      const modal = document.getElementById('orvenWaAssistantModal');
+      const modal = document.getElementById('chyrisWaAssistantModal');
       if (modal) modal.style.display = 'none';
     }
 
@@ -478,17 +464,9 @@
 
     function triggerWhatsAppRedirect(text) {
       const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-      if (!WHATSAPP_NUMBER.includes("X")) {
-        window.open(url, "_blank", "noopener");
-        closeWaAssistant();
-      } else {
-        alert("Please add CHYRIS's WhatsApp number first.");
-      }
+      window.open(url, "_blank", "noopener");
+      closeWaAssistant();
     }
-
-    document.querySelectorAll("[data-product]").forEach(button => {
-      button.addEventListener("click", () => openWhatsApp(button.dataset.product));
-    });
 
     // --- WHITELISTED & ADMIN USERS ---
     const whitelistedUsers = [
@@ -499,7 +477,6 @@
       { mobile: "+918888888888", pin: "1111", role: "client", name: "VIP Member" }
     ];
 
-    // Tab Switching Between Login & Signup
     function switchTab(mode) {
       const loginForm = document.getElementById('loginFormWrapper');
       const signupForm = document.getElementById('signupFormWrapper');
@@ -523,7 +500,6 @@
       }
     }
 
-    // Customer Signup Handler
     function handleCustomerSignup(event) {
       event.preventDefault();
       const name = document.getElementById('signupName').value.trim();
@@ -532,7 +508,7 @@
       const mobile = countryCode + rawMobile;
       const pin = document.getElementById('signupPassword').value.trim();
 
-      let customUsers = JSON.parse(localStorage.getItem('orven_custom_users')) || [];
+      let customUsers = JSON.parse(localStorage.getItem('chyris_custom_users')) || JSON.parse(localStorage.getItem('orven_custom_users')) || [];
       let existing = customUsers.find(u => u.mobile === mobile) || whitelistedUsers.find(u => u.mobile === mobile);
       
       if (existing) {
@@ -543,13 +519,12 @@
 
       const newUser = { mobile: mobile, pin: pin, role: "client", name: name };
       customUsers.push(newUser);
-      localStorage.setItem('orven_custom_users', JSON.stringify(customUsers));
+      localStorage.setItem('chyris_custom_users', JSON.stringify(customUsers));
 
       alert('Registration successful! Please login with your credentials.');
       switchTab('login');
     }
 
-    // Authorized Login Handler
     function handleAuthorizedLogin(event) {
       event.preventDefault();
       const countryCode = document.getElementById('authCountryCode').value;
@@ -557,11 +532,12 @@
       const mobile = countryCode + rawMobile;
       const pin = document.getElementById('authPassword').value.trim();
 
-      let customUsers = JSON.parse(localStorage.getItem('orven_custom_users')) || [];
+      let customUsers = JSON.parse(localStorage.getItem('chyris_custom_users')) || JSON.parse(localStorage.getItem('orven_custom_users')) || [];
       let allUsers = [...whitelistedUsers, ...customUsers];
       let foundUser = allUsers.find(u => u.mobile === mobile && u.pin === pin);
 
       if (foundUser) {
+        localStorage.setItem('chyris_active_user', JSON.stringify(foundUser));
         localStorage.setItem('orven_active_user', JSON.stringify(foundUser));
         alert(`Welcome back, ${foundUser.name}!`);
         closeLoginModal();
@@ -576,7 +552,7 @@
     }
 
     function checkActiveSession() {
-      let activeUser = JSON.parse(localStorage.getItem('orven_active_user'));
+      let activeUser = JSON.parse(localStorage.getItem('chyris_active_user')) || JSON.parse(localStorage.getItem('orven_active_user'));
       if (activeUser) {
         const authBtn = document.getElementById('authButtonText');
         if (authBtn) {
@@ -589,11 +565,11 @@
     }
 
     function logoutUser() {
+      localStorage.removeItem('chyris_active_user');
       localStorage.removeItem('orven_active_user');
       window.location.reload();
     }
 
-    // --- LIVE RATES FETCH ---
     async function loadGoogleLiveRates() {
       try {
         const res = await fetch('https://data-asg.goldprice.org/dbXRates/INR');
@@ -635,7 +611,7 @@
     }
 
     function updateCartCount() {
-      let cart = JSON.parse(localStorage.getItem('orven_cart')) || [];
+      let cart = JSON.parse(localStorage.getItem('chyris_cart')) || JSON.parse(localStorage.getItem('orven_cart')) || [];
       const cartCountEl = document.getElementById('cartCount');
       if (cartCountEl) cartCountEl.innerText = cart.length;
     }
