@@ -6,14 +6,15 @@
   <title>CHYRIS — Ultra Luxury Fine Jewellery & Bespoke Vault</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Firebase App & Auth CDN Scripts -->
+  <!-- Firebase App, Auth & Firestore CDN Scripts (Compat) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
   <style>
     /* ==========================================================
-       1. CSS RESET, VARIABLES & CORE STYLING
-       ================================================---------- */
+        1. CSS RESET, VARIABLES & CORE STYLING
+        ================================================---------- */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --gold: #d4af37;
@@ -118,8 +119,8 @@
     }
 
     /* ==========================================================
-       2. SECTION CONTAINERS & HERO STYLING
-       ================================================---------- */
+        2. SECTION CONTAINERS & HERO STYLING
+        ================================================---------- */
     .section-container {
       padding: 120px 60px;
       max-width: 1450px;
@@ -162,8 +163,8 @@
     }
 
     /* ==========================================================
-       3. COLLECTIONS & PRODUCT CARDS
-       ================================================---------- */
+        3. COLLECTIONS & PRODUCT CARDS
+        ================================================---------- */
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -194,6 +195,12 @@
       font-size: 14px;
       letter-spacing: 2px;
       border-bottom: 1px solid var(--border-color);
+      overflow: hidden;
+    }
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .product-info { padding: 30px; }
     .product-info h3 { font-family: 'Cinzel', serif; font-size: 19px; margin-bottom: 10px; letter-spacing: 0.5px; }
@@ -215,8 +222,8 @@
     .add-to-cart-btn:hover { background: var(--gold); color: #000; }
 
     /* ==========================================================
-       4. CUSTOM DESIGN STUDIO & LIVE RATES
-       ================================================---------- */
+        4. CUSTOM DESIGN STUDIO & LIVE RATES
+        ================================================---------- */
     .custom-studio-box {
       background: linear-gradient(135deg, #111, #1a1506);
       border: 1px solid rgba(212, 175, 55, 0.4);
@@ -266,8 +273,8 @@
     .rate-status { font-size: 10px; color: #4caf50; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 10px; font-weight: 600; }
 
     /* ==========================================================
-       5. BLINKIT STYLE FLOATING BAR & SLIDE-UP DRAWER
-       ================================================---------- */
+        5. BLINKIT STYLE FLOATING BAR & SLIDE-UP DRAWER
+        ================================================---------- */
     .cart-float-bar {
       position: fixed;
       bottom: 40px;
@@ -343,8 +350,8 @@
     .cart-item-row span { color: var(--gold); font-weight: 600; font-size: 14px; }
 
     /* ==========================================================
-       6. SECURE CHECKOUT & AUTH MODALS
-       ================================================---------- */
+        6. SECURE CHECKOUT & AUTH MODALS
+        ================================================---------- */
     .checkout-modal-overlay {
       display: none;
       position: fixed;
@@ -458,35 +465,14 @@
     </div>
   </section>
 
-  <!-- 2. COLLECTIONS SECTION -->
+  <!-- 2. COLLECTIONS SECTION (FIRESTORE DYNAMIC GRID) -->
   <section class="section-container" id="collections">
     <h2 style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 36px; margin-bottom: 12px;">Bespoke Collections</h2>
     <p style="color: #aaa; font-size: 15px; margin-bottom: 25px;">Hand-selected masterworks forged in 18K yellow & white gold with certified conflict-free diamonds.</p>
-    <div class="product-grid">
-      <div class="product-card">
-        <div class="product-img">CHYRIS VAULT MASTERPIECE</div>
-        <div class="product-info">
-          <h3>Solitaire Diamond Necklace</h3>
-          <p>₹4,85,000</p>
-          <button class="add-to-cart-btn" onclick="addToVaultBag('Solitaire Diamond Necklace', 485000)">Add to Vault Bag</button>
-        </div>
-      </div>
-      <div class="product-card">
-        <div class="product-img">CHYRIS VAULT MASTERPIECE</div>
-        <div class="product-info">
-          <h3>Imperial Emerald Ring</h3>
-          <p>₹2,95,000</p>
-          <button class="add-to-cart-btn" onclick="addToVaultBag('Imperial Emerald Ring', 295000)">Add to Vault Bag</button>
-        </div>
-      </div>
-      <div class="product-card">
-        <div class="product-img">CHYRIS VAULT MASTERPIECE</div>
-        <div class="product-info">
-          <h3>Royal Gold Bangle Set</h3>
-          <p>₹6,20,000</p>
-          <button class="add-to-cart-btn" onclick="addToVaultBag('Royal Gold Bangle Set', 620000)">Add to Vault Bag</button>
-        </div>
-      </div>
+    
+    <!-- Dynamic Product Grid Container loaded from Firestore -->
+    <div class="product-grid" id="product-grid">
+      <p style="color: #aaa;">Loading vault masterworks from database...</p>
     </div>
   </section>
 
@@ -645,6 +631,49 @@
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
+
+    const db = firebase.firestore();
+
+    // Fetch Products from Cloud Firestore and Render in Grid
+    async function loadProductsFromFirestore() {
+      const gridContainer = document.getElementById('product-grid');
+      if (!gridContainer) return;
+
+      try {
+        const querySnapshot = await db.collection("products").get();
+        gridContainer.innerHTML = "";
+
+        if (querySnapshot.empty) {
+          gridContainer.innerHTML = `<p style="color: #aaa;">No masterworks found in the database yet.</p>`;
+          return;
+        }
+
+        querySnapshot.forEach((doc) => {
+          const product = doc.data();
+          const card = document.createElement('div');
+          card.className = 'product-card';
+          
+          const imgSrc = product.imageUrl ? product.imageUrl : '';
+          
+          card.innerHTML = `
+            <div class="product-img">
+              ${imgSrc ? `<img src="${imgSrc}" alt="${product.name}">` : 'CHYRIS VAULT MASTERPIECE'}
+            </div>
+            <div class="product-info">
+              <h3>${product.name || 'Unnamed Masterpiece'}</h3>
+              <p>₹${Number(product.price || 0).toLocaleString('en-IN')}</p>
+              <button class="add-to-cart-btn" onclick="addToVaultBag('${product.name}', ${product.price || 0})">Add to Vault Bag</button>
+            </div>
+          `;
+          gridContainer.appendChild(card);
+        });
+      } catch (error) {
+        console.error("Error loading products from Firestore:", error);
+        gridContainer.innerHTML = `<p style="color: #ff6b6b;">Failed to load vault collection from database.</p>`;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadProductsFromFirestore);
 
     let vaultBag = [];
 
