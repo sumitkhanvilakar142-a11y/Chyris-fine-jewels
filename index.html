@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CHYRIS — Ultra Luxury Fine Jewellery & Bespoke Vault</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Firebase App & Auth CDN Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
   <style>
     /* ==========================================================
        1. CSS RESET, VARIABLES & CORE STYLING
@@ -485,7 +490,7 @@
     </div>
   </section>
 
-  <!-- 3. CUSTOM DESIGN STUDIO SECTION (WITH ALL PRECIOUS METALS & KARATS) -->
+  <!-- 3. CUSTOM DESIGN STUDIO SECTION (WITH ALL KARATS & SILVER) -->
   <section class="section-container" id="custom">
     <h2 style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 36px; margin-bottom: 12px;">Bespoke Custom Design Studio</h2>
     <div class="custom-studio-box">
@@ -603,22 +608,44 @@
     </div>
   </div>
 
-  <!-- LOGIN MODAL -->
+  <!-- PATRON SIGN IN / OTP MODAL -->
   <div class="modal-overlay" id="loginModal">
     <div class="auth-popup-container">
       <a href="#" class="close-modal" onclick="closeLoginModal()">&times;</a>
       <h3>Patron Sign In</h3>
-      <p style="color: #aaa; font-size: 13px; margin-bottom: 15px;">Access your private vault portfolio and order history.</p>
-      <label>Email Address</label>
-      <input type="email" placeholder="name@example.com" />
-      <label>Password</label>
-      <input type="password" placeholder="••••••••" />
-      <button class="action-btn" onclick="closeLoginModal()">Sign In to Vault</button>
+      <p style="color: #aaa; font-size: 13px; margin-bottom: 15px;">Access your private vault portfolio via secure phone OTP.</p>
+      
+      <label>Mobile Number</label>
+      <input type="text" id="authPhone" placeholder="+91 98765 43210" />
+      
+      <div id="recaptcha-container"></div>
+
+      <button class="action-btn" id="sendOtpBtn" onclick="sendOtpCode()">Send Verification OTP</button>
+
+      <div id="otpSection" style="display:none; margin-top:15px;">
+        <label>Enter 6-Digit OTP</label>
+        <input type="text" id="authOtp" placeholder="123456" />
+        <button class="action-btn" onclick="verifyOtpCode()">Verify & Sign In</button>
+      </div>
     </div>
   </div>
 
-  <!-- SCRIPT LOGIC -->
+  <!-- SCRIPT LOGIC & FIREBASE INITIALIZATION -->
   <script>
+    // Firebase Configuration Initialization
+    const firebaseConfig = {
+      apiKey: "AIzaSyASH2dCNHazYnqgrCA3u8NNU4ax5To3Xh4",
+      authDomain: "chyris-fine-jewelries.firebaseapp.com",
+      projectId: "chyris-fine-jewelries",
+      storageBucket: "chyris-fine-jewelries.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+
     let vaultBag = [];
 
     function addToVaultBag(name, price) {
@@ -685,6 +712,40 @@
 
     function openLoginModal() { document.getElementById('loginModal').style.display = 'flex'; }
     function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; }
+
+    // Firebase Phone OTP Authentication Logic Setup
+    function setupRecaptcha() {
+      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+        'size': 'invisible'
+      });
+    }
+
+    function sendOtpCode() {
+      if(!window.recaptchaVerifier) setupRecaptcha();
+      const phoneNumber = document.getElementById('authPhone').value;
+      const appVerifier = window.recaptchaVerifier;
+
+      firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+        .then((confirmationResult) => {
+          window.confirmationResult = confirmationResult;
+          document.getElementById('otpSection').style.display = 'block';
+          alert("OTP sent successfully to your mobile number!");
+        }).catch((error) => {
+          console.error("SMS not sent", error);
+          alert("Error sending OTP: " + error.message);
+        });
+    }
+
+    function verifyOtpCode() {
+      const code = document.getElementById('authOtp').value;
+      window.confirmationResult.confirm(code).then((result) => {
+        const user = result.user;
+        alert("Authentication successful! Welcome to your Private Vault.");
+        closeLoginModal();
+      }).catch((error) => {
+        alert("Invalid OTP. Please try again.");
+      });
+    }
 
     // LIVE BULLION RATES FLUCTUATION SIMULATOR (Updates every 4 seconds)
     let baseGold24 = 76450;
