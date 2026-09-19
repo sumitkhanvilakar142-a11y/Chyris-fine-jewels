@@ -12,12 +12,11 @@
       --gold: #d4af37;
       --gold-light: #f3e5ab;
       --dark-bg: #070707;
-      --card-bg: #121212;
+      --card-bg: #111111;
       --border-color: #262626;
     }
     
     html {
-      scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
     }
     body {
@@ -28,22 +27,13 @@
       line-height: 1.6;
     }
 
-    .snap-section {
-      scroll-snap-align: start;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-    }
-
     /* --- VIDEO BACKGROUND --- */
     .bg-video-container {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100vh;
       z-index: -1;
       overflow: hidden;
-      opacity: 0.35;
+      opacity: 0.3;
     }
     .bg-video-container video {
       width: 100%; height: 100%;
@@ -57,8 +47,8 @@
       font-size: 11px;
       font-weight: 700;
       text-align: center;
-      padding: 8px 10px;
-      letter-spacing: 1px;
+      padding: 9px 10px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       position: sticky;
       top: 0;
@@ -70,34 +60,36 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 18px 40px;
-      background: rgba(11, 11, 11, 0.9);
+      padding: 20px 50px;
+      background: rgba(10, 10, 10, 0.9);
       border-bottom: 1px solid var(--border-color);
       position: sticky;
       top: 33px;
       z-index: 100;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
     }
     .brand-logo {
       font-family: 'Cinzel', serif;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 700;
       color: #fff;
       text-decoration: none;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
     }
     .brand-logo span { color: var(--gold); }
     
     .nav-links {
       display: flex;
-      gap: 30px;
+      gap: 35px;
       align-items: center;
     }
     .nav-links a {
       color: #ccc;
       text-decoration: none;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       transition: color 0.3s ease;
     }
     .nav-links a:hover { color: var(--gold); }
@@ -106,11 +98,13 @@
       background: transparent;
       border: 1px solid var(--gold);
       color: var(--gold);
-      padding: 8px 18px;
+      padding: 10px 24px;
       border-radius: 4px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 13px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       transition: all 0.3s ease;
     }
     .header-auth-btn:hover {
@@ -118,42 +112,56 @@
       color: #000;
     }
 
-    /* --- HERO SECTION --- */
+    /* --- HERO LANDING SECTION --- */
     .hero-section {
+      min-height: calc(100vh - 100px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      padding: 0 20px;
+      padding: 40px 20px;
     }
     .hero-content {
-      max-width: 800px;
+      max-width: 850px;
       margin: 0 auto;
     }
     .hero-tag {
       display: inline-block;
-      background: rgba(212, 175, 55, 0.15);
-      border: 1px solid var(--gold);
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.4);
       color: var(--gold);
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 12px;
+      padding: 8px 22px;
+      border-radius: 30px;
+      font-size: 11px;
       font-weight: 600;
-      margin-bottom: 20px;
-      letter-spacing: 1px;
+      margin-bottom: 25px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
     .hero-content h1 {
       font-family: 'Cinzel', serif;
-      font-size: 48px;
+      font-size: 56px;
       margin-bottom: 20px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      line-height: 1.2;
     }
+    .hero-content h1 i { color: var(--gold); font-family: 'Cinzel', serif; }
     .hero-content p {
       color: #aaa;
       font-size: 16px;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 300;
     }
 
     /* --- CLIENT DASHBOARD (POST LOGIN) --- */
     #clientDashboard {
       display: none;
-      padding: 40px 50px;
+      padding: 50px;
       max-width: 1400px;
       margin: 0 auto;
       min-height: 100vh;
@@ -161,8 +169,8 @@
     .welcome-banner {
       background: linear-gradient(135deg, #141414, #1f1b09);
       border: 1px solid var(--gold);
-      padding: 30px;
-      border-radius: 12px;
+      padding: 35px;
+      border-radius: 10px;
       margin-bottom: 40px;
       display: flex;
       justify-content: space-between;
@@ -174,47 +182,51 @@
     /* Offers Section */
     .offers-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
       margin-bottom: 40px;
     }
     .offer-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      padding: 20px;
+      padding: 25px;
       border-radius: 8px;
       border-left: 4px solid var(--gold);
+      transition: transform 0.3s;
     }
-    .offer-card h4 { color: var(--gold); font-family: 'Cinzel', serif; margin-bottom: 5px; }
+    .offer-card:hover { transform: translateY(-3px); border-color: var(--gold); }
+    .offer-card h4 { color: var(--gold); font-family: 'Cinzel', serif; margin-bottom: 8px; font-size: 18px; }
     .offer-card p { font-size: 13px; color: #aaa; }
 
     /* Product Grid */
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
+      gap: 30px;
     }
     .product-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 8px;
       overflow: hidden;
-      transition: border-color 0.3s;
+      transition: all 0.3s ease;
     }
-    .product-card:hover { border-color: var(--gold); }
-    .product-img { height: 200px; background: #151515; display: flex; align-items: center; justify-content: center; color: var(--gold); font-weight: 600; font-family: 'Cinzel', serif; }
-    .product-info { padding: 20px; }
+    .product-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+    .product-img { height: 220px; background: #151515; display: flex; align-items: center; justify-content: center; color: var(--gold); font-weight: 600; font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 1px; }
+    .product-info { padding: 25px; }
     .product-info h3 { font-family: 'Cinzel', serif; font-size: 18px; margin-bottom: 8px; }
-    .product-info p { color: var(--gold); font-weight: 600; font-size: 14px; margin-bottom: 15px; }
+    .product-info p { color: var(--gold); font-weight: 600; font-size: 14px; margin-bottom: 20px; }
     .add-to-cart-btn {
       width: 100%;
       background: transparent;
       border: 1px solid var(--gold);
       color: var(--gold);
-      padding: 10px;
+      padding: 12px;
       border-radius: 4px;
       cursor: pointer;
       font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 1px;
       transition: all 0.3s;
     }
     .add-to-cart-btn:hover { background: var(--gold); color: #000; }
@@ -226,20 +238,21 @@
       right: 30px;
       background: var(--gold);
       color: #000;
-      padding: 15px 25px;
-      border-radius: 30px;
+      padding: 16px 28px;
+      border-radius: 35px;
       font-weight: 700;
+      font-size: 14px;
       cursor: pointer;
-      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
       display: none;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       z-index: 1000;
       transition: transform 0.2s;
     }
     .cart-float-bar:hover { transform: scale(1.05); }
 
-    /* --- MODAL STYLES --- */
+    /* --- PROFESSIONAL MODAL STYLES --- */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -248,85 +261,101 @@
       z-index: 2000;
       justify-content: center;
       align-items: center;
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(8px);
     }
     .auth-popup-container {
       width: 100%;
       max-width: 440px;
-      padding: 35px;
+      padding: 40px;
       background: var(--card-bg);
       border: 1px solid var(--gold);
-      border-radius: 8px;
+      border-radius: 10px;
       position: relative;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
     }
     .auth-popup-container h3 {
       color: #fff;
       font-family: 'Cinzel', serif;
-      margin-bottom: 10px;
+      font-size: 22px;
+      margin-bottom: 8px;
     }
     .auth-popup-container label {
-      font-size: 12px;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       color: #aaa;
       display: block;
-      margin-top: 10px;
+      margin-top: 15px;
+      font-weight: 600;
     }
     .auth-popup-container input {
       width: 100%;
-      padding: 12px 15px;
-      margin-top: 5px;
-      margin-bottom: 15px;
+      padding: 14px 16px;
+      margin-top: 6px;
       background: var(--dark-bg);
       border: 1px solid var(--border-color);
-      border-radius: 4px;
+      border-radius: 6px;
       color: #fff;
       font-family: 'Montserrat', sans-serif;
       font-size: 14px;
+      transition: border-color 0.3s;
     }
     .auth-popup-container input:focus {
       border-color: var(--gold);
       outline: none;
     }
-    .auth-popup-container button {
+    .auth-popup-container button.action-btn {
       width: 100%;
       background: var(--gold);
       color: #000;
-      padding: 12px;
+      padding: 14px;
       border: none;
-      border-radius: 4px;
-      font-weight: 600;
-      font-size: 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       cursor: pointer;
       transition: opacity 0.3s ease;
-      margin-top: 10px;
+      margin-top: 20px;
     }
-    .auth-popup-container button:hover { opacity: 0.9; }
+    .auth-popup-container button.action-btn:hover { opacity: 0.9; }
     
+    /* Clean Tab Switcher Fix */
     .auth-tabs {
       display: flex;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 20px;
+      background: var(--dark-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 4px;
+      margin-bottom: 25px;
     }
     .auth-tab {
       flex: 1;
       text-align: center;
       padding: 10px;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 12px;
       color: #888;
       font-weight: 600;
-      background: none;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: transparent;
       border: none;
+      border-radius: 4px;
+      transition: all 0.3s ease;
     }
     .auth-tab.active {
-      color: var(--gold);
-      border-bottom: 2px solid var(--gold);
+      color: #000;
+      background: var(--gold);
+      font-weight: 700;
     }
     .close-modal {
       position: absolute;
-      top: 15px; right: 20px;
-      color: #aaa; font-size: 20px;
+      top: 18px; right: 22px;
+      color: #aaa; font-size: 22px;
       cursor: pointer; text-decoration: none;
+      transition: color 0.3s;
     }
     .close-modal:hover { color: var(--gold); }
   </style>
@@ -356,13 +385,16 @@
     </div>
   </nav>
 
-  <!-- Default Landing Hero (Before Login) -->
-  <section class="snap-section hero-section" id="landingHero">
+  <!-- Professional Front Landing Hero -->
+  <section class="hero-section" id="landingHero">
     <div class="hero-content">
-      <span class="hero-tag">EXQUISITE CRAFTSMANSHIP</span>
+      <span class="hero-tag">Exquisite Craftsmanship &bull; Ultra Luxury</span>
       <h1>Timeless Beauty <i>&</i> Fine Jewellery</h1>
-      <p>Discover hand-crafted bespoke diamond and gold pieces designed for generational elegance. Sign in securely via email or mobile OTP to enter the vault.</p>
-      <button class="header-auth-btn" onclick="openLoginModal()" style="padding: 12px 28px; font-size: 14px;">Enter Vault / Sign In</button>
+      <p>Discover hand-crafted bespoke diamond and gold masterpieces designed for generational elegance. Sign in securely via email or mobile OTP to enter the exclusive vault.</p>
+      <div style="display: flex; gap: 15px; justify-content: center; align-items: center;">
+        <button class="header-auth-btn" onclick="openLoginModal()" style="padding: 14px 34px; font-size: 14px; background: var(--gold); color: #000; font-weight: 700;">Enter Vault / Sign In</button>
+        <a href="customize.html" style="padding: 14px 30px; font-size: 14px; border: 1px solid var(--border-color); color: #fff; text-decoration: none; border-radius: 4px; font-weight: 600; transition: border-color 0.3s;" onmouseover="this.style.borderColor='#d4af37'" onmouseout="this.style.borderColor='#262626'">Bespoke Studio</a>
+      </div>
     </div>
   </section>
 
@@ -377,13 +409,13 @@
     </div>
 
     <!-- Exclusive Offers -->
-    <h3 style="font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 20px;">Exclusive Vault Privileges</h3>
+    <h3 style="font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 20px; font-size: 22px;">Exclusive Vault Privileges</h3>
     <div class="offers-grid" id="offersContainer">
       <!-- Injected Offers -->
     </div>
 
     <!-- Product Collections -->
-    <h3 style="font-family: 'Cinzel', serif; color: var(--gold); margin: 40px 0 20px;">Bespoke Collections</h3>
+    <h3 style="font-family: 'Cinzel', serif; color: var(--gold); margin: 40px 0 20px; font-size: 22px;">Bespoke Collections</h3>
     <div class="product-grid" id="clientProductGrid">
       <!-- Injected Products -->
     </div>
@@ -394,12 +426,12 @@
     <span>🛒</span> <span id="cartCountBadge">0 Items</span> | View Vault Bag
   </div>
 
-  <!-- Combined Sign In Modal (Email / Phone OTP) -->
+  <!-- Sign In / Sign Up Modal -->
   <div class="modal-overlay" id="loginModal">
     <div class="auth-popup-container">
       <a href="#" class="close-modal" onclick="closeLoginModal()">&times;</a>
       
-      <!-- Tabs for switching between Email and Phone Login -->
+      <!-- Clean Tab Switcher -->
       <div class="auth-tabs">
         <button class="auth-tab active" onclick="switchAuthMode('email')" id="tabEmailBtn">Email Sign In</button>
         <button class="auth-tab" onclick="switchAuthMode('phone')" id="tabPhoneBtn">Phone OTP</button>
@@ -408,29 +440,29 @@
       <!-- 1. EMAIL SIGN IN FORM -->
       <div id="emailAuthSection">
         <h3>Patron Sign In</h3>
-        <p style="font-size: 12px; color: #aaa; margin-bottom: 15px;">Access your account using your registered credentials.</p>
+        <p style="font-size: 12px; color: #aaa; margin-bottom: 10px;">Access your account using your registered credentials.</p>
         <label>Email Address</label>
         <input type="email" id="emailInput" placeholder="name@example.com" />
         <label>Password</label>
         <input type="password" id="passwordInput" placeholder="••••••••" />
-        <button onclick="handleEmailAuth()">Continue with Email</button>
+        <button class="action-btn" onclick="handleEmailAuth()">Continue with Email</button>
       </div>
 
       <!-- 2. PHONE OTP SIGN IN FORM -->
       <div id="phoneAuthSection" style="display: none;">
         <h3>Phone Verification</h3>
-        <p style="font-size: 12px; color: #aaa; margin-bottom: 15px;">Fast sign in via mobile verification.</p>
+        <p style="font-size: 12px; color: #aaa; margin-bottom: 10px;">Fast sign in via mobile verification.</p>
         
         <div id="phoneInputView">
           <label>Mobile Number</label>
           <input type="text" id="phoneNumber" placeholder="+91 Your Mobile Number" value="+91" />
-          <button id="sendOtpBtn">Send OTP</button>
+          <button class="action-btn" id="sendOtpBtn">Send OTP</button>
         </div>
 
         <div id="otpInputView" style="display: none;">
           <label>Enter 6-Digit OTP</label>
           <input type="text" id="otpCode" placeholder="123456" />
-          <button id="verifyOtpBtn">Verify & Sign In</button>
+          <button class="action-btn" id="verifyOtpBtn">Verify & Sign In</button>
         </div>
       </div>
 
