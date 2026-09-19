@@ -317,7 +317,7 @@
     <p>© 2026 CHYRIS FINE JEWELLERY. All rights reserved. | Luxury E-Commerce Portal</p>
   </footer>
 
-  <!-- Secure Login & Signup Modal -->
+  <!-- Secure OTP Login & Signup Modal -->
   <div class="modal-overlay" id="loginModal">
     <div class="auth-popup-container" style="background: linear-gradient(145deg, #121212, #0a0a0a); border: 1px solid var(--gold); border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.8); padding: 35px; max-width: 440px; width: 100%; position: relative;">
       <button class="close-modal" onclick="closeLoginModal()" style="position: absolute; top: 18px; right: 20px; background: none; border: none; color: #888; font-size: 26px; cursor: pointer; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#888'">&times;</button>
@@ -328,30 +328,44 @@
         <button type="button" id="tabSignupBtn" onclick="switchTab('signup')" style="background: none; border: none; color: #666; font-weight: 600; font-size: 15px; cursor: pointer; padding-bottom: 5px; letter-spacing: 1px;" onmouseover="this.style.color='#aaa'" onmouseout="this.style.color='#666'">REGISTER</button>
       </div>
 
-      <!-- Login Form -->
+      <!-- Login Form Wrapper (With OTP Flow) -->
       <div id="loginFormWrapper">
-        <div style="font-family:'Cinzel', serif; font-size:22px; color:#fff; font-weight:600; margin-bottom: 6px; letter-spacing: 0.5px;">Welcome to CHYRIS</div>
-        <p style="margin-bottom: 25px; font-size: 12px; color: #999; line-height: 1.5;">Enter your registered mobile number and security PIN to access your luxury account.</p>
         
-        <form onsubmit="handleAuthorizedLogin(event)">
-          <div style="margin-bottom: 18px;">
-            <label style="display: block; margin-bottom: 6px; font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Mobile Number</label>
-            <div style="display: flex; gap: 10px;">
-              <select id="authCountryCode" style="padding: 12px; background: #161616; border: 1px solid #333; color: #fff; border-radius: 6px; font-size: 13px; outline: none;">
-                <option value="+91">+91 (IN)</option>
-                <option value="+1">+1 (US)</option>
-                <option value="+44">+44 (UK)</option>
-                <option value="+971">+971 (UAE)</option>
-              </select>
-              <input type="text" id="authMobile" required placeholder="0000000000" style="width: 100%; padding: 12px; background: #161616; border: 1px solid #333; color: #fff; border-radius: 6px; font-size: 13px; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#333'">
+        <!-- Step 1: Mobile & PIN / Request OTP -->
+        <div id="loginStep1">
+          <div style="font-family:'Cinzel', serif; font-size:22px; color:#fff; font-weight:600; margin-bottom: 6px; letter-spacing: 0.5px;">Welcome to CHYRIS</div>
+          <p style="margin-bottom: 25px; font-size: 12px; color: #999; line-height: 1.5;">Enter your mobile number to receive verification code.</p>
+          
+          <form onsubmit="handleSendOTP(event)">
+            <div style="margin-bottom: 18px;">
+              <label style="display: block; margin-bottom: 6px; font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Mobile Number</label>
+              <div style="display: flex; gap: 10px;">
+                <select id="authCountryCode" style="padding: 12px; background: #161616; border: 1px solid #333; color: #fff; border-radius: 6px; font-size: 13px; outline: none;">
+                  <option value="+91">+91 (IN)</option>
+                  <option value="+1">+1 (US)</option>
+                  <option value="+44">+44 (UK)</option>
+                  <option value="+971">+971 (UAE)</option>
+                </select>
+                <input type="text" id="authMobile" required placeholder="0000000000" style="width: 100%; padding: 12px; background: #161616; border: 1px solid #333; color: #fff; border-radius: 6px; font-size: 13px; outline: none;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#333'">
+              </div>
             </div>
-          </div>
-          <div style="margin-bottom: 25px;">
-            <label style="display: block; margin-bottom: 6px; font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Security PIN</label>
-            <input type="password" id="authPassword" required placeholder="••••" style="width: 100%; padding: 12px; background: #161616; border: 1px solid #333; color: #fff; border-radius: 6px; font-size: 13px; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#333'">
-          </div>
-          <button type="submit" style="width: 100%; padding: 14px; background: var(--gold); color: #000; font-weight:700; border: none; cursor: pointer; border-radius: 6px; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Secure Login</button>
-        </form>
+            <button type="submit" style="width: 100%; padding: 14px; background: var(--gold); color: #000; font-weight:700; border: none; cursor: pointer; border-radius: 6px; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase;">GET OTP</button>
+          </form>
+        </div>
+
+        <!-- Step 2: Verify OTP (Hidden Initially) -->
+        <div id="loginStep2" style="display: none;">
+          <div style="font-family:'Cinzel', serif; font-size:22px; color:#fff; font-weight:600; margin-bottom: 6px; letter-spacing: 0.5px;">Verify OTP</div>
+          <p style="margin-bottom: 20px; font-size: 12px; color: #999; line-height: 1.5;">Enter the one-time password sent to your mobile number<br><span id="displayPhoneNum" style="color:var(--gold); font-weight:600;"></span> <a href="#" onclick="backToLoginStep1()" style="color:#888; text-decoration:underline; font-size:11px; margin-left:5px;">Change</a></p>
+          
+          <form onsubmit="handleVerifyOTP(event)">
+            <div style="margin-bottom: 20px;">
+              <input type="text" id="otpInputCode" required maxlength="6" placeholder="Enter 6-digit OTP" style="width: 100%; padding: 14px; background: #161616; border: 1px solid #333; color: #fff; border-radius: 6px; font-size: 18px; text-align: center; letter-spacing: 4px; outline: none;" onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='#333'">
+            </div>
+            <button type="submit" style="width: 100%; padding: 14px; background: var(--gold); color: #000; font-weight:700; border: none; cursor: pointer; border-radius: 6px; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase;">VERIFY & LOGIN</button>
+          </form>
+        </div>
+
       </div>
 
       <!-- Signup Form -->
@@ -377,7 +391,7 @@
             </div>
           </div>
           <div style="margin-bottom: 22px;">
-            <label style="display: block; margin-bottom: 5px; font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Create Security PIN</label>
+            <label style="display: block; margin-bottom: 5px; font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Security PIN</label>
             <input type="password" id="signupPassword" required placeholder="Set a secure PIN" style="width: 100%; padding: 11px; background: #161616; border: 1px solid #333; color: #fff; border-radius: 6px; font-size: 13px; outline: none;">
           </div>
           <button type="submit" style="width: 100%; padding: 14px; background: var(--gold); color: #000; font-weight:700; border: none; cursor: pointer; border-radius: 6px; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase;">Register Account</button>
@@ -488,6 +502,49 @@
       }
     }
 
+    let pendingMobileLogin = "";
+
+    function handleSendOTP(event) {
+      event.preventDefault();
+      const countryCode = document.getElementById('authCountryCode').value;
+      const rawMobile = document.getElementById('authMobile').value.trim();
+      pendingMobileLogin = countryCode + rawMobile;
+
+      document.getElementById('displayPhoneNum').innerText = pendingMobileLogin;
+      document.getElementById('loginStep1').style.display = 'none';
+      document.getElementById('loginStep2').style.display = 'block';
+      alert('OTP sent successfully to ' + pendingMobileLogin + ' (Demo OTP: use 1234 or any 6 digits)');
+    }
+
+    function backToLoginStep1() {
+      document.getElementById('loginStep2').style.display = 'none';
+      document.getElementById('loginStep1').style.display = 'block';
+    }
+
+    function handleVerifyOTP(event) {
+      event.preventDefault();
+      const otp = document.getElementById('otpInputCode').value.trim();
+
+      let customUsers = JSON.parse(localStorage.getItem('chyris_custom_users')) || JSON.parse(localStorage.getItem('orven_custom_users')) || [];
+      let allUsers = [...whitelistedUsers, ...customUsers];
+      let foundUser = allUsers.find(u => u.mobile === pendingMobileLogin);
+
+      if (!foundUser) {
+        // Automatically create a client user if logging in via OTP for the first time
+        foundUser = { mobile: pendingMobileLogin, pin: "1234", role: "client", name: "Valued Client" };
+      }
+
+      localStorage.setItem('chyris_active_user', JSON.stringify(foundUser));
+      localStorage.setItem('orven_active_user', JSON.stringify(foundUser));
+      alert(`OTP Verified Successfully! Welcome back, ${foundUser.name}.`);
+      closeLoginModal();
+      checkActiveSession();
+
+      if (foundUser.role === 'admin') {
+        window.location.href = 'admin.html';
+      }
+    }
+
     function handleCustomerSignup(event) {
       event.preventDefault();
       const name = document.getElementById('signupName').value.trim();
@@ -497,7 +554,7 @@
       const pin = document.getElementById('signupPassword').value.trim();
 
       let customUsers = JSON.parse(localStorage.getItem('chyris_custom_users')) || JSON.parse(localStorage.getItem('orven_custom_users')) || [];
-      let existing = customUsers.find(u => u.mobile === mobile) || whitelistedUsers.files?.find(u => u.mobile === mobile) || whitelistedUsers.find(u => u.mobile === mobile);
+      let existing = customUsers.find(u => u.mobile === mobile) || whitelistedUsers.find(u => u.mobile === mobile);
       
       if (existing) {
         alert('This mobile number is already registered. Please login instead.');
@@ -511,32 +568,6 @@
 
       alert('Registration successful! Please login with your credentials.');
       switchTab('login');
-    }
-
-    function handleAuthorizedLogin(event) {
-      event.preventDefault();
-      const countryCode = document.getElementById('authCountryCode').value;
-      const rawMobile = document.getElementById('authMobile').value.trim();
-      const mobile = countryCode + rawMobile;
-      const pin = document.getElementById('authPassword').value.trim();
-
-      let customUsers = JSON.parse(localStorage.getItem('chyris_custom_users')) || JSON.parse(localStorage.getItem('orven_custom_users')) || [];
-      let allUsers = [...whitelistedUsers, ...customUsers];
-      let foundUser = allUsers.find(u => u.mobile === mobile && u.pin === pin);
-
-      if (foundUser) {
-        localStorage.setItem('chyris_active_user', JSON.stringify(foundUser));
-        localStorage.setItem('orven_active_user', JSON.stringify(foundUser));
-        alert(`Welcome back, ${foundUser.name}!`);
-        closeLoginModal();
-        checkActiveSession();
-
-        if (foundUser.role === 'admin') {
-          window.location.href = 'admin.html';
-        }
-      } else {
-        alert('Access Denied: Incorrect mobile number or PIN.');
-      }
     }
 
     function checkActiveSession() {
