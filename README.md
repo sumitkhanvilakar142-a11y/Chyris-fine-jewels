@@ -1,4 +1,4 @@
-# ORVÉN JEWELS Website
+# CHYRIS FINE JEWELS Website
 
 Open `index.html` in a browser to preview the site.
 
