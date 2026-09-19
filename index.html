@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CHYRIS — Ultra Luxury Fine Jewellery</title>
+  <title>CHYRIS — Timeless Beauty & Fine Jewellery</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
+    /* --- CSS RESET & VARIABLES --- */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --gold: #d4af37;
@@ -14,56 +15,148 @@
       --card-bg: #121212;
       --border-color: #262626;
     }
+    
+    html {
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
     body {
       font-family: 'Montserrat', sans-serif;
       background-color: var(--dark-bg);
       color: #fff;
       overflow-x: hidden;
+      line-height: 1.6;
     }
 
-    /* Navbar */
+    .snap-section {
+      scroll-snap-align: start;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* --- VIDEO BACKGROUND --- */
+    .bg-video-container {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100vh;
+      z-index: -1;
+      overflow: hidden;
+      opacity: 0.35;
+    }
+    .bg-video-container video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    /* --- ANNOUNCEMENT BAR --- */
+    .announcement-bar {
+      background: var(--gold);
+      color: #000;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+      padding: 8px 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      position: sticky;
+      top: 0;
+      z-index: 101;
+    }
+
+    /* --- NAVBAR --- */
     .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 50px;
-      background: rgba(10, 10, 10, 0.95);
+      padding: 18px 40px;
+      background: rgba(11, 11, 11, 0.9);
       border-bottom: 1px solid var(--border-color);
       position: sticky;
-      top: 0;
+      top: 33px;
       z-index: 100;
       backdrop-filter: blur(10px);
     }
     .brand-logo {
       font-family: 'Cinzel', serif;
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 700;
       color: #fff;
-      letter-spacing: 3px;
       text-decoration: none;
+      letter-spacing: 2px;
     }
     .brand-logo span { color: var(--gold); }
     
-    .nav-actions { display: flex; gap: 20px; align-items: center; }
-    .sign-in-btn {
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .header-auth-btn {
       background: transparent;
       border: 1px solid var(--gold);
       color: var(--gold);
-      padding: 10px 22px;
+      padding: 8px 18px;
       border-radius: 4px;
       cursor: pointer;
       font-weight: 600;
       font-size: 13px;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
     }
-    .sign-in-btn:hover { background: var(--gold); color: #000; }
+    .header-auth-btn:hover {
+      background: var(--gold);
+      color: #000;
+    }
 
-    /* Client Dashboard View (Hidden until login) */
+    /* --- HERO SECTION --- */
+    .hero-section {
+      text-align: center;
+      padding: 0 20px;
+    }
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    .hero-content h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    .hero-content p {
+      color: #aaa;
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    /* --- CLIENT DASHBOARD (POST LOGIN) --- */
     #clientDashboard {
       display: none;
       padding: 40px 50px;
       max-width: 1400px;
       margin: 0 auto;
+      min-height: 100vh;
     }
     .welcome-banner {
       background: linear-gradient(135deg, #141414, #1f1b09);
@@ -77,26 +170,6 @@
     }
     .welcome-banner h2 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 28px; }
     .welcome-banner p { color: #aaa; font-size: 14px; margin-top: 5px; }
-
-    /* Blinkit Style Floating Cart Drawer / Bar */
-    .cart-float-bar {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: var(--gold);
-      color: #000;
-      padding: 15px 25px;
-      border-radius: 30px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 1000;
-      transition: transform 0.2s;
-    }
-    .cart-float-bar:hover { transform: scale(1.05); }
 
     /* Offers Section */
     .offers-grid {
@@ -129,10 +202,10 @@
       transition: border-color 0.3s;
     }
     .product-card:hover { border-color: var(--gold); }
-    .product-img { height: 220px; background: #1a1a1a; display: flex; align-items: center; justify-content: center; color: #55px; }
+    .product-img { height: 200px; background: #151515; display: flex; align-items: center; justify-content: center; color: var(--gold); font-weight: 600; font-family: 'Cinzel', serif; }
     .product-info { padding: 20px; }
     .product-info h3 { font-family: 'Cinzel', serif; font-size: 18px; margin-bottom: 8px; }
-    .product-info p { color: var(--gold); font-weight: 600; font-size: 15px; margin-bottom: 15px; }
+    .product-info p { color: var(--gold); font-weight: 600; font-size: 14px; margin-bottom: 15px; }
     .add-to-cart-btn {
       width: 100%;
       background: transparent;
@@ -146,64 +219,151 @@
     }
     .add-to-cart-btn:hover { background: var(--gold); color: #000; }
 
-    /* Login Modal */
-    .modal {
+    /* Blinkit Style Floating Cart Bar */
+    .cart-float-bar {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--gold);
+      color: #000;
+      padding: 15px 25px;
+      border-radius: 30px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+      display: none;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+      transition: transform 0.2s;
+    }
+    .cart-float-bar:hover { transform: scale(1.05); }
+
+    /* --- MODAL STYLES --- */
+    .modal-overlay {
       display: none;
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 2000;
       justify-content: center;
       align-items: center;
-      z-index: 2000;
       backdrop-filter: blur(5px);
     }
-    .modal-content {
+    .auth-popup-container {
+      width: 100%;
+      max-width: 440px;
+      padding: 35px;
       background: var(--card-bg);
       border: 1px solid var(--gold);
-      padding: 40px;
-      width: 100%;
-      max-width: 400px;
       border-radius: 8px;
       position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
     }
-    .modal-content h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 15px; }
-    .modal-content input {
+    .auth-popup-container h3 {
+      color: #fff;
+      font-family: 'Cinzel', serif;
+      margin-bottom: 10px;
+    }
+    .auth-popup-container label {
+      font-size: 12px;
+      color: #aaa;
+      display: block;
+      margin-top: 10px;
+    }
+    .auth-popup-container input {
       width: 100%;
-      padding: 12px;
-      margin: 10px 0 20px;
+      padding: 12px 15px;
+      margin-top: 5px;
+      margin-bottom: 15px;
       background: var(--dark-bg);
       border: 1px solid var(--border-color);
-      color: #fff;
       border-radius: 4px;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
     }
-    .modal-content button {
+    .auth-popup-container input:focus {
+      border-color: var(--gold);
+      outline: none;
+    }
+    .auth-popup-container button {
       width: 100%;
       background: var(--gold);
       color: #000;
       padding: 12px;
       border: none;
-      font-weight: 600;
-      cursor: pointer;
       border-radius: 4px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      margin-top: 10px;
     }
+    .auth-popup-container button:hover { opacity: 0.9; }
+    
+    .auth-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 20px;
+    }
+    .auth-tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 13px;
+      color: #888;
+      font-weight: 600;
+      background: none;
+      border: none;
+    }
+    .auth-tab.active {
+      color: var(--gold);
+      border-bottom: 2px solid var(--gold);
+    }
+    .close-modal {
+      position: absolute;
+      top: 15px; right: 20px;
+      color: #aaa; font-size: 20px;
+      cursor: pointer; text-decoration: none;
+    }
+    .close-modal:hover { color: var(--gold); }
   </style>
 </head>
 <body>
 
+  <!-- Background Video -->
+  <div class="bg-video-container">
+    <video autoplay muted loop playsinline>
+      <source src="ジュエリーの-37156 (1080p).mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    Complimentary Insured Shipping Worldwide &bull; Explore New Fine Jewellery Vault
+  </div>
+
   <!-- Navbar -->
   <nav class="navbar">
     <a href="#" class="brand-logo">CHYRIS<span>.</span></a>
-    <div class="nav-actions">
-      <button class="sign-in-btn" id="navAuthBtn" onclick="openLoginModal()">Sign In</button>
+    <div class="nav-links">
+      <a href="#">Collections</a>
+      <a href="customize.html">Custom Design</a>
+      <a href="#">Live Rates</a>
+      <button class="header-auth-btn" id="navAuthBtn" onclick="openLoginModal()">Sign In</button>
     </div>
   </nav>
 
   <!-- Default Landing Hero (Before Login) -->
-  <section id="landingHero" style="height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px;">
-    <span style="color: var(--gold); letter-spacing: 3px; font-size: 12px; margin-bottom: 15px; font-weight: 600;">ULTRA LUXURY VAULT</span>
-    <h1 style="font-family: 'Cinzel', serif; font-size: 48px; margin-bottom: 20px;">Exquisite Craftsmanship <i>&</i> Diamonds</h1>
-    <p style="color: #aaa; max-width: 600px; margin-bottom: 30px;">Sign in securely with your mobile number to explore private collections, live vault pricing, and bespoke perks.</p>
-    <button class="sign-in-btn" onclick="openLoginModal()" style="padding: 14px 32px; font-size: 15px;">Enter Vault / Sign In</button>
+  <section class="snap-section hero-section" id="landingHero">
+    <div class="hero-content">
+      <span class="hero-tag">EXQUISITE CRAFTSMANSHIP</span>
+      <h1>Timeless Beauty <i>&</i> Fine Jewellery</h1>
+      <p>Discover hand-crafted bespoke diamond and gold pieces designed for generational elegance. Sign in securely via email or mobile OTP to enter the vault.</p>
+      <button class="header-auth-btn" onclick="openLoginModal()" style="padding: 12px 28px; font-size: 14px;">Enter Vault / Sign In</button>
+    </div>
   </section>
 
   <!-- Client Portal (After Login) -->
@@ -211,64 +371,169 @@
     <div class="welcome-banner">
       <div>
         <h2 id="clientWelcomeName">Welcome, Valued Patron</h2>
-        <p>Explore curated high-jewellery pieces and active luxury privileges.</p>
+        <p>Explore curated high-jewellery collections and active vault privileges.</p>
       </div>
-      <button class="sign-in-btn" onclick="logoutClient()">Sign Out</button>
+      <button class="header-auth-btn" onclick="logoutClient()">Sign Out</button>
     </div>
 
     <!-- Exclusive Offers -->
     <h3 style="font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 20px;">Exclusive Vault Privileges</h3>
     <div class="offers-grid" id="offersContainer">
-      <!-- Dynamically injected offers -->
+      <!-- Injected Offers -->
     </div>
 
     <!-- Product Collections -->
     <h3 style="font-family: 'Cinzel', serif; color: var(--gold); margin: 40px 0 20px;">Bespoke Collections</h3>
     <div class="product-grid" id="clientProductGrid">
-      <!-- Dynamically injected products -->
+      <!-- Injected Products -->
     </div>
   </div>
 
   <!-- Floating Blinkit Style Cart Bar -->
-  <div class="cart-float-bar" id="cartFloatBar" style="display: none;" onclick="openCartModal()">
+  <div class="cart-float-bar" id="cartFloatBar" onclick="openCartModal()">
     <span>🛒</span> <span id="cartCountBadge">0 Items</span> | View Vault Bag
   </div>
 
-  <!-- Sign In Modal -->
-  <div class="modal" id="loginModal">
-    <div class="modal-content">
-      <h3 id="modalTitleText">Patron Sign In</h3>
-      <p style="font-size: 13px; color: #aaa; margin-bottom: 15px;">Enter your mobile number for secure OTP authentication.</p>
-      <label style="font-size: 12px; color: #aaa;">Mobile Number</label>
-      <input type="text" id="loginMobileInput" value="+91" placeholder="+91 9876543210" />
-      <button onclick="simulateOtpLogin()">Proceed & Verify</button>
-      <button onclick="closeLoginModal()" style="background: transparent; color: #aaa; border: none; margin-top: 10px; cursor: pointer;">Cancel</button>
+  <!-- Combined Sign In Modal (Email / Phone OTP) -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="auth-popup-container">
+      <a href="#" class="close-modal" onclick="closeLoginModal()">&times;</a>
+      
+      <!-- Tabs for switching between Email and Phone Login -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchAuthMode('email')" id="tabEmailBtn">Email Sign In</button>
+        <button class="auth-tab" onclick="switchAuthMode('phone')" id="tabPhoneBtn">Phone OTP</button>
+      </div>
+
+      <!-- 1. EMAIL SIGN IN FORM -->
+      <div id="emailAuthSection">
+        <h3>Patron Sign In</h3>
+        <p style="font-size: 12px; color: #aaa; margin-bottom: 15px;">Access your account using your registered credentials.</p>
+        <label>Email Address</label>
+        <input type="email" id="emailInput" placeholder="name@example.com" />
+        <label>Password</label>
+        <input type="password" id="passwordInput" placeholder="••••••••" />
+        <button onclick="handleEmailAuth()">Continue with Email</button>
+      </div>
+
+      <!-- 2. PHONE OTP SIGN IN FORM -->
+      <div id="phoneAuthSection" style="display: none;">
+        <h3>Phone Verification</h3>
+        <p style="font-size: 12px; color: #aaa; margin-bottom: 15px;">Fast sign in via mobile verification.</p>
+        
+        <div id="phoneInputView">
+          <label>Mobile Number</label>
+          <input type="text" id="phoneNumber" placeholder="+91 Your Mobile Number" value="+91" />
+          <button id="sendOtpBtn">Send OTP</button>
+        </div>
+
+        <div id="otpInputView" style="display: none;">
+          <label>Enter 6-Digit OTP</label>
+          <input type="text" id="otpCode" placeholder="123456" />
+          <button id="verifyOtpBtn">Verify & Sign In</button>
+        </div>
+      </div>
+
+      <div id="recaptcha-container"></div>
     </div>
   </div>
 
-  <script>
-    let cart = [];
+  <!-- Firebase Scripts & Logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    function openLoginModal() {
-      document.getElementById('loginModal').style.display = 'flex';
-    }
-    function closeLoginModal() {
-      document.getElementById('loginModal').style.display = 'none';
-    }
+    const firebaseConfig = {
+      apiKey: "AIzaSyASH2dCNHaZnqgrCA3u8NNU4ax5To3Xh4",
+      authDomain: "chyris-fine-jewelries.firebaseapp.com",
+      projectId: "chyris-fine-jewelries",
+      storageBucket: "chyris-fine-jewelries.appspot.com",
+      messagingSenderId: "389274921123",
+      appId: "1:389274921123:web:abcdef123456"
+    };
 
-    async function simulateOtpLogin() {
-      const mobile = document.getElementById('loginMobileInput').value.trim();
-      if (!mobile || mobile.length < 10) {
-        alert("Please enter a valid mobile number.");
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.switchAuthMode = function(mode) {
+      if (mode === 'email') {
+        document.getElementById('emailAuthSection').style.display = 'block';
+        document.getElementById('phoneAuthSection').style.display = 'none';
+        document.getElementById('tabEmailBtn').classList.add('active');
+        document.getElementById('tabPhoneBtn').classList.remove('active');
+      } else {
+        document.getElementById('emailAuthSection').style.display = 'none';
+        document.getElementById('phoneAuthSection').style.display = 'block';
+        document.getElementById('tabPhoneBtn').classList.add('active');
+        document.getElementById('tabEmailBtn').classList.remove('active');
+      }
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        'size': 'invisible',
+        'callback': (response) => {}
+      });
+      checkUserSession();
+    });
+
+    window.handleEmailAuth = function() {
+      const email = document.getElementById('emailInput').value.trim();
+      const password = document.getElementById('passwordInput').value.trim();
+
+      if (!email || !password) {
+        alert("Please enter both email and password.");
         return;
       }
 
-      // Backend call to verify/register client or redirect admin
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          verifyAndRegisterUser(userCredential.user.email, userCredential.user.email);
+        })
+        .catch(() => {
+          createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              verifyAndRegisterUser(userCredential.user.email, userCredential.user.email);
+            })
+            .catch((err) => {
+              alert("Authentication error: " + err.message);
+            });
+        });
+    };
+
+    document.getElementById('sendOtpBtn').addEventListener('click', () => {
+      const phoneNumber = document.getElementById('phoneNumber').value.trim();
+      signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier)
+        .then((confirmationResult) => {
+          window.confirmationResult = confirmationResult;
+          alert("OTP sent to " + phoneNumber);
+          document.getElementById('phoneInputView').style.display = 'none';
+          document.getElementById('otpInputView').style.display = 'block';
+        })
+        .catch((error) => {
+          alert("Failed to send OTP. Check phone number format (+91...).");
+        });
+    });
+
+    document.getElementById('verifyOtpBtn').addEventListener('click', () => {
+      const code = document.getElementById('otpCode').value.trim();
+      const mobileNumber = document.getElementById('phoneNumber').value.trim();
+
+      window.confirmationResult.confirm(code)
+        .then(() => {
+          verifyAndRegisterUser(mobileNumber, "Patron User");
+        })
+        .catch(() => {
+          alert("Invalid OTP code. Please try again.");
+        });
+    });
+
+    async function verifyAndRegisterUser(identifier, displayName) {
       try {
         const res = await fetch('/api/auth/verify-user', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ mobile: mobile })
+          body: JSON.stringify({ mobile: identifier, name: displayName })
         });
         const data = await res.json();
 
@@ -277,17 +542,22 @@
           closeLoginModal();
           checkUserSession();
 
-          // If user is owner/admin, redirect to admin portal
           if (data.user.role === 'admin') {
-            alert(`Welcome Admin: ${data.user.name}`);
+            alert(`Welcome Owner / Admin: ${data.user.name}`);
             window.location.href = 'admin.html';
           }
         }
       } catch (err) {
-        console.error(err);
-        alert("Login connection error.");
+        alert("Server connection error during verification.");
       }
     }
+  </script>
+
+  <script>
+    let cart = [];
+
+    function openLoginModal() { document.getElementById('loginModal').style.display = 'flex'; }
+    function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; }
 
     function checkUserSession() {
       const user = JSON.parse(localStorage.getItem('chyris_active_user'));
@@ -306,50 +576,42 @@
         const res = await fetch('/api/client/portal-data');
         const data = await res.json();
         
-        // Render Offers
-        const offerContainer = document.getElementById('offersContainer');
-        offerContainer.innerHTML = data.offers.map(o => `
+        document.getElementById('offersContainer').innerHTML = data.offers.map(o => `
           <div class="offer-card">
             <h4>${o.title}</h4>
             <p>${o.desc}</p>
           </div>
         `).join('');
 
-        // Render Products
-        const prodGrid = document.getElementById('clientProductGrid');
-        prodGrid.innerHTML = data.products.map(p => `
+        document.getElementById('clientProductGrid').innerHTML = data.products.map(p => `
           <div class="product-card">
-            <div class="product-img">💎 [ ${p.sku || 'Vault Item'} ]</div>
+            <div class="product-img">CHYRIS VAULT</div>
             <div class="product-info">
               <h3>${p.category || 'Fine Jewellery'}</h3>
               <p>Gold Weight: ${p.goldWeight || 0}g</p>
-              <button class="add-to-cart-btn" onclick="addToCart('${p.sku || 'Item'}', 45000)">Add to Vault Bag</button>
+              <button class="add-to-cart-btn" onclick="addToCart('${p.sku || 'Vault Item'}')">Add to Vault Bag</button>
             </div>
           </div>
         `).join('');
       } catch (err) {
-        console.error("Error loading portal data:", err);
+        console.error("Error loading portal:", err);
       }
     }
 
-    function addToCart(name, price) {
-      cart.push({ name, price });
+    function addToCart(itemName) {
+      cart.push({ name: itemName });
       document.getElementById('cartCountBadge').innerText = `${cart.length} Items`;
-      alert(`${name} added to your luxury vault bag!`);
+      alert(`${itemName} added to your bag!`);
     }
 
     function openCartModal() {
-      alert(`Your Vault Bag contains ${cart.length} items. Total luxury checkout ready.`);
+      alert(`Your Vault Bag currently has ${cart.length} items ready for checkout.`);
     }
 
     function logoutClient() {
       localStorage.removeItem('chyris_active_user');
       window.location.reload();
     }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      checkUserSession();
-    });
   </script>
 </body>
 </html>
