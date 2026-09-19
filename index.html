@@ -15,12 +15,28 @@
       --card-bg: #141414;
       --border-color: #333;
     }
+    
+    /* --- FULL-PAGE SNAP SCROLLING --- */
+    html {
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
     body {
       font-family: 'Montserrat', sans-serif;
       background-color: var(--dark-bg);
       color: #fff;
       overflow-x: hidden;
       line-height: 1.6;
+    }
+
+    /* Har major section ko full screen slide banaya gaya hai */
+    .snap-section {
+      scroll-snap-align: start;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
     }
 
     /* --- VIDEO BACKGROUND --- */
@@ -46,6 +62,9 @@
       padding: 8px 10px;
       letter-spacing: 1px;
       text-transform: uppercase;
+      position: sticky;
+      top: 0;
+      z-index: 101;
     }
 
     /* --- NAVBAR --- */
@@ -57,7 +76,7 @@
       background: rgba(11, 11, 11, 0.9);
       border-bottom: 1px solid var(--border-color);
       position: sticky;
-      top: 0;
+      top: 33px; /* Announcement bar ke theek neeche */
       z-index: 100;
       backdrop-filter: blur(10px);
     }
@@ -103,15 +122,12 @@
 
     /* --- HERO SECTION --- */
     .hero-section {
-      height: 80vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       text-align: center;
       padding: 0 20px;
     }
     .hero-content {
       max-width: 800px;
+      margin: 0 auto;
     }
     .hero-tag {
       display: inline-block;
@@ -174,7 +190,7 @@
     /* --- CATEGORIES SECTION --- */
     .section-title {
       text-align: center;
-      padding: 60px 20px 30px;
+      padding: 20px 20px 20px;
     }
     .section-title p { color: var(--gold); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
     .section-title h2 { font-family: 'Cinzel', serif; font-size: 32px; color: #fff; }
@@ -184,8 +200,8 @@
       flex-wrap: wrap;
       gap: 12px;
       justify-content: center;
-      max-width: 1200px;
-      margin: 0 auto 80px;
+      max-width: 1100px;
+      margin: 0 auto;
       padding: 0 20px;
     }
     .pill {
@@ -265,8 +281,8 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero-section">
+  <!-- Slide 1: Hero Section -->
+  <section class="snap-section hero-section">
     <div class="hero-content">
       <div class="hero-tag">🎁 Special Welcome Offer: Flat ₹1,000 Off</div>
       <h1>Timeless Beauty.<br><i>Thoughtfully Crafted.</i></h1>
@@ -278,44 +294,46 @@
     </div>
   </section>
 
-  <!-- Live Rates Ticker Bar -->
-  <div class="live-rates-ticker">
-    <div class="rate-item">🔥 <b>LIVE RATES (per gram):</b></div>
-    <div class="rate-item">24K Gold: <span id="rate24k">Loading...</span></div>
-    <div class="rate-item">18K Gold: <span id="rate18k">Loading...</span></div>
-    <div class="rate-item">14K Gold: <span id="rate14k">Loading...</span></div>
-    <div class="rate-item">9K Gold: <span id="rate9k">Loading...</span></div>
-    <div class="rate-item">Silver (925): <span id="rateSilver">Loading...</span></div>
-  </div>
+  <!-- Slide 2: Live Rates & Collections Section -->
+  <section class="snap-section" id="collections">
+    <!-- Live Rates Ticker Bar -->
+    <div class="live-rates-ticker">
+      <div class="rate-item">🔥 <b>LIVE RATES (per gram):</b></div>
+      <div class="rate-item">24K Gold: <span id="rate24k">Loading...</span></div>
+      <div class="rate-item">18K Gold: <span id="rate18k">Loading...</span></div>
+      <div class="rate-item">14K Gold: <span id="rate14k">Loading...</span></div>
+      <div class="rate-item">9K Gold: <span id="rate9k">Loading...</span></div>
+      <div class="rate-item">Silver (925): <span id="rateSilver">Loading...</span></div>
+    </div>
 
-  <!-- Categories -->
-  <div class="section-title" id="collections">
-    <p>Shop By Expression</p>
-    <h2>All 16 Categories</h2>
-  </div>
+    <div class="section-title">
+      <p>Shop By Expression</p>
+      <h2>All 16 Categories</h2>
+    </div>
 
-  <div class="category-pills">
-    <a href="Cocktail-Ring/index.html" class="pill">Cocktail Rings</a>
-    <a href="Diamond-Studs-for-Girls/index.html" class="pill">Diamond Studs</a>
-    <a href="Light-Weight-Earrings/index.html" class="pill">Light Weight Earrings</a>
-    <a href="Light-Weight-Ring/index.html" class="pill">Light Weight Rings</a>
-    <a href="Mens-Ring/index.html" class="pill">Men's Rings</a>
-    <a href="Mens-diamonds-ring/index.html" class="pill">Men's Diamond Rings</a>
-    <a href="Teeth-Grillz/index.html" class="pill">Teeth Grillz</a>
-    <a href="bracelet/index.html" class="pill">Bracelets</a>
-    <a href="fancy-shape-band-ring/index.html" class="pill">Fancy Band Rings</a>
-    <a href="mangalsutra/index.html" class="pill">Mangalsutra</a>
-    <a href="necklaces/index.html" class="pill">Necklaces</a>
-    <a href="nosepin/index.html" class="pill">Nosepins</a>
-    <a href="rings/index.html" class="pill">Rings</a>
-    <a href="solitaire-diamond-ring/index.html" class="pill">Solitaire Diamond Rings</a>
-    <a href="solitaire-rings/index.html" class="pill">Solitaire Rings</a>
-    <a href="tennis-bracelet/index.html" class="pill">Tennis Bracelets</a>
-  </div>
+    <div class="category-pills">
+      <a href="Cocktail-Ring/index.html" class="pill">Cocktail Rings</a>
+      <a href="Diamond-Studs-for-Girls/index.html" class="pill">Diamond Studs</a>
+      <a href="Light-Weight-Earrings/index.html" class="pill">Light Weight Earrings</a>
+      <a href="Light-Weight-Ring/index.html" class="pill">Light Weight Rings</a>
+      <a href="Mens-Ring/index.html" class="pill">Men's Rings</a>
+      <a href="Mens-diamonds-ring/index.html" class="pill">Men's Diamond Rings</a>
+      <a href="Teeth-Grillz/index.html" class="pill">Teeth Grillz</a>
+      <a href="bracelet/index.html" class="pill">Bracelets</a>
+      <a href="fancy-shape-band-ring/index.html" class="pill">Fancy Band Rings</a>
+      <a href="mangalsutra/index.html" class="pill">Mangalsutra</a>
+      <a href="necklaces/index.html" class="pill">Necklaces</a>
+      <a href="nosepin/index.html" class="pill">Nosepins</a>
+      <a href="rings/index.html" class="pill">Rings</a>
+      <a href="solitaire-diamond-ring/index.html" class="pill">Solitaire Diamond Rings</a>
+      <a href="solitaire-rings/index.html" class="pill">Solitaire Rings</a>
+      <a href="tennis-bracelet/index.html" class="pill">Tennis Bracelets</a>
+    </div>
 
-  <footer>
-    <p>© 2026 CHYRIS FINE JEWELLERY. All rights reserved. | Luxury E-Commerce Portal</p>
-  </footer>
+    <footer>
+      <p>© 2026 CHYRIS FINE JEWELLERY. All rights reserved. | Luxury E-Commerce Portal</p>
+    </footer>
+  </section>
 
   <!-- Secure OTP Login & Signup Modal -->
   <div class="modal-overlay" id="loginModal">
@@ -530,7 +548,6 @@
       let foundUser = allUsers.find(u => u.mobile === pendingMobileLogin);
 
       if (!foundUser) {
-        // Automatically create a client user if logging in via OTP for the first time
         foundUser = { mobile: pendingMobileLogin, pin: "1234", role: "client", name: "Valued Client" };
       }
 
