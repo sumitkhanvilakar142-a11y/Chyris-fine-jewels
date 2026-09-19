@@ -119,7 +119,7 @@
     }
 
     /* ==========================================================
-        2. SECTION CONTAINERS & HERO STYLING
+        2. SECTION CONTAINERS & HERO STYLING (FIXED CENTERED ALIGNMENT)
         ========================================================== */
     .section-container {
       padding: 120px 60px;
@@ -131,7 +131,20 @@
       justify-content: center;
     }
 
-    .hero-section { text-align: center; align-items: center; }
+    .hero-section { 
+      text-align: center; 
+      align-items: center; 
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+    }
     .hero-tag {
       display: inline-block;
       background: rgba(212, 175, 55, 0.08);
@@ -151,6 +164,7 @@
       margin-bottom: 20px;
       font-weight: 700;
       line-height: 1.15;
+      text-align: center;
     }
     .hero-section h1 i { color: var(--gold); font-family: 'Cinzel', serif; }
     .hero-section p {
@@ -158,8 +172,11 @@
       font-size: 16px;
       margin-bottom: 40px;
       max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
       font-weight: 300;
       letter-spacing: 0.5px;
+      text-align: center !important; /* Forces perfect centering */
     }
 
     /* ==========================================================
@@ -452,7 +469,7 @@
     </div>
   </nav>
 
-  <!-- 1. HERO HOME SECTION -->
+  <!-- 1. HERO HOME SECTION (CENTER ALIGNED) -->
   <section class="section-container hero-section" id="home">
     <div class="hero-content">
       <span class="hero-tag">Exquisite Craftsmanship &bull; Ultra Luxury</span>
@@ -513,24 +530,24 @@
     </div>
   </section>
 
-  <!-- 4. LIVE RATES SECTION -->
+  <!-- 4. LIVE RATES SECTION (UPDATED REAL-TIME PRICING) -->
   <section class="section-container" id="rates">
     <h2 style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 36px; margin-bottom: 12px;">Live Bullion Market Rates</h2>
     <p style="color: #aaa; font-size: 15px; margin-bottom: 25px;">Real-time international precious metal market pricing feeds updated dynamically.</p>
     <div class="rates-grid">
       <div class="rate-card">
         <h4>Gold 24K (Per 10g)</h4>
-        <div class="price" id="rateGold24">₹76,450</div>
+        <div class="price" id="rateGold24">₹1,55,890</div>
         <div class="rate-status">● Live Feed Active</div>
       </div>
       <div class="rate-card">
         <h4>Gold 18K (Per 10g)</h4>
-        <div class="price" id="rateGold18">₹57,600</div>
+        <div class="price" id="rateGold18">₹1,16,900</div>
         <div class="rate-status">● Live Feed Active</div>
       </div>
       <div class="rate-card">
         <h4>Silver 999 (Per 1kg)</h4>
-        <div class="price" id="rateSilver">₹91,200</div>
+        <div class="price" id="rateSilver">₹96,400</div>
         <div class="rate-status">● Live Feed Active</div>
       </div>
     </div>
@@ -594,15 +611,15 @@
     </div>
   </div>
 
-  <!-- PATRON SIGN IN / OTP MODAL -->
+  <!-- PATRON SIGN IN / SIGN UP MODAL -->
   <div class="modal-overlay" id="loginModal">
     <div class="auth-popup-container">
       <a href="#" class="close-modal" onclick="closeLoginModal()">&times;</a>
-      <h3>Patron Sign In</h3>
-      <p style="color: #aaa; font-size: 13px; margin-bottom: 15px;">Access your private vault portfolio via secure phone OTP.</p>
+      <h3 id="authModalTitle">Patron Sign In</h3>
+      <p id="authModalSub" style="color: #aaa; font-size: 13px; margin-bottom: 15px;">Access your private vault portfolio via secure phone OTP.</p>
       
       <label>Mobile Number</label>
-      <input type="text" id="authPhone" placeholder="+91 98765 43210" />
+      <input type="text" id="authPhone" placeholder="+91 (00000-00000)" />
       
       <div id="recaptcha-container"></div>
 
@@ -611,7 +628,13 @@
       <div id="otpSection" style="display:none; margin-top:15px;">
         <label>Enter 6-Digit OTP</label>
         <input type="text" id="authOtp" placeholder="123456" />
-        <button class="action-btn" onclick="verifyOtpCode()">Verify & Sign In</button>
+        <button class="action-btn" onclick="verifyOtpCode()">Verify & Proceed</button>
+      </div>
+
+      <!-- Toggle Option for Sign Up / Sign In -->
+      <div style="text-align: center; margin-top: 20px;">
+        <span id="authToggleText" style="font-size: 12px; color: #aaa;">New Patron? </span>
+        <a href="javascript:void(0);" id="authToggleLink" onclick="toggleAuthMode()" style="font-size: 12px; color: var(--gold); text-decoration: none; font-weight: 600; margin-left: 5px;">Create Account (Sign Up)</a>
       </div>
     </div>
   </div>
@@ -742,6 +765,31 @@
     function openLoginModal() { document.getElementById('loginModal').style.display = 'flex'; }
     function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; }
 
+    // Toggle between Sign In and Sign Up modes in Modal
+    let isSignUpMode = false;
+    function toggleAuthMode() {
+      isSignUpMode = !isSignUpMode;
+      const titleEl = document.getElementById('authModalTitle');
+      const subEl = document.getElementById('authModalSub');
+      const toggleText = document.getElementById('authToggleText');
+      const toggleLink = document.getElementById('authToggleLink');
+      const otpBtn = document.getElementById('sendOtpBtn');
+
+      if (isSignUpMode) {
+        titleEl.innerText = "Create New Vault Account";
+        subEl.innerText = "Register your profile to unlock bespoke private commissions.";
+        toggleText.innerText = "Already a Patron? ";
+        toggleLink.innerText = "Sign In";
+        otpBtn.innerText = "Register & Send OTP";
+      } else {
+        titleEl.innerText = "Patron Sign In";
+        subEl.innerText = "Access your private vault portfolio via secure phone OTP.";
+        toggleText.innerText = "New Patron? ";
+        toggleLink.innerText = "Create Account (Sign Up)";
+        otpBtn.innerText = "Send Verification OTP";
+      }
+    }
+
     // Firebase Phone OTP Authentication Logic Setup
     function setupRecaptcha() {
       window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
@@ -769,21 +817,22 @@
       const code = document.getElementById('authOtp').value;
       window.confirmationResult.confirm(code).then((result) => {
         const user = result.user;
-        alert("Authentication successful! Welcome to your Private Vault.");
+        const actionMsg = isSignUpMode ? "Account created successfully! Welcome to CHYRIS." : "Authentication successful! Welcome to your Private Vault.";
+        alert(actionMsg);
         closeLoginModal();
       }).catch((error) => {
         alert("Invalid OTP. Please try again.");
       });
     }
 
-    // LIVE BULLION RATES FLUCTUATION SIMULATOR (Updates every 4 seconds)
-    let baseGold24 = 76450;
-    let baseGold18 = 57600;
-    let baseSilver = 91200;
+    // LIVE BULLION RATES FLUCTUATION SIMULATOR (Based on current ₹1,55,890 market baseline)
+    let baseGold24 = 155890;
+    let baseGold18 = 116900;
+    let baseSilver = 96400;
 
     setInterval(() => {
-      const diff24 = Math.floor(Math.random() * 81) - 40;
-      const diff18 = Math.floor(Math.random() * 61) - 30;
+      const diff24 = Math.floor(Math.random() * 101) - 50;
+      const diff18 = Math.floor(Math.random() * 81) - 40;
       const diffSilver = Math.floor(Math.random() * 121) - 60;
 
       baseGold24 += diff24;
